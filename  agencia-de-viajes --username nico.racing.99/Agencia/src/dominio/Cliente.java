@@ -1,6 +1,5 @@
 package dominio;
 import java.util.ArrayList;
-import java.util.Observable;
 
 public class Cliente{
      
