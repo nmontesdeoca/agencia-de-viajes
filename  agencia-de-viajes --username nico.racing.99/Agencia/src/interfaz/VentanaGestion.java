@@ -448,7 +448,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
  private DefaultListModel modeloBuscados;
  private DefaultListModel modeloRealizados;
 
- public HandlerViajes() {
+ public HandlerClienes() {
 
      super();
      this.setSize(800,600); 
