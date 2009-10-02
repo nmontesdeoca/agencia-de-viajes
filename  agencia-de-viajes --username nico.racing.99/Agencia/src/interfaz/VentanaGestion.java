@@ -584,7 +584,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
         cli.setCedula(cedulaP);
     }
     else{
-        JOptionPane.showMessageDialog(null, "No hay cliente seleccionado" , "Atención", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "No hay cliente seleccionado" , "Atencin", JOptionPane.INFORMATION_MESSAGE);
     }
        }
    }
