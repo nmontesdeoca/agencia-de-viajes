@@ -20,6 +20,7 @@ import javax.swing.JScrollPane;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.ListSelectionModel;
+import javax.swing.ImageIcon;
 
 import java.awt.Point;
 import java.awt.event.ActionEvent;
@@ -70,11 +71,13 @@ public class VentanaGestion extends JFrame implements ActionListener{
                panelInicio.setSize(1024,750); 
                panelInicio.setLayout(null);
                
+               //ImageIcon icon = new ImageIcon("icono_travel.gif");
                final VentanaGestion vn = this;
                
                JLabel gestionCliente = new JLabel("Gestion Cliente");
                panelInicio.add(gestionCliente);
                gestionCliente.setSize(120,25);
+               //gestionCliente.setIcon(icon);
                gestionCliente.setLocation(287,275);
                gestionCliente.addMouseListener(new java.awt.event.MouseAdapter(){
                    
