@@ -71,16 +71,22 @@ public class VentanaGestion extends JFrame implements ActionListener{
                panelInicio.setSize(1024,750); 
                panelInicio.setLayout(null);
                
-               //ImageIcon icon = new ImageIcon("icono_travel.gif");
+               
+               ImageIcon iconViajes = new ImageIcon(getClass().getResource("icono_travel.png"));
+               ImageIcon iconTrabajador = new ImageIcon(getClass().getResource("icono_trabajador.png"));
+               ImageIcon iconCliente = new ImageIcon(getClass().getResource("icono_cliente.png"));
                final VentanaGestion vn = this;
                
-               JLabel gestionCliente = new JLabel("Gestion Cliente");
+               JLabel gestionCliente = new JLabel("Gestion Cliente", iconCliente, JLabel.CENTER);
+               gestionCliente.setVerticalTextPosition(JLabel.BOTTOM);
+               gestionCliente.setHorizontalTextPosition(JLabel.CENTER);
+               
                panelInicio.add(gestionCliente);
-               gestionCliente.setSize(120,25);
-               //gestionCliente.setIcon(icon);
-               gestionCliente.setLocation(287,275);
+               gestionCliente.setSize(120,120);
+               gestionCliente.setLocation(302,275);
+               
                gestionCliente.addMouseListener(new java.awt.event.MouseAdapter(){
-                   
+                    
                     public void mouseClicked(MouseEvent evento){
                          vn.setContentPane(vn.getPanelClientes()); 
                     }
@@ -88,31 +94,39 @@ public class VentanaGestion extends JFrame implements ActionListener{
                                                
                );
                
-               JLabel gestionTrabajador = new JLabel("Gestion Trabajador");
+               JLabel gestionTrabajador = new JLabel("Gestion Trabajador", iconTrabajador, JLabel.CENTER);          
+               gestionTrabajador.setVerticalTextPosition(JLabel.BOTTOM);
+               gestionTrabajador.setHorizontalTextPosition(JLabel.CENTER);
+               
+               
                panelInicio.add(gestionTrabajador);
-               gestionTrabajador.setSize(150,25);
-               gestionTrabajador.setLocation(437,275);
+               gestionTrabajador.setSize(120,120);
+               gestionTrabajador.setLocation(452,275);
                gestionTrabajador.addMouseListener(new java.awt.event.MouseAdapter(){
-                   
+                    
                     public void mouseClicked(MouseEvent evento){
                          vn.setContentPane(vn.getPanelTrabajadores()); 
                     }
                }                                            
-                                               
+                                                  
                );
                
-               JLabel gestionViajes = new JLabel("Gestion Viajes");
+               JLabel gestionViajes = new JLabel("Gestion Viajes", iconViajes, JLabel.CENTER);
+               gestionViajes.setVerticalTextPosition(JLabel.BOTTOM);
+               gestionViajes.setHorizontalTextPosition(JLabel.CENTER);
+               
+               
                panelInicio.add(gestionViajes);
-               gestionViajes.setSize(120,25);
-               gestionViajes.setLocation(617,275);
-                                        
+               gestionViajes.setSize(120,120);
+               gestionViajes.setLocation(602,275);
+               
                gestionViajes.addMouseListener(new java.awt.event.MouseAdapter(){
-                   
+                    
                     public void mouseClicked(MouseEvent evento){
                          vn.setContentPane(vn.getPanelViajes()); 
                     }
                }                                            
-                                               
+                                              
                );
                
           }
