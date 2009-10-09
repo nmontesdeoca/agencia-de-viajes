@@ -72,9 +72,9 @@ public class VentanaGestion extends JFrame implements ActionListener{
                panelInicio.setLayout(null);
                
                
-               ImageIcon iconViajes = new ImageIcon(getClass().getResource("icono_travel.png"));
-               ImageIcon iconTrabajador = new ImageIcon(getClass().getResource("icono_trabajador.png"));
-               ImageIcon iconCliente = new ImageIcon(getClass().getResource("icono_cliente.png"));
+               ImageIcon iconViajes = new ImageIcon(getClass().getResource("imagenes/icono_travel.png"));
+               ImageIcon iconTrabajador = new ImageIcon(getClass().getResource("imagenes/icono_trabajador.png"));
+               ImageIcon iconCliente = new ImageIcon(getClass().getResource("imagenes/icono_cliente.png"));
                final VentanaGestion vn = this;
                
                JLabel gestionCliente = new JLabel("Gestion Cliente", iconCliente, JLabel.CENTER);
