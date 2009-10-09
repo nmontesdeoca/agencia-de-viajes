@@ -11,7 +11,7 @@ public class TrabajadorBase extends Trabajador{
           this.setPassword(new char[0]);
           this.setPermisosAdministrativos(false);
      }
-     public TrabajadorBase (String nombre, String apellido, int ci, int numeroTrabajador, int ganancias, char[] passwordP){
+     public TrabajadorBase (String nombre, String apellido, int ci, int numeroTrabajador, double ganancias, char[] passwordP){
           this.setNombre(nombre);
           this.setApellido(apellido);
           this.setCi(ci);
@@ -32,6 +32,6 @@ public class TrabajadorBase extends Trabajador{
      
      
      public String toString(){
-          return "Trabajador con Base: "+super.toString();
+          return "(B)"+super.toString();
      }
 }

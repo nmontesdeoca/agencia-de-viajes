@@ -17,11 +17,14 @@ import javax.swing.JList;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
+import javax.swing.JRadioButton;
+import javax.swing.ButtonGroup;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.ListSelectionModel;
 
 import java.awt.Point;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -323,7 +326,8 @@ public class VentanaGestion extends JFrame implements ActionListener{
                     
                     if((evento.getSource() == agregar) || (evento.getSource() == modificar) ){
                          
-                         String nombreP = nombre.getText(); String apellidoP = apellido.getText();
+                         String nombreP = nombre.getText();
+                         String apellidoP = apellido.getText();
                          
                          if(nombreP.length() > 0 && apellidoP.length() > 0){
                               
@@ -443,6 +447,11 @@ public class VentanaGestion extends JFrame implements ActionListener{
           private JLabel ciL;
           private JLabel numeroTrabajadorL;
           private JLabel gananciasL;
+          private JLabel tipoL;
+          private JRadioButton botonSueldo;
+          private JRadioButton botonComision;
+          private ButtonGroup botonGrupo;
+          private JPanel radioPanel;
           private DefaultListModel modeloListaTrabajadores;
           private DefaultListModel modeloListaComision;
           /*private DefaultListModel modeloBuscados;
@@ -486,22 +495,22 @@ public class VentanaGestion extends JFrame implements ActionListener{
                apellido = new JTextField();
                this.add(apellido);
                apellido.setSize(200,25);
-               apellido.setLocation(500,150);
+               apellido.setLocation(500,165);
                
                ci = new JTextField();
                this.add(ci);
                ci.setSize(200,25);
-               ci.setLocation(500,200);
+               ci.setLocation(500,230);
                
                numeroTrabajador = new JTextField();
                this.add(numeroTrabajador);
                numeroTrabajador.setSize(200,25);
-               numeroTrabajador.setLocation(500,250);
+               numeroTrabajador.setLocation(500,295);
                
                ganancias = new JTextField();
                this.add(ganancias);
                ganancias.setSize(200,25);
-               ganancias.setLocation(500,300);
+               ganancias.setLocation(500,360);
                
                agregar = new JButton("Agregar");
                this.add(agregar);
@@ -518,21 +527,8 @@ public class VentanaGestion extends JFrame implements ActionListener{
                modificar = new JButton("Modificar");
                this.add(modificar);
                modificar.setSize(120,25);
-               modificar.setLocation(500,350);
+               modificar.setLocation(500, 505);
                modificar.addActionListener(this);
-               
-               sueldo = new JButton("A sueldo");
-               this.add(sueldo);
-               sueldo.setSize(100,25);
-               sueldo.setLocation(75,505);
-               sueldo.addActionListener(this);
-               sueldo.setEnabled(false);
-               
-               comision = new JButton("Comision");
-               this.add(comision);
-               comision.setSize(100,25);
-               comision.setLocation(176,505);
-               comision.addActionListener(this);
                
                listaTrabajadoresL = new JLabel("Lista de Trabajadores");
                this.add(listaTrabajadoresL);
@@ -547,93 +543,125 @@ public class VentanaGestion extends JFrame implements ActionListener{
                apellidoL = new JLabel("Apellido");
                this.add(apellidoL);  
                apellidoL.setSize(75,25);
-               apellidoL.setLocation(500,125);
+               apellidoL.setLocation(500,140);
                
                ciL = new JLabel("Cedula");
                this.add(ciL);
                ciL.setSize(75,25);
-               ciL.setLocation(500,175);
+               ciL.setLocation(500, 205);
                
                numeroTrabajadorL = new JLabel("Numero del trabajador");
                this.add(numeroTrabajadorL);
                numeroTrabajadorL.setSize(150,25);
-               numeroTrabajadorL.setLocation(500,225);
+               numeroTrabajadorL.setLocation(500,270);
                
                gananciasL = new JLabel("Ganancias");
                this.add(gananciasL);
                gananciasL.setSize(100,25);
-               gananciasL.setLocation(500,275);
+               gananciasL.setLocation(500,335);
+               
+               tipoL = new JLabel("Tipo de Trabajador");
+               this.add(tipoL);
+               tipoL.setSize(150, 25);
+               tipoL.setLocation(500, 400);
+               
+               botonSueldo = new JRadioButton("Sueldo fijo", true);
+               botonSueldo.setLocation(500, 435);
+               botonSueldo.setSize(130, 20);
+               botonSueldo.addActionListener(this);
+               this.add(botonSueldo);
+               botonComision = new JRadioButton ("Por Comision", false);
+               botonComision.setLocation(500, 460);
+               botonComision.setSize(130, 20);
+               botonComision.addActionListener(this);
+               this.add(botonComision);
+               botonGrupo = new ButtonGroup();               
+               botonGrupo.add(botonSueldo);
+               botonGrupo.add(botonComision);
                
                sistema.getEmpresa().addObserver(this);
           }
           
           public void actionPerformed(ActionEvent evento) {
                
-               /*if(evento.getSource().getClass().getName().equals("javax.swing.JButton")){
+               if(evento.getSource().getClass().getName().equals("javax.swing.JButton")){
                     
                     if((evento.getSource() == agregar) || (evento.getSource() == modificar) ){
                          
-                         String nombreP = nombre.getText(); String apellidoP = apellido.getText();
+                         String nombreP = nombre.getText();
+                         String apellidoP = apellido.getText();
                          
                          if(nombreP.length() > 0 && apellidoP.length() > 0){
                               
                               try{
                                    int cedulaP = Integer.parseInt(this.ci.getText());
+                                   int numeroP = Integer.parseInt(this.numeroTrabajador.getText());
+                                   double gananciasP = Double.parseDouble(this.ganancias.getText());
                                    
                                    if(evento.getSource() == agregar){
-                                        Cliente cli = new Cliente(nombreP, apellidoP, cedulaP, 0, new ArrayList <Destino>(), new ArrayList <Destino>());
-                                        if(!sistema.getEmpresa().agregarCliente(cli)){
-                                             JOptionPane.showMessageDialog(null, "ERROR: Ese Cliente ya existe" , "Cliente existente", JOptionPane.ERROR_MESSAGE);
-                                        }            
+                                        Trabajador trab = new Trabajador();
+                                        
+                                        if(botonSueldo.isSelected()){                                                                                          
+                                             trab = new TrabajadorBase(nombreP, apellidoP, cedulaP, numeroP, gananciasP, new char[0]);
+                                        }
+                                        else if(botonComision.isSelected()){
+                                             trab = new TrabajadorComision(nombreP, apellidoP, cedulaP, numeroP, gananciasP, new char[0]);                                             
+                                        }     
+                                        
+                                        if(!sistema.getEmpresa().agregarTrabajador(trab)){
+                                             JOptionPane.showMessageDialog(null, "ERROR: Ese Trabajador ya existe" , "Trabajador existente", JOptionPane.ERROR_MESSAGE);
+                                        }         
                                    }
+                                   
                                    else if(evento.getSource() == modificar){
-                                        if (!listaClientes.isSelectionEmpty()){
-                                             Cliente cli = (Cliente)listaClientes.getSelectedValue();
-                                             cli.setNombre(nombreP);
-                                             cli.setApellido(apellidoP);
-                                             cli.setCedula(cedulaP);
+                                       
+                                        if (!listaTrabajadores.isSelectionEmpty()){
+                                             Trabajador trab = (Trabajador)listaTrabajadores.getSelectedValue();
+                                             if(botonSueldo.isSelected() && trab.getClass().toString().equals("dominio.TrabajadorComision")){
+                                                  trab = new TrabajadorBase();
+                                             }
+                                             else if (botonComision.isSelected() && trab.getClass().toString().equals("dominio.TrabajadorBase")){
+                                                  trab = new TrabajadorComision();
+                                             }
+                                             System.out.println(trab.getClass());
+                                             trab.setNombre(nombreP);
+                                             trab.setApellido(apellidoP);
+                                             trab.setCi(cedulaP);
+                                             trab.setNumTrabajador(numeroP);
+                                             trab.setGanancias(gananciasP);
                                         }
                                         else{
-                                             JOptionPane.showMessageDialog(null, "No hay cliente seleccionado" , "Atención", JOptionPane.INFORMATION_MESSAGE);
+                                             JOptionPane.showMessageDialog(null, "No hay trabajador seleccionado" , "Atención", JOptionPane.INFORMATION_MESSAGE);
                                         }
                                    }
                               }
                               catch(NumberFormatException e){
-                                   JOptionPane.showMessageDialog(null, "ERROR: Ingrese un numero válido en la cedula" , "ERROR", JOptionPane.ERROR_MESSAGE);
+                                   JOptionPane.showMessageDialog(null, "ERROR: Ingrese un numero válido en los campos numericos" , "ERROR", JOptionPane.ERROR_MESSAGE);
                                    this.ci.setText("");
-                              }
-                         }else{
+                              }    
+                         }
+                              
+                         else{
                               JOptionPane.showMessageDialog(null, "ERROR: Faltan los datos de nombre o apellido" , "ERROR", JOptionPane.ERROR_MESSAGE);
                          }
                     }
+                    
                     else if(evento.getSource() == eliminar){
-                         if (!listaClientes.isSelectionEmpty()){
-                              int respuesta = JOptionPane.showConfirmDialog(null, " ¿Eliminar este cliente?", "Confirmación", JOptionPane.WARNING_MESSAGE);
+                         if (!listaTrabajadores.isSelectionEmpty()){
+                              int respuesta = JOptionPane.showConfirmDialog(null, " ¿Eliminar este trabajador?", "Confirmación", JOptionPane.WARNING_MESSAGE);
                               if (respuesta == JOptionPane.YES_OPTION){
-                                   Cliente cli = (Cliente)listaClientes.getSelectedValue();
-                                   sistema.getEmpresa().eliminarCliente(cli);
+                                   Trabajador trab = (Trabajador)listaTrabajadores.getSelectedValue();
+                                   sistema.getEmpresa().eliminarTrabajador(trab);
                               }
                          }else{
-                              JOptionPane.showMessageDialog(null, "No hay cliente seleccionado" , "Atención", JOptionPane.INFORMATION_MESSAGE);
+                              JOptionPane.showMessageDialog(null, "No hay trabajador seleccionado" , "Atención", JOptionPane.INFORMATION_MESSAGE);
                          }
                     }
-                    else if(evento.getSource() == activos ){
-                         cargarModelo(modeloListaClientes, sistema.getEmpresa().getListaClientes());
-                         listaClientes.setModel(modeloListaClientes);
-                         cambiarEstadoBotones(true);
-                    }
-                    else if(evento.getSource() == espera ){
-                         cargarModelo(modeloListaEnEspera, sistema.getEmpresa().getListaDeEspera());
-                         listaClientes.setModel(modeloListaEnEspera);
-                         cambiarEstadoBotones(false);
-                    }
-               }*/                              
+               }                           
           }
           
           private void cambiarEstadoBotones(boolean estaHabilitado){
-               /*agregar.setEnabled(estaHabilitado);
-               eliminar.setEnabled(estaHabilitado);
-               modificar.setEnabled(estaHabilitado);*/
+
                sueldo.setEnabled(!estaHabilitado);
                comision.setEnabled(estaHabilitado);//si esta en espera, los demas botones se desactivan
           }
@@ -641,6 +669,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
           
           
           public void valueChanged(ListSelectionEvent evento) {
+               
                if (!listaTrabajadores.isSelectionEmpty()){
                     Trabajador trab = (Trabajador)listaTrabajadores.getSelectedValue();
                     nombre.setText(trab.getNombre());
@@ -648,10 +677,13 @@ public class VentanaGestion extends JFrame implements ActionListener{
                     ci.setText(""+trab.getCi());
                     numeroTrabajador.setText(""+trab.getNumTrabajador());
                     ganancias.setText(""+trab.getGanancias());
-                    /*cargarModelo(modeloRealizados, cli.getViajesRealizados());
-                    cargarModelo(modeloBuscados, cli.getDestinosBuscados());*/
-               }
-               
+                    if(trab.getClass().toString().equals("dominio.TrabajadorComision")){
+                         botonComision.setSelected(true);
+                    }
+                    else{
+                         botonSueldo.setSelected(true);
+                    }
+               }             
           }
           
           private <E> void cargarModelo (DefaultListModel modelo, ArrayList<E> datos){
@@ -661,7 +693,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
                     if (objeto != null){
                          modelo.addElement(objeto);
                     }
-               }     
+               } 
           }
           
           public void update(Observable o, Object ar){
@@ -669,7 +701,6 @@ public class VentanaGestion extends JFrame implements ActionListener{
                listaTrabajadores.setSelectedIndex(-1);
                listaTrabajadores.setModel(modeloListaTrabajadores);
           }
-     }
-     
+     }     
 }
 
