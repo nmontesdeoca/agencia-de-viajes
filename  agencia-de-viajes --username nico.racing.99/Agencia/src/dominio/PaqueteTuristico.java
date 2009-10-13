@@ -17,7 +17,8 @@ public class PaqueteTuristico{
      }
      public String getNombre(){
           return this.nombre;
-     }
+     } 
+     
      public void setDestinos(ArrayList <Destino> destinosX){
           this.destinos= destinosX;
      }
@@ -75,6 +76,15 @@ public class PaqueteTuristico{
                }
           }
           return cant;
+     }
+     
+     public boolean agregarDestino(Destino d){
+          boolean ret = false;
+          if(!this.getDestinos().contains(d)){
+               this.getDestinos().add(d);
+               ret = true;
+          }
+         return ret;
      }
      
      public PaqueteTuristico(){

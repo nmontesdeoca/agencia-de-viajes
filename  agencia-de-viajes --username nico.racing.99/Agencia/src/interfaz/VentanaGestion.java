@@ -487,27 +487,20 @@ public class VentanaGestion extends JFrame implements ActionListener{
      @SuppressWarnings("serial")
      private class HandlerViajes extends JPanel implements Observer, ActionListener, ListSelectionListener{
           
-          private JList listaClientes;
-          private JList listaBuscados;
-          private JList listaRealizados;
+          private JList listaPaquetes;
+          private JList listaDestinosPaquetes;  
+          private DefaultListModel modeloListaPaquetes;
+          private DefaultListModel modeloListaDestinosPaquetes;
           private JTextField nombre;
-          private JTextField apellido;
-          private JTextField ci;
-          private JButton agregar;
-          private JButton eliminar;
-          private JButton modificar;
-          private JButton activos;
-          private JButton espera;
-          private JLabel listaClientesL;
+          private JTextField precio;
+          private JTextField duracion;
+          private JTextField codigo;
+          private JLabel listaPaquetesL;
+          private JLabel listaDestinosPaquetesL;
           private JLabel nombreL;
-          private JLabel apellidoL;
-          private JLabel ciL;
-          private JLabel buscadosL;
-          private JLabel realizadosL;
-          private DefaultListModel modeloListaClientes;
-          private DefaultListModel modeloListaEnEspera;
-          private DefaultListModel modeloBuscados;
-          private DefaultListModel modeloRealizados;
+          private JLabel precioL;
+          private JLabel duracionL;
+          private JLabel codigoL;
           
           public HandlerViajes() {
                
@@ -515,44 +508,46 @@ public class VentanaGestion extends JFrame implements ActionListener{
                this.setSize(1024,750); 
                this.setLayout(null);
                
-               modeloListaClientes = new DefaultListModel();
-               modeloBuscados = new DefaultListModel();
-               modeloRealizados = new DefaultListModel();
-               modeloListaEnEspera = new DefaultListModel();
-               cargarModelo(modeloListaClientes, sistema.getEmpresa().getListaClientes());
-               cargarModelo(modeloListaEnEspera, sistema.getEmpresa().getListaDeEspera());
-               listaClientes = new JList(modeloListaClientes);
-               listaClientes.setSize(200,400);
-               listaClientes.setLocation(75,85);
-               listaClientes.addListSelectionListener(this);
-               listaClientes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-               this.add(listaClientes);
+               modeloListaPaquetes = new DefaultListModel();
+               modeloListaDestinosPaquetes = new DefaultListModel();
+               cargarModelo(modeloListaPaquetes, sistema.getEmpresa().getListaPaquetes());
+               //cargarModelo(modeloListaDestinosPaquetes, );
+              
+               listaPaquetes = new JList(modeloListaPaquetes);
+               listaPaquetes.setSize(200,400);
+               listaPaquetes.setLocation(75,85);
+               listaPaquetes.addListSelectionListener(this);
+               listaPaquetes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+               this.add(listaPaquetes);
                
                
-               listaBuscados = new JList();
-               listaBuscados.setSize(200,100);
-               listaBuscados.setLocation(500,300);
-               this.add(listaBuscados);
+               listaDestinosPaquetes = new JList(modeloListaDestinosPaquetes);
+               listaDestinosPaquetes.setSize(200,100);
+               listaDestinosPaquetesados.setLocation(500,300);
+               listaDestinosPaquetes.addListSelectionListener(this);
+               listaDestinosPaquetes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+               this.add(listaDestinosPaquetes);
                
-               listaRealizados = new JList();
-               listaRealizados.setSize(200,100);
-               listaRealizados.setLocation(500,450);
-               this.add(listaRealizados);
-               
+                       
                nombre = new JTextField();
                this.add(nombre);
                nombre.setSize(200,25);
                nombre.setLocation(500,100);
                
-               apellido = new JTextField();
-               this.add(apellido);
-               apellido.setSize(200,25);
-               apellido.setLocation(500,150);
+               precio = new JTextField();
+               this.add(precioido);
+               precio.setSize(200,25);
+               precio.setLocation(500,150);
                
-               ci = new JTextField();
-               this.add(ci);
-               ci.setSize(200,25);
-               ci.setLocation(500,200);
+               duracion = new JTextField();
+               this.add(duracion);
+               duracion.setSize(200,25);
+               duracion.setLocation(500,200);
+               
+               codigo = new JTextField();
+               this.add(codigo);
+               codigo.setSize(200,25);
+               codigo.setLocation(500,250);
                
                agregar = new JButton("Agregar");
                this.add(agregar);
@@ -572,49 +567,38 @@ public class VentanaGestion extends JFrame implements ActionListener{
                modificar.setLocation(500,415);
                modificar.addActionListener(this);
                
-               activos = new JButton("Ver Activos");
-               this.add(activos);
-               activos.setSize(110,25);
-               activos.setLocation(75,500);
-               activos.addActionListener(this);
-               activos.setEnabled(false);
+                       
+               listaPaquetesL = new JLabel("Lista de Paquetes");
+               this.add(listaPaquetesL);
+               listaPaquetesL.setSize(150,25);
+               listaPaquetesL.setLocation(75,50);
                
-               espera = new JButton("Ver Espera");
-               this.add(espera);
-               espera.setSize(110,25);
-               espera.setLocation(175,500);
-               espera.addActionListener(this);
+               listaDestinosPaquetesL = new JLabel("Lista de Destinos");
+               this.add(listaDestinosPaquetesL);
+               listaDestinosPaquetesL.setSize(150,25);
+               listaDestinosPaquetesL.setLocation(175,50);
                
-               listaClientesL = new JLabel("Lista de Clientes");
-               this.add(listaClientesL);
-               listaClientesL.setSize(150,25);
-               listaClientesL.setLocation(75,50);
                
                nombreL = new JLabel("Nombre");
                this.add(nombreL);
                nombreL.setSize(75,25);
                nombreL.setLocation(500,75);
                
-               apellidoL = new JLabel("Apellido");
-               this.add(apellidoL);  
-               apellidoL.setSize(75,25);
-               apellidoL.setLocation(500,125);
+               precioL = new JLabel("Precio");
+               this.add(precioL);  
+               precioL.setSize(75,25);
+               precioL.setLocation(500,125);
                
-               ciL = new JLabel("Cedula");
-               this.add(ciL);
-               ciL.setSize(75,25);
-               ciL.setLocation(500,175);
+               duracionL = new JLabel("Duracion");
+               this.add(duracionL);
+               duracionL.setSize(75,25);
+               duracionL.setLocation(500,175);
                
-               buscadosL = new JLabel("Destinos Buscados");
-               this.add(buscadosL);
-               buscadosL.setSize(100,25);
-               buscadosL.setLocation(500,275);
-               
-               realizadosL = new JLabel("Viajes Realizados");
-               this.add(realizadosL);
-               realizadosL.setSize(100,25);
-               realizadosL.setLocation(500,250);
-               
+               codigoL = new JLabel("Codigo");
+               this.add(codigoL);
+               codigoL.setSize(100,25);
+               codigoL.setLocation(500,275);               
+                         
                sistema.getEmpresa().addObserver(this);
           }
           
@@ -624,15 +608,18 @@ public class VentanaGestion extends JFrame implements ActionListener{
                     
                     if((evento.getSource() == agregar) || (evento.getSource() == modificar) ){
                          
-                         String nombreP = nombre.getText(); String apellidoP = apellido.getText();
+                         String nombreP = nombre.getText();
                          
-                         if(nombreP.length() > 0 && apellidoP.length() > 0){
+                         if(nombreP.length() > 0){
                               
                               try{
-                                   int cedulaP = Integer.parseInt(this.ci.getText());
+                                   int precioP = Integer.parseInt(this.precio.getText());
+                                   int duracionP = Integer.parseInt(this.duracion.getText());
+                                   int codigoP = Integer.parseInt(this.codigo.getText());
+                                   double precioP = Integer.parseInt(this.precio.getText());
                                    
                                    if(evento.getSource() == agregar){
-                                        Cliente cli = new Cliente(nombreP, apellidoP, cedulaP, 0, new ArrayList <Destino>(), new ArrayList <Destino>());
+                                        PaqueteTuristico paq = new PaqueteTuristico(nombreP, ArrayList <Destino> destino, duracionP, precioP, Alojamiento alojamiento);
                                         if(!sistema.getEmpresa().agregarCliente(cli)){
                                              JOptionPane.showMessageDialog(null, "ERROR: Ese Cliente ya existe" , "Cliente existente", JOptionPane.ERROR_MESSAGE);
                                         }            
@@ -714,6 +701,8 @@ public class VentanaGestion extends JFrame implements ActionListener{
                     }
                }     
           }
+          
+          
           
           public void update(Observable o, Object ar){
                cargarModelo(modeloListaClientes, sistema.getEmpresa().getListaClientes());
