@@ -393,15 +393,77 @@ public class VentanaGestion extends JFrame implements ActionListener{
       cambiarEstadoBotones(false);
   }
   else if(evento.getSource()== agregaListaBuscados){
-       JDialog seleccion=new JDialog();
-       seleccion.setSize(200,100);
+       
+       final JDialog seleccion=new JDialog();
+       seleccion.setTitle("Agregar");
+       seleccion.setSize(450,500);
+       seleccion.setVisible(true);
+              
        JPanel destinos=new JPanel();
-       destinos.setSize(800,600); 
+       destinos.setSize(450,500);
        destinos.setLayout(null);
-       JButton aceptar=new JButton();
+       seleccion.setContentPane(destinos);
+       
+       
+       DefaultListModel modeloDestinos=new DefaultListModel();
+       cargarModelo(modeloDestinos, sistema.getEmpresa().getListaDestinos());
+       
+       final JList listaDestinos = new JList(modeloDestinos);
+       listaDestinos.setSize(200,300);
+       listaDestinos.setLocation(100,75);
+       destinos.add(listaDestinos);
+       listaDestinos.addListSelectionListener(this);
+       listaDestinos.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+              
+       JLabel textoDestinos = new JLabel("Lista de Destinos");
+       destinos.add(textoDestinos);
+       textoDestinos.setSize(100,25);
+       textoDestinos.setLocation(100,25);
+       
+       JButton aceptar=new JButton("Aceptar");
+       aceptar.setSize(100,25);
+       aceptar.setLocation(100,405);
+       destinos.add(aceptar);
+       aceptar.addActionListener(new java.awt.event.ActionListener(){
+            public void actionPerformed (ActionEvent evento){
+                 if (!listaDestinos.isSelectionEmpty()){
+                      Cliente cli= (Cliente) listaClientes.getSelectedValue();
+                      Destino des = (Destino)listaDestinos.getSelectedValue();
+                      
+                 }
+                 else{
+                      JOptionPane.showMessageDialog(null, "No hay destino seleccionado" , "Atencion", JOptionPane.INFORMATION_MESSAGE);
+                 }
+                 
+                 
+            }
+       });
+       
+       JButton cancelar=new JButton("Cancelar");
+       cancelar.setSize(100,25);
+       cancelar.setLocation(230,405);
+       destinos.add(cancelar);
+       cancelar.addActionListener(new java.awt.event.ActionListener(){
+            public void actionPerformed (ActionEvent evento){
+                 seleccion.dispose();
+                 
+            }
+       });
        
        
     }
+    else if (evento.getSource()== quitaListaBuscados){
+         if (!listaBuscados.isSelectionEmpty()){
+   int respuesta = JOptionPane.showConfirmDialog(null, "¿Eliminar este destino?", "Confirmacion", JOptionPane.WARNING_MESSAGE);
+   if (respuesta == JOptionPane.YES_OPTION){
+       Destino des = (Destino)listaBuscados.getSelectedValue();
+       sistema.getEmpresa().eliminarDestino(des);
+   }
+      }else{
+   JOptionPane.showMessageDialog(null, "No hay destino seleccionado" , "Atencion", JOptionPane.INFORMATION_MESSAGE);
+      }
+  }
+    
        
        
        
@@ -669,16 +731,23 @@ public class VentanaGestion extends JFrame implements ActionListener{
      }
 
  }
-
+ private <E> void cargarLista(DefaultListModel modelo, ArrayList <E> datos){
+      
+      for (int i=0;i<modelo.size();i++){
+           datos.add((E)modelo.get(i));
+           
+      }
+ }
  private <E> void cargarModelo (DefaultListModel modelo, ArrayList<E> datos){
 
      modelo.clear();
      for(E objeto:datos){
-  if (objeto != null){
-      modelo.addElement(objeto);
-  }
+          if (objeto != null){
+               modelo.addElement(objeto);
+          }
      }     
  }
+
 
  public void update(Observable o, Object ar){
      cargarModelo(modeloListaClientes, sistema.getEmpresa().getListaClientes());
@@ -686,5 +755,5 @@ public class VentanaGestion extends JFrame implements ActionListener{
      listaClientes.setModel(modeloListaClientes);
  }
     }
-}
+    }
 

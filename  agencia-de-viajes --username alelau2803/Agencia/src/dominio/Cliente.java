@@ -15,7 +15,12 @@ public class Cliente{
 	this.nombre= nombreX;
 	
     }
-    public String getNombre(){
+    /*public bool agregarDestino(Destino destino){
+		boolean nuevo=false;
+		if(destinosBuscados 
+		
+	}*/
+	public String getNombre(){
 	return this.nombre; 
     }
     public void setApellido(String apellidoX){
