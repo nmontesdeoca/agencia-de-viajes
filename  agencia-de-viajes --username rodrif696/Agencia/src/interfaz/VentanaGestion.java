@@ -61,12 +61,12 @@ public class VentanaGestion extends JFrame implements ActionListener{
                     if (respuesta == JOptionPane.YES_OPTION){
                          System.exit(0);
                     }
-               }
-               
+               }              
           });
      }
      
      private JPanel getPanelInicio(){
+          
           if(panelInicio == null){
                panelInicio = new JPanel();
                panelInicio.setSize(900, 750); 
@@ -76,6 +76,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
      }
      
      private HandlerClientes getPanelClientes(){
+          
           if(panelClientes == null){
                panelClientes = new HandlerClientes();
           }
@@ -83,6 +84,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
      }
      
      private JPanel getPanelTrabajadores(){
+          
           if(panelTrabajadores == null){
                panelTrabajadores = new HandlerTrabajadores();     
           }
@@ -90,6 +92,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
      }
      
      private JPanel getPanelViajes(){
+          
           if(panelViajes == null){
                //panelViajes = new HandlerViajes();
                //panelViajes = new JPanel();
@@ -112,22 +115,22 @@ public class VentanaGestion extends JFrame implements ActionListener{
                          }
                     }
                });
-               menuArchivo.add(salir);     
-               
+               menuArchivo.add(salir);                    
           }
           return this.menuArchivo;
      }
      
      private JMenu getMenuOpciones(){
+          
           if(this.menuOpciones == null){
                menuOpciones = new JMenu("Opciones");
-               menuOpciones.add(new JMenuItem("Preferencias"));
-               
+               menuOpciones.add(new JMenuItem("Preferencias"));               
           }
           return this.menuOpciones;
      }
      
      private JMenu getMenuAyuda(){
+          
           if(this.menuAyuda == null){
                menuAyuda = new JMenu("Ayuda");
                menuAyuda.add(new JMenuItem("Manual"));
@@ -138,6 +141,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
      }
      
      private JMenu getSubMenuGestion(){
+          
           if(this.subMenuGestion == null){
                subMenuGestion = new JMenu("Gestion");
                poblarSubMenuGestion(subMenuGestion);
@@ -146,6 +150,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
      }
      
      private void poblarSubMenuGestion(JMenu subMenu){
+          
           JMenuItem clientes = new JMenuItem("Clientes");
           JMenuItem trabajadores = new JMenuItem("Trabajadores");
           JMenuItem viajes = new JMenuItem("Viajes");
@@ -156,11 +161,11 @@ public class VentanaGestion extends JFrame implements ActionListener{
           
           clientes.addActionListener(this);
           trabajadores.addActionListener(this);
-          viajes.addActionListener(this);
-          
+          viajes.addActionListener(this);          
      }
      
      private JMenuBar getMenuBarra(){
+          
           if(this.barra == null){
                barra = new JMenuBar();
                barra.add(getMenuArchivo());
@@ -187,8 +192,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
      
      @SuppressWarnings("serial")
      private class HandlerClientes extends JPanel implements Observer, ActionListener, ListSelectionListener{
-          
-          
+                    
           private JList listaClientes;
           private JList listaBuscados;
           private JList listaRealizados;
@@ -229,8 +233,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
                listaClientes.addListSelectionListener(this);
                listaClientes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
                this.add(listaClientes);
-               
-               
+                              
                listaBuscados = new JList();
                listaBuscados.setSize(200,100);
                listaBuscados.setLocation(500,300);
@@ -381,22 +384,20 @@ public class VentanaGestion extends JFrame implements ActionListener{
                          listaClientes.setModel(modeloListaEnEspera);
                          cambiarEstadoBotones(false);
                     }
-               }
-               
-               
+               }                             
           }
           
           private void cambiarEstadoBotones(boolean estaHabilitado){
+              
                agregar.setEnabled(estaHabilitado);
                eliminar.setEnabled(estaHabilitado);
                modificar.setEnabled(estaHabilitado);
                activos.setEnabled(!estaHabilitado);
                espera.setEnabled(estaHabilitado);//si esta en espera, los demas botones se desactivan
           }
-          
-          
-          
+                            
           public void valueChanged(ListSelectionEvent evento) {
+               
                if (!listaClientes.isSelectionEmpty()){
                     Cliente cli = (Cliente)listaClientes.getSelectedValue();
                     nombre.setText(cli.getNombre());
@@ -404,8 +405,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
                     ci.setText(""+cli.getCedula());
                     cargarModelo(modeloRealizados, cli.getViajesRealizados());
                     cargarModelo(modeloBuscados, cli.getDestinosBuscados());
-               }
-               
+               }               
           }
           
           private <E> void cargarModelo (DefaultListModel modelo, ArrayList<E> datos){
@@ -419,6 +419,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
           }
           
           public void update(Observable o, Object ar){
+               
                cargarModelo(modeloListaClientes, sistema.getEmpresa().getListaClientes());
                listaClientes.setSelectedIndex(-1);
                listaClientes.setModel(modeloListaClientes);
@@ -464,29 +465,15 @@ public class VentanaGestion extends JFrame implements ActionListener{
                this.setLayout(null);
                
                modeloListaTrabajadores = new DefaultListModel();
-               modeloListaComision = new DefaultListModel();
-               /*modeloBuscados = new DefaultListModel();
-               modeloRealizados = new DefaultListModel();*/               
+               modeloListaComision = new DefaultListModel();          
                cargarModelo(modeloListaTrabajadores, sistema.getEmpresa().getListaTrabajadores());
-               //cargarModelo(modeloListaEnEspera, sistema.getEmpresa().getListaDeEspera());
                listaTrabajadores = new JList(modeloListaTrabajadores);
                listaTrabajadores.setSize(200,400);
                listaTrabajadores.setLocation(75,85);
                listaTrabajadores.addListSelectionListener(this);
                listaTrabajadores.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
                this.add(listaTrabajadores);
-               
-               
-               /*listaBuscados = new JList();
-               listaBuscados.setSize(200,100);
-               listaBuscados.setLocation(500,300);
-               this.add(listaBuscados);
-               
-               listaRealizados = new JList();
-               listaRealizados.setSize(200,100);
-               listaRealizados.setLocation(500,450);
-               this.add(listaRealizados);*/
-               
+
                nombre = new JTextField();
                this.add(nombre);
                nombre.setSize(200,25);
@@ -616,14 +603,20 @@ public class VentanaGestion extends JFrame implements ActionListener{
                                    else if(evento.getSource() == modificar){
                                        
                                         if (!listaTrabajadores.isSelectionEmpty()){
+                                             
                                              Trabajador trab = (Trabajador)listaTrabajadores.getSelectedValue();
-                                             if(botonSueldo.isSelected() && trab.getClass().toString().equals("dominio.TrabajadorComision")){
+                                             
+                                             if(botonSueldo.isSelected() && trab instanceof TrabajadorComision){                                                  
+                                                  sistema.getEmpresa().eliminarTrabajador(trab);     
                                                   trab = new TrabajadorBase();
+                                                  sistema.getEmpresa().agregarTrabajador(trab);
                                              }
-                                             else if (botonComision.isSelected() && trab.getClass().toString().equals("dominio.TrabajadorBase")){
+                                             else if (botonComision.isSelected() && trab instanceof TrabajadorBase){                                                  
+                                                  sistema.getEmpresa().eliminarTrabajador(trab);       
                                                   trab = new TrabajadorComision();
-                                             }
-                                             System.out.println(trab.getClass());
+                                                  sistema.getEmpresa().agregarTrabajador(trab);
+                                             }                                             
+                                             
                                              trab.setNombre(nombreP);
                                              trab.setApellido(apellidoP);
                                              trab.setCi(cedulaP);
@@ -665,9 +658,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
                sueldo.setEnabled(!estaHabilitado);
                comision.setEnabled(estaHabilitado);//si esta en espera, los demas botones se desactivan
           }
-          
-          
-          
+                              
           public void valueChanged(ListSelectionEvent evento) {
                
                if (!listaTrabajadores.isSelectionEmpty()){
@@ -677,10 +668,10 @@ public class VentanaGestion extends JFrame implements ActionListener{
                     ci.setText(""+trab.getCi());
                     numeroTrabajador.setText(""+trab.getNumTrabajador());
                     ganancias.setText(""+trab.getGanancias());
-                    if(trab.getClass().toString().equals("dominio.TrabajadorComision")){
+                    if(trab instanceof TrabajadorComision){
                          botonComision.setSelected(true);
                     }
-                    else{
+                    else if(trab instanceof TrabajadorBase){
                          botonSueldo.setSelected(true);
                     }
                }             
@@ -697,6 +688,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
           }
           
           public void update(Observable o, Object ar){
+               
                cargarModelo(modeloListaTrabajadores, sistema.getEmpresa().getListaTrabajadores());
                listaTrabajadores.setSelectedIndex(-1);
                listaTrabajadores.setModel(modeloListaTrabajadores);
