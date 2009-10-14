@@ -44,7 +44,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
      
      
      public VentanaGestion(Sistema sistemaP){
-          
+         
           super();
           this.setTitle("Gestion");
           this.setSize(1024,750);
@@ -68,7 +68,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
      private JPanel getPanelInicio(){
           if(panelInicio == null){
                panelInicio = new JPanel();
-               panelInicio.setSize(1024,750); 
+               panelInicio.setSize(1024,750);
                panelInicio.setLayout(null);
                
                
@@ -86,9 +86,9 @@ public class VentanaGestion extends JFrame implements ActionListener{
                gestionCliente.setLocation(302,275);
                
                gestionCliente.addMouseListener(new java.awt.event.MouseAdapter(){
-                    
+                   
                     public void mouseClicked(MouseEvent evento){
-                         vn.setContentPane(vn.getPanelClientes()); 
+                         vn.setContentPane(vn.getPanelClientes());
                     }
                }                                            
                                                
@@ -103,12 +103,12 @@ public class VentanaGestion extends JFrame implements ActionListener{
                gestionTrabajador.setSize(120,120);
                gestionTrabajador.setLocation(452,275);
                gestionTrabajador.addMouseListener(new java.awt.event.MouseAdapter(){
-                    
+                   
                     public void mouseClicked(MouseEvent evento){
-                         vn.setContentPane(vn.getPanelTrabajadores()); 
+                         vn.setContentPane(vn.getPanelTrabajadores());
                     }
                }                                            
-                                                  
+                                                 
                );
                
                JLabel gestionViajes = new JLabel("Gestion Viajes", iconViajes, JLabel.CENTER);
@@ -121,12 +121,12 @@ public class VentanaGestion extends JFrame implements ActionListener{
                gestionViajes.setLocation(602,275);
                
                gestionViajes.addMouseListener(new java.awt.event.MouseAdapter(){
-                    
+                   
                     public void mouseClicked(MouseEvent evento){
-                         vn.setContentPane(vn.getPanelViajes()); 
+                         vn.setContentPane(vn.getPanelViajes());
                     }
                }                                            
-                                              
+                                             
                );
                
           }
@@ -143,8 +143,8 @@ public class VentanaGestion extends JFrame implements ActionListener{
      private JPanel getPanelTrabajadores(){
           if(panelTrabajadores == null){
                panelTrabajadores = new JPanel();
-               panelTrabajadores.setSize(1024,750); 
-               panelTrabajadores.setLayout(null);     
+               panelTrabajadores.setSize(1024,750);
+               panelTrabajadores.setLayout(null);    
           }
           return panelTrabajadores;
      }
@@ -153,7 +153,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
           if(panelViajes == null){
                panelViajes = new HandlerViajes();
                //panelViajes = new JPanel();
-               //panelViajes.setSize(1024,750); 
+               //panelViajes.setSize(1024,750);
                //panelViajes.setLayout(null);
           }
           return panelViajes;
@@ -172,7 +172,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
                          }
                     }
                });
-               menuArchivo.add(salir);     
+               menuArchivo.add(salir);    
                
           }
           return this.menuArchivo;
@@ -209,15 +209,15 @@ public class VentanaGestion extends JFrame implements ActionListener{
           JMenuItem clientes = new JMenuItem("Clientes");
           JMenuItem trabajadores = new JMenuItem("Trabajadores");
           JMenuItem viajes = new JMenuItem("Viajes");
-          
+         
           subMenu.add(clientes);
           subMenu.add(trabajadores);
           subMenu.add(viajes);
-          
+         
           clientes.addActionListener(this);
           trabajadores.addActionListener(this);
           viajes.addActionListener(this);
-          
+         
      }
      
      private JMenuBar getMenuBarra(){
@@ -232,7 +232,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
      
      
      public void actionPerformed(ActionEvent e){
-          
+         
           JMenuItem j = (JMenuItem)e.getSource();
           if(j.getText().equals("Clientes")){
                this.setContentPane(getPanelClientes());
@@ -241,14 +241,14 @@ public class VentanaGestion extends JFrame implements ActionListener{
                this.setContentPane(getPanelTrabajadores());
           }
           if(j.getText().equals("Viajes")){
-               this.setContentPane(getPanelViajes()); 
-          } 
+               this.setContentPane(getPanelViajes());
+          }
      }
      
      @SuppressWarnings("serial")
      private class HandlerClientes extends JPanel implements Observer, ActionListener, ListSelectionListener{
-          
-          
+         
+         
           private JList listaClientes;
           private JList listaBuscados;
           private JList listaRealizados;
@@ -270,11 +270,11 @@ public class VentanaGestion extends JFrame implements ActionListener{
           private DefaultListModel modeloListaEnEspera;
           private DefaultListModel modeloBuscados;
           private DefaultListModel modeloRealizados;
-          
+         
           public HandlerClientes() {
                
                super();
-               this.setSize(1024,750); 
+               this.setSize(1024,750);
                this.setLayout(null);
                
                modeloListaClientes = new DefaultListModel();
@@ -379,17 +379,17 @@ public class VentanaGestion extends JFrame implements ActionListener{
                
                sistema.getEmpresa().addObserver(this);
           }
-          
+         
           public void actionPerformed(ActionEvent evento) {
                
                if(evento.getSource().getClass().getName().equals("javax.swing.JButton")){
-                    
+                   
                     if((evento.getSource() == agregar) || (evento.getSource() == modificar) ){
                          
                          String nombreP = nombre.getText(); String apellidoP = apellido.getText();
                          
                          if(nombreP.length() > 0 && apellidoP.length() > 0){
-                              
+                             
                               try{
                                    int cedulaP = Integer.parseInt(this.ci.getText());
                                    
@@ -398,6 +398,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
                                         if(!sistema.getEmpresa().agregarCliente(cli)){
                                              JOptionPane.showMessageDialog(null, "ERROR: Ese Cliente ya existe" , "Cliente existente", JOptionPane.ERROR_MESSAGE);
                                         }            
+
                                    }
                                    else if(evento.getSource() == modificar){
                                         if (!listaClientes.isSelectionEmpty()){
@@ -444,7 +445,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
                
                
           }
-          
+         
           private void cambiarEstadoBotones(boolean estaHabilitado){
                agregar.setEnabled(estaHabilitado);
                eliminar.setEnabled(estaHabilitado);
@@ -452,9 +453,9 @@ public class VentanaGestion extends JFrame implements ActionListener{
                activos.setEnabled(!estaHabilitado);
                espera.setEnabled(estaHabilitado);//si está en espera, los demás botones se desactivan
           }
-          
-          
-          
+         
+         
+         
           public void valueChanged(ListSelectionEvent evento) {
                if (!listaClientes.isSelectionEmpty()){
                     Cliente cli = (Cliente)listaClientes.getSelectedValue();
@@ -466,7 +467,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
                }
                
           }
-          
+         
           private <E> void cargarModelo (DefaultListModel modelo, ArrayList<E> datos){
                
                modelo.clear();
@@ -474,9 +475,9 @@ public class VentanaGestion extends JFrame implements ActionListener{
                     if (objeto != null){
                          modelo.addElement(objeto);
                     }
-               }     
+               }    
           }
-          
+         
           public void update(Observable o, Object ar){
                cargarModelo(modeloListaClientes, sistema.getEmpresa().getListaClientes());
                listaClientes.setSelectedIndex(-1);
@@ -486,7 +487,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
      
      @SuppressWarnings("serial")
      private class HandlerViajes extends JPanel implements Observer, ActionListener, ListSelectionListener{
-          
+         
           private JList listaPaquetes;
           private JList listaDestinosPaquetes;  
           private DefaultListModel modeloListaPaquetes;
@@ -501,18 +502,21 @@ public class VentanaGestion extends JFrame implements ActionListener{
           private JLabel precioL;
           private JLabel duracionL;
           private JLabel codigoL;
-          
+          private JButton agregar;
+          private JButton eliminar;
+          private JButton modificar;
+         
           public HandlerViajes() {
                
                super();
-               this.setSize(1024,750); 
+               this.setSize(1024,750);
                this.setLayout(null);
                
                modeloListaPaquetes = new DefaultListModel();
                modeloListaDestinosPaquetes = new DefaultListModel();
                cargarModelo(modeloListaPaquetes, sistema.getEmpresa().getListaPaquetes());
                //cargarModelo(modeloListaDestinosPaquetes, );
-              
+             
                listaPaquetes = new JList(modeloListaPaquetes);
                listaPaquetes.setSize(200,400);
                listaPaquetes.setLocation(75,85);
@@ -523,7 +527,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
                
                listaDestinosPaquetes = new JList(modeloListaDestinosPaquetes);
                listaDestinosPaquetes.setSize(200,100);
-               listaDestinosPaquetesados.setLocation(500,300);
+               listaDestinosPaquetes.setLocation(500,300);
                listaDestinosPaquetes.addListSelectionListener(this);
                listaDestinosPaquetes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
                this.add(listaDestinosPaquetes);
@@ -535,7 +539,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
                nombre.setLocation(500,100);
                
                precio = new JTextField();
-               this.add(precioido);
+               this.add(precio);
                precio.setSize(200,25);
                precio.setLocation(500,150);
                
@@ -576,7 +580,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
                listaDestinosPaquetesL = new JLabel("Lista de Destinos");
                this.add(listaDestinosPaquetesL);
                listaDestinosPaquetesL.setSize(150,25);
-               listaDestinosPaquetesL.setLocation(175,50);
+               listaDestinosPaquetesL.setLocation(500,275);
                
                
                nombreL = new JLabel("Nombre");
@@ -597,21 +601,21 @@ public class VentanaGestion extends JFrame implements ActionListener{
                codigoL = new JLabel("Codigo");
                this.add(codigoL);
                codigoL.setSize(100,25);
-               codigoL.setLocation(500,275);               
+               codigoL.setLocation(500,225);              
                          
                sistema.getEmpresa().addObserver(this);
           }
-          
-          public void actionPerformed(ActionEvent evento) {
+         
+          public void actionPerformed(ActionEvent evento) {/*
                
                if(evento.getSource().getClass().getName().equals("javax.swing.JButton")){
-                    
+                   
                     if((evento.getSource() == agregar) || (evento.getSource() == modificar) ){
                          
                          String nombreP = nombre.getText();
                          
                          if(nombreP.length() > 0){
-                              
+                             
                               try{
                                    int precioP = Integer.parseInt(this.precio.getText());
                                    int duracionP = Integer.parseInt(this.duracion.getText());
@@ -667,20 +671,20 @@ public class VentanaGestion extends JFrame implements ActionListener{
                     }
                }
                
-               
+            */   
           }
-          
-          private void cambiarEstadoBotones(boolean estaHabilitado){
+         
+          private void cambiarEstadoBotones(boolean estaHabilitado){/*
                agregar.setEnabled(estaHabilitado);
                eliminar.setEnabled(estaHabilitado);
                modificar.setEnabled(estaHabilitado);
                activos.setEnabled(!estaHabilitado);
                espera.setEnabled(estaHabilitado);//si está en espera, los demás botones se desactivan
-          }
-          
-          
-          
-          public void valueChanged(ListSelectionEvent evento) {
+          */}
+         
+         
+         
+          public void valueChanged(ListSelectionEvent evento) {/*
                if (!listaClientes.isSelectionEmpty()){
                     Cliente cli = (Cliente)listaClientes.getSelectedValue();
                     nombre.setText(cli.getNombre());
@@ -688,28 +692,27 @@ public class VentanaGestion extends JFrame implements ActionListener{
                     ci.setText(""+cli.getCedula());
                     cargarModelo(modeloRealizados, cli.getViajesRealizados());
                     cargarModelo(modeloBuscados, cli.getDestinosBuscados());
-               }
+              */ }
                
           }
-          
+         
           private <E> void cargarModelo (DefaultListModel modelo, ArrayList<E> datos){
-               
+             /*  
                modelo.clear();
                for(E objeto:datos){
                     if (objeto != null){
                          modelo.addElement(objeto);
                     }
-               }     
+               }  */  
           }
-          
-          
-          
-          public void update(Observable o, Object ar){
+         
+         
+         
+          public void update(Observable o, Object ar){/*
                cargarModelo(modeloListaClientes, sistema.getEmpresa().getListaClientes());
                listaClientes.setSelectedIndex(-1);
                listaClientes.setModel(modeloListaClientes);
-          }
+         */ }
      }
      
-}
 
