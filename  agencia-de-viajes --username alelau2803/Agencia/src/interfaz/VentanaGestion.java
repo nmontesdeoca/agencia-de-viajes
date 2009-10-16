@@ -16,6 +16,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JMenuBar;
 import javax.swing.JList;
 import javax.swing.JLabel;
+import javax.swing.JComboBox;
+import javax.swing.JSlider;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.event.ListSelectionListener;
@@ -32,8 +34,8 @@ public class VentanaGestion extends JFrame implements ActionListener{
 
     private JPanel panelInicio = null;
     private HandlerClientes panelClientes = null;
+    private HandlerViajes panelViajes = null;
     private JPanel panelTrabajadores = null;
-    private JPanel panelViajes = null;
     private JMenu menuArchivo = null;
     private JMenu menuOpciones = null;
     private JMenu menuAyuda = null;
@@ -89,11 +91,9 @@ public class VentanaGestion extends JFrame implements ActionListener{
  return panelTrabajadores;
     }
 
-    private JPanel getPanelViajes(){
+    private HandlerViajes getPanelViajes(){
  if(panelViajes == null){
-     panelViajes = new JPanel();
-     panelViajes.setSize(900,750); 
-     panelViajes.setLayout(null);
+      panelViajes = new HandlerViajes();
  }
  return panelViajes;
     }
@@ -168,8 +168,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
  }
  return this.barra;
     }
-
-
+ 
     public void actionPerformed(ActionEvent e){
 
  JMenuItem j = (JMenuItem)e.getSource();
@@ -511,6 +510,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
      listaClientes.setModel(modeloListaClientes);
  }
     }
+//---------------------------------------------------------------------------------------------------------    
     @SuppressWarnings("serial")
     private class HandlerViajes extends JPanel implements Observer, ActionListener, ListSelectionListener{
 
@@ -518,12 +518,12 @@ public class VentanaGestion extends JFrame implements ActionListener{
  private JList listaClientes;
  private JList listaBuscados;
  private JList listaRealizados;
- private JTextField nombre;
+ private JTextField nombrec;
  private JTextField apellido;
  private JTextField ci;
  private JButton agregar;
- private JButton eliminar;
- private JButton modificar;
+ private JButton eliminarc;
+ private JButton modificarc;
  private JButton activos;
  private JButton espera;
  private JLabel listaClientesL;
@@ -536,113 +536,107 @@ public class VentanaGestion extends JFrame implements ActionListener{
  private DefaultListModel modeloListaEnEspera;
  private DefaultListModel modeloBuscados;
  private DefaultListModel modeloRealizados;
+ //--------------------------------------------
+ private JLabel textoNombreAlojamiento;
+ private JTextField nombre;
+ private JLabel textoTipoAlojamiento;
+ private ArrayList <Alojamiento.Tipo> tipo;
+ private JComboBox tipoAlojamiento;
+ private JLabel textoPension;
+ private ArrayList <Alojamiento.Pension> tipop;
+ private JComboBox tipoPension;
+ private JLabel textoCantidadEstrellas;
+ private JSlider cantidadEstrellas;
+ private JButton guardar;
+ private JButton eliminar;
+ private JButton modificar;
+ private JLabel textoAlojamientos;
+ private JList listaAlojamientos;
+      
     public HandlerViajes() {
 
      super();
      this.setSize(900,750); 
      this.setLayout(null);
 
-     modeloListaClientes = new DefaultListModel();
-     modeloBuscados = new DefaultListModel();
-     modeloRealizados = new DefaultListModel();
-     modeloListaEnEspera = new DefaultListModel();
-     cargarModelo(modeloListaClientes, sistema.getEmpresa().getListaClientes());
-     cargarModelo(modeloListaEnEspera, sistema.getEmpresa().getListaDeEspera());
-     listaClientes = new JList(modeloListaClientes);
-     listaClientes.setSize(200,400);
-     listaClientes.setLocation(75,85);
-     listaClientes.addListSelectionListener(this);
-     listaClientes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-     this.add(listaClientes);
-
-
-     listaBuscados = new JList();
-     listaBuscados.setSize(200,100);
-     listaBuscados.setLocation(500,300);
-     this.add(listaBuscados);
-
-     listaRealizados = new JList();
-     listaRealizados.setSize(200,100);
-     listaRealizados.setLocation(500,450);
-     this.add(listaRealizados);
-
-     nombre = new JTextField();
-     this.add(nombre);
-     nombre.setSize(200,25);
-     nombre.setLocation(500,100);
-
-     apellido = new JTextField();
-     this.add(apellido);
-     apellido.setSize(200,25);
-     apellido.setLocation(500,150);
-
-     ci = new JTextField();
-     this.add(ci);
-     ci.setSize(200,25);
-     ci.setLocation(500,200);
-
-     agregar = new JButton("Agregar");
-     this.add(agregar);
-     agregar.setSize(120,25);
-     agregar.setLocation(300,175);
-     agregar.addActionListener(this);
-
-     eliminar = new JButton("Eliminar");
-     this.add(eliminar);
-     eliminar.setSize(120,25);
-     eliminar.setLocation(300,275);
-     eliminar.addActionListener(this);
-
-     modificar = new JButton("Modificar");
-     this.add(modificar);
-     modificar.setSize(120,25);
-     modificar.setLocation(500,415);
-     modificar.addActionListener(this);
-
-     activos = new JButton("Ver Activos");
-     this.add(activos);
-     activos.setSize(110,25);
-     activos.setLocation(75,500);
-     activos.addActionListener(this);
-     activos.setEnabled(false);
-
-     espera = new JButton("Ver Espera");
-     this.add(espera);
-     espera.setSize(110,25);
-     espera.setLocation(175,500);
-     espera.addActionListener(this);
-
-     listaClientesL = new JLabel("Lista de Clientes");
-     this.add(listaClientesL);
-     listaClientesL.setSize(150,25);
-     listaClientesL.setLocation(75,50);
-
-     nombreL = new JLabel("Nombre");
-     this.add(nombreL);
-     nombreL.setSize(75,25);
-     nombreL.setLocation(500,75);
-
-     apellidoL = new JLabel("Apellido");
-     this.add(apellidoL);  
-     apellidoL.setSize(75,25);
-     apellidoL.setLocation(500,125);
-
-     ciL = new JLabel("Cedula");
-     this.add(ciL);
-     ciL.setSize(75,25);
-     ciL.setLocation(500,175);
-
-     buscadosL = new JLabel("Destinos Buscados");
-     this.add(buscadosL);
-     buscadosL.setSize(100,25);
-     buscadosL.setLocation(500,275);
-
-     realizadosL = new JLabel("Viajes Realizados");
-     this.add(realizadosL);
-     realizadosL.setSize(100,25);
-     realizadosL.setLocation(500,250);
-
-     sistema.getEmpresa().addObserver(this);
+          textoNombreAlojamiento=new JLabel("Nombre de alojamiento:");
+          textoNombreAlojamiento.setSize(150,25);
+          textoNombreAlojamiento.setLocation(75,50);
+          this.add(textoNombreAlojamiento);
+       
+          nombre= new JTextField();
+          nombre.setSize(200,25);
+          nombre.setLocation(230,50);
+          this.add(nombre);
+          
+          textoTipoAlojamiento=new JLabel("Tipo de alojamiento:");
+          textoTipoAlojamiento.setSize(150,25);
+          textoTipoAlojamiento.setLocation(75,100);
+          this.add(textoTipoAlojamiento);
+          
+          ArrayList <Alojamiento.Tipo> tipo= new ArrayList <Alojamiento.Tipo>();
+          for(Alojamiento.Tipo dato:Alojamiento.Tipo.values()){
+               tipo.add(dato);
+          }
+          tipoAlojamiento= new JComboBox(tipo.toArray());
+          tipoAlojamiento.setSize(200,25);
+          tipoAlojamiento.setLocation(230,100);
+          this.add(tipoAlojamiento);
+          
+          textoPension=new JLabel("Pension:");
+          textoPension.setSize(150,25);
+          textoPension.setLocation(75,150);
+          this.add(textoPension);
+          
+          tipop= new ArrayList <Alojamiento.Pension>();
+          for(Alojamiento.Pension datop:Alojamiento.Pension.values()){
+               tipop.add(datop);
+          }
+          tipoPension= new JComboBox(tipop.toArray());
+          tipoPension.setSize(200,25);
+          tipoPension.setLocation(230,150);
+          this.add(tipoPension);
+          
+          textoCantidadEstrellas=new JLabel("Cantidad de Estrellas:");
+          textoCantidadEstrellas.setSize(150,25);
+          textoCantidadEstrellas.setLocation(75,200);
+          this.add(textoCantidadEstrellas);
+         
+          cantidadEstrellas= new JSlider(JSlider.HORIZONTAL, 1, 7, 1);
+          cantidadEstrellas.setMajorTickSpacing(1);
+          cantidadEstrellas.setMinorTickSpacing(1);
+          cantidadEstrellas.setPaintTicks(true);
+          cantidadEstrellas.setPaintLabels(true);
+          cantidadEstrellas.setSize(200,50);
+          cantidadEstrellas.setLocation(230,200);
+          this.add(cantidadEstrellas);
+          
+          guardar=new JButton("Guardar");
+          guardar.setSize(90,25);
+          guardar.setLocation(80,300);
+          this.add(guardar);
+          
+          eliminar=new JButton("Eliminar");
+          eliminar.setSize(90,25);
+          eliminar.setLocation(500,630);
+          this.add(eliminar);
+          
+          modificar=new JButton("Modificar");
+          modificar.setSize(90,25);
+          modificar.setLocation(600,630);
+          this.add(modificar);
+          
+          textoAlojamientos=new JLabel("Alojamientos");
+          textoAlojamientos.setSize(150,25);
+          textoAlojamientos.setLocation(500,50);
+          this.add(textoAlojamientos);
+          
+          listaAlojamientos=new JList();
+          listaAlojamientos.setSize(300,500);
+          listaAlojamientos.setLocation(500,100);
+          this.add(listaAlojamientos);
+          
+          sistema.getEmpresa().addObserver(this);
  }
 
  public void actionPerformed(ActionEvent evento) {
