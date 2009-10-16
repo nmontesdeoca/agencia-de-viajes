@@ -3,7 +3,7 @@ package dominio;
 public class Destino{
      
      
-     enum Tipo{CIUDAD, PUEBLO, VILLA, BALNEARIO, NATURALEZA};
+     public enum Tipo{CIUDAD, PUEBLO, VILLA, BALNEARIO, NATURALEZA};
      private String nombre;
      private String localidad;
      private String pais;
@@ -80,7 +80,7 @@ public class Destino{
      
      public String toString(){
           
-          return "Destino: " + this.nombre + "\nLocalidad: " + this.localidad + "\nPais: " + this.pais;
+          return this.tipo + ", " + this.nombre + "(" + this.localidad + ", " + this.pais + ")";
           
      }
      
