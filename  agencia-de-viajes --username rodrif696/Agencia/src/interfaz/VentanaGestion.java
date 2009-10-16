@@ -94,10 +94,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
      private JPanel getPanelViajes(){
           
           if(panelViajes == null){
-               //panelViajes = new HandlerViajes();
-               //panelViajes = new JPanel();
-               //panelViajes.setSize(900, 750); 
-               //panelViajes.setLayout(null);
+               panelViajes = new HandlerViajes();
           }
           return panelViajes;
      }
@@ -465,7 +462,8 @@ public class VentanaGestion extends JFrame implements ActionListener{
                this.setLayout(null);
                
                modeloListaTrabajadores = new DefaultListModel();
-               modeloListaComision = new DefaultListModel();          
+               modeloListaComision = new DefaultListModel();
+               
                cargarModelo(modeloListaTrabajadores, sistema.getEmpresa().getListaTrabajadores());
                listaTrabajadores = new JList(modeloListaTrabajadores);
                listaTrabajadores.setSize(200,400);
@@ -635,7 +633,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
                          }
                               
                          else{
-                              JOptionPane.showMessageDialog(null, "ERROR: Faltan los datos de nombre o apellido" , "ERROR", JOptionPane.ERROR_MESSAGE);
+                              JOptionPane.showMessageDialog(null, "ERROR: Faltan los datos de nombre o apellido " , "ERROR", JOptionPane.ERROR_MESSAGE);
                          }
                     }
                     
@@ -693,6 +691,241 @@ public class VentanaGestion extends JFrame implements ActionListener{
                listaTrabajadores.setSelectedIndex(-1);
                listaTrabajadores.setModel(modeloListaTrabajadores);
           }
-     }     
+     }
+     
+     @SuppressWarnings("serial")
+     private class HandlerViajes extends JPanel implements Observer, ActionListener, ListSelectionListener{
+                    
+          private JList listaDestinos;
+          private JTextField nombre;
+          private JTextField localidad;
+          private JTextField pais;
+          private JButton agregar;
+          private JButton eliminar;
+          private JButton modificar;
+          private JLabel listaDestinosL;
+          private JLabel nombreL;
+          private JLabel localidadL;
+          private JLabel paisL;
+          private JLabel tipoDestinoL;
+          private JRadioButton botonCiudad;
+          private JRadioButton botonPueblo;
+          private JRadioButton botonVilla;
+          private JRadioButton botonBalneario;
+          private JRadioButton botonNaturaleza;
+          private ButtonGroup botonGrupo;
+          private JPanel radioPanel;
+          private DefaultListModel modeloListaDestinos;
+          
+          public HandlerViajes() {
+               
+               super();
+               this.setSize(900, 750); 
+               this.setLayout(null);
+               
+               modeloListaDestinos = new DefaultListModel();
+               
+               cargarModelo(modeloListaDestinos, sistema.getEmpresa().getListaDestinos());
+               listaDestinos = new JList(modeloListaDestinos);
+               listaDestinos.setSize(200,400);
+               listaDestinos.setLocation(75,85);
+               listaDestinos.addListSelectionListener(this);
+               listaDestinos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+               this.add(listaDestinos);
+
+               nombre = new JTextField();
+               this.add(nombre);
+               nombre.setSize(200,25);
+               nombre.setLocation(500,100);
+               
+               localidad = new JTextField();
+               this.add(localidad);
+               localidad.setSize(200,25);
+               localidad.setLocation(500,165);
+               
+               pais = new JTextField();
+               this.add(pais);
+               pais.setSize(200,25);
+               pais.setLocation(500,230);
+               
+               agregar = new JButton("Agregar");
+               this.add(agregar);
+               agregar.setSize(120,25);
+               agregar.setLocation(325,250);
+               agregar.addActionListener(this);
+               
+               eliminar = new JButton("Eliminar");
+               this.add(eliminar);
+               eliminar.setSize(120,25);
+               eliminar.setLocation(325,300);
+               eliminar.addActionListener(this);
+               
+               modificar = new JButton("Modificar");
+               this.add(modificar);
+               modificar.setSize(120,25);
+               modificar.setLocation(500, 445);
+               modificar.addActionListener(this);
+               
+               listaDestinosL = new JLabel("Lista de Destinos");
+               this.add(listaDestinosL);
+               listaDestinosL.setSize(150,25);
+               listaDestinosL.setLocation(75,50);
+               
+               nombreL = new JLabel("Nombre");
+               this.add(nombreL);
+               nombreL.setSize(75,25);
+               nombreL.setLocation(500,75);
+               
+               localidadL = new JLabel("Localidad");
+               this.add(localidadL);  
+               localidadL.setSize(75,25);
+               localidadL.setLocation(500,140);
+               
+               paisL = new JLabel("Pais");
+               this.add(paisL);
+               paisL.setSize(75,25);
+               paisL.setLocation(500, 205);
+               
+               tipoDestinoL = new JLabel("Tipo");
+               this.add(tipoDestinoL);
+               tipoDestinoL.setSize(150,25);
+               tipoDestinoL.setLocation(500,270);
+               
+               botonCiudad = new JRadioButton("Ciudad", true);
+               botonCiudad.setLocation(500, 305);
+               botonCiudad.setSize(130, 20);
+               botonCiudad.addActionListener(this);
+               this.add(botonCiudad);
+               botonPueblo = new JRadioButton ("Pueblo", false);
+               botonPueblo.setLocation(500, 330);
+               botonPueblo.setSize(130, 20);
+               botonPueblo.addActionListener(this);
+               this.add(botonPueblo);
+               botonVilla = new JRadioButton ("Villa", false);
+               botonVilla.setLocation(500, 355);
+               botonVilla.setSize(130, 20);
+               botonVilla.addActionListener(this);
+               this.add(botonVilla);
+               botonBalneario = new JRadioButton ("Balneario", false);
+               botonBalneario.setLocation(500, 380);
+               botonBalneario.setSize(130, 20);
+               botonBalneario.addActionListener(this);
+               this.add(botonBalneario);
+               botonNaturaleza = new JRadioButton ("Naturaleza", false);
+               botonNaturaleza.setLocation(500, 405);
+               botonNaturaleza.setSize(130, 20);
+               botonNaturaleza.addActionListener(this);
+               this.add(botonNaturaleza);                              
+               botonGrupo = new ButtonGroup();               
+               botonGrupo.add(botonCiudad);
+               botonGrupo.add(botonPueblo);
+               botonGrupo.add(botonVilla);
+               botonGrupo.add(botonBalneario);
+               botonGrupo.add(botonNaturaleza);
+               
+               sistema.getEmpresa().addObserver(this);
+          }
+          
+          public void actionPerformed(ActionEvent evento) {
+               
+               if(evento.getSource().getClass().getName().equals("javax.swing.JButton")){
+                    
+                    if((evento.getSource() == agregar) || (evento.getSource() == modificar) ){
+                         
+                         String nombreP = nombre.getText();
+                         String localidadP = localidad.getText();
+                         String paisP = pais.getText();
+                         //String tipoP = tipo.getText();
+                         
+                         if(nombreP.length() > 0 && localidadP.length() > 0 && paisP.length() >0){
+                              
+                              /*try{
+                                   int cedulaP = Integer.parseInt(this.ci.getText());
+                                   int numeroP = Integer.parseInt(this.numeroTrabajador.getText());
+                                   double gananciasP = Double.parseDouble(this.ganancias.getText());*/
+                                   
+                                   if(evento.getSource() == agregar){
+                                        Destino dest = new Destino();
+
+                                        if(!sistema.getEmpresa().agregarDestino(dest)){
+                                             JOptionPane.showMessageDialog(null, "ERROR: Ese Destino ya existe" , "Destino existente", JOptionPane.ERROR_MESSAGE);
+                                        }         
+                                   }
+                                   
+                                   else if(evento.getSource() == modificar){
+                                       
+                                        if (!listaDestinos.isSelectionEmpty()){
+                                             
+                                             Destino dest = (Destino)listaDestinos.getSelectedValue();                                          
+                                             
+                                             dest.setNombre(nombreP);
+                                             dest.setLocalidad(localidadP);
+                                             dest.setPais(paisP);
+                                             //dest.setTipo(tipoP);
+                                        }
+                                        else{
+                                             JOptionPane.showMessageDialog(null, "No hay destino seleccionado" , "Atención", JOptionPane.INFORMATION_MESSAGE);
+                                        }
+                                   }
+                              //}
+                              /*catch(NumberFormatException e){
+                                   JOptionPane.showMessageDialog(null, "ERROR: Ingrese un numero válido en los campos numericos" , "ERROR", JOptionPane.ERROR_MESSAGE);
+                                   this.ci.setText("");
+                              }*/    
+                         }
+                              
+                         else{
+                              JOptionPane.showMessageDialog(null, "ERROR: Faltan los datos de nombre, localidad o pais" , "ERROR", JOptionPane.ERROR_MESSAGE);
+                         }
+                    }
+                    
+                    else if(evento.getSource() == eliminar){
+                         if (!listaDestinos.isSelectionEmpty()){
+                              int respuesta = JOptionPane.showConfirmDialog(null, " ¿Eliminar este destino?", "Confirmación", JOptionPane.WARNING_MESSAGE);
+                              if (respuesta == JOptionPane.YES_OPTION){
+                                   Destino dest = (Destino)listaDestinos.getSelectedValue();
+                                   sistema.getEmpresa().eliminarDestino(dest);
+                              }
+                         }else{
+                              JOptionPane.showMessageDialog(null, "No hay destino seleccionado" , "Atención", JOptionPane.INFORMATION_MESSAGE);
+                         }
+                    }
+               }                           
+          }
+          
+          public void valueChanged(ListSelectionEvent evento) {
+               
+               if (!listaDestinos.isSelectionEmpty()){
+                    Destino dest = (Destino)listaDestinos.getSelectedValue();
+                    nombre.setText(dest.getNombre());
+                    localidad.setText(dest.getLocalidad());
+                    pais.setText(dest.getPais());
+                    //tipo.setText(dest.getTipo());
+                    /*if(trab instanceof TrabajadorComision){
+                         botonComision.setSelected(true);
+                    }
+                    else if(trab instanceof TrabajadorBase){
+                         botonSueldo.setSelected(true);
+                    }*/
+               }             
+          }
+          
+          private <E> void cargarModelo (DefaultListModel modelo, ArrayList<E> datos){
+               
+               modelo.clear();
+               for(E objeto:datos){
+                    if (objeto != null){
+                         modelo.addElement(objeto);
+                    }
+               } 
+          }
+          
+          public void update(Observable o, Object ar){
+               
+               cargarModelo(modeloListaDestinos, sistema.getEmpresa().getListaDestinos());
+               listaDestinos.setSelectedIndex(-1);
+               listaDestinos.setModel(modeloListaDestinos);
+          }
+     }
 }
 
