@@ -119,7 +119,7 @@ public class PaqueteTuristico{
      }
      
      public String toString(){
-          return "PaqueteTuristico: "+this.codigo +" "+this.nombre +" "+this.precio;
+          return "PaqueteTuristico: "+this.codigo +" "+this.nombre +" "+this.precio +" "+this.duracion;
      } 
      public boolean equals (Object o){
           return this.codigo==((PaqueteTuristico)o).getCodigo();
