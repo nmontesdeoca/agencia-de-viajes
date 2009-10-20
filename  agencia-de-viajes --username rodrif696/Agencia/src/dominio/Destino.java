@@ -80,7 +80,7 @@ public class Destino{
      
      public String toString(){
           
-          return this.tipo + ", " + this.nombre + "(" + this.localidad + ", " + this.pais + ")";
+          return this.tipo + ": " + this.nombre + "(" + this.localidad + ", " + this.pais + ")";
           
      }
      

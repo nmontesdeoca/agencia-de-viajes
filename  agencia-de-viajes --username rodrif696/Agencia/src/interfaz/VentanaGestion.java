@@ -815,7 +815,8 @@ public class VentanaGestion extends JFrame implements ActionListener{
                                         
                                         dest.setNombre(nombreP);
                                         dest.setLocalidad(localidadP);
-                                        dest.setPais(paisP);                                       
+                                        dest.setPais(paisP);
+                                        dest.setTipo(dummy.getTipo());
                                         
                                         if(!sistema.getEmpresa().agregarDestino(dest)){
                                              JOptionPane.showMessageDialog(null, "ERROR: Ese Destino ya existe" , "Destino existente", JOptionPane.ERROR_MESSAGE);
@@ -829,7 +830,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
                                              dummy = (Destino)listaDestinos.getSelectedValue();                                                                                       
                                              dummy.setNombre(nombreP);
                                              dummy.setLocalidad(localidadP);
-                                             dummy.setPais(paisP);
+                                             dummy.setPais(paisP);                                             
                                         }
                                         else{
                                              JOptionPane.showMessageDialog(null, "No hay destino seleccionado" , "Atención", JOptionPane.INFORMATION_MESSAGE);
@@ -852,11 +853,12 @@ public class VentanaGestion extends JFrame implements ActionListener{
                               JOptionPane.showMessageDialog(null, "No hay destino seleccionado" , "Atención", JOptionPane.INFORMATION_MESSAGE);
                          }
                     }
-                    
                     else if(evento.getSource() == comboTipo){
                          
-                         dummy.setTipo((Destino.Tipo)comboTipo.getSelectedItem());
+                         Destino.Tipo  t = (Destino.Tipo)comboTipo.getSelectedItem(); 
+                         dummy.setTipo(t);
                     }
+                    System.out.println(evento);
           }
           
           public void valueChanged(ListSelectionEvent evento) {
@@ -866,7 +868,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
                     nombre.setText(dummy.getNombre());
                     localidad.setText(dummy.getLocalidad());
                     pais.setText(dummy.getPais());
-                    //tipo.setText(dest.getTipo());
+                    comboTipo.setSelectedItem(dummy.getTipo());
                }             
           }
           
