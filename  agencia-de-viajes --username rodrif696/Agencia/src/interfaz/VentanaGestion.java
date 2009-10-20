@@ -390,7 +390,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
                eliminar.setEnabled(estaHabilitado);
                modificar.setEnabled(estaHabilitado);
                activos.setEnabled(!estaHabilitado);
-               espera.setEnabled(estaHabilitado);//si esta en espera, los demas botones se desactivan
+               espera.setEnabled(estaHabilitado);
           }
                             
           public void valueChanged(ListSelectionEvent evento) {
@@ -427,8 +427,6 @@ public class VentanaGestion extends JFrame implements ActionListener{
      private class HandlerTrabajadores extends JPanel implements Observer, ActionListener, ListSelectionListener{
           
           private JList listaTrabajadores;
-          /*private JList listaBuscados;
-          private JList listaRealizados;*/
           private JTextField nombre;
           private JTextField apellido;
           private JTextField ci;
@@ -452,8 +450,6 @@ public class VentanaGestion extends JFrame implements ActionListener{
           private JPanel radioPanel;
           private DefaultListModel modeloListaTrabajadores;
           private DefaultListModel modeloListaComision;
-          /*private DefaultListModel modeloBuscados;
-          private DefaultListModel modeloRealizados;*/
           
           public HandlerTrabajadores() {
                
@@ -654,7 +650,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
           private void cambiarEstadoBotones(boolean estaHabilitado){
 
                sueldo.setEnabled(!estaHabilitado);
-               comision.setEnabled(estaHabilitado);//si esta en espera, los demas botones se desactivan
+               comision.setEnabled(estaHabilitado);
           }
                               
           public void valueChanged(ListSelectionEvent evento) {
@@ -720,8 +716,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
                
                dummy = new Destino();
                
-               modeloListaDestinos = new DefaultListModel();
-               
+               modeloListaDestinos = new DefaultListModel();               
                cargarModelo(modeloListaDestinos, sistema.getEmpresa().getListaDestinos());
                listaDestinos = new JList(modeloListaDestinos);
                listaDestinos.setSize(200,400);
@@ -815,12 +810,14 @@ public class VentanaGestion extends JFrame implements ActionListener{
                          if(nombreP.length() > 0 && localidadP.length() > 0 && paisP.length() >0){                              
                               
                                    if(evento.getSource() == agregar){                                     
-
-                                        dummy.setNombre(nombreP);
-                                        dummy.setLocalidad(localidadP);
-                                        dummy.setPais(paisP);                                      
                                         
-                                        if(!sistema.getEmpresa().agregarDestino(dummy)){
+                                        Destino dest = new Destino();
+                                        
+                                        dest.setNombre(nombreP);
+                                        dest.setLocalidad(localidadP);
+                                        dest.setPais(paisP);                                       
+                                        
+                                        if(!sistema.getEmpresa().agregarDestino(dest)){
                                              JOptionPane.showMessageDialog(null, "ERROR: Ese Destino ya existe" , "Destino existente", JOptionPane.ERROR_MESSAGE);
                                         }         
                                    }
@@ -865,17 +862,11 @@ public class VentanaGestion extends JFrame implements ActionListener{
           public void valueChanged(ListSelectionEvent evento) {
                
                if (!listaDestinos.isSelectionEmpty()){
-                    Destino dest = (Destino)listaDestinos.getSelectedValue();
-                    nombre.setText(dest.getNombre());
-                    localidad.setText(dest.getLocalidad());
-                    pais.setText(dest.getPais());
+                    dummy = (Destino)listaDestinos.getSelectedValue();
+                    nombre.setText(dummy.getNombre());
+                    localidad.setText(dummy.getLocalidad());
+                    pais.setText(dummy.getPais());
                     //tipo.setText(dest.getTipo());
-                    /*if(trab instanceof TrabajadorComision){
-                         botonComision.setSelected(true);
-                    }
-                    else if(trab instanceof TrabajadorBase){
-                         botonSueldo.setSelected(true);
-                    }*/
                }             
           }
           
