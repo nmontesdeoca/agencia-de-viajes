@@ -515,7 +515,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
     private class HandlerViajes extends JPanel implements Observer, ActionListener, ListSelectionListener{
 
 
- private JList listaClientes;
+ /*private JList listaClientes;
  private JList listaBuscados;
  private JList listaRealizados;
  private JTextField nombrec;
@@ -535,7 +535,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
  private DefaultListModel modeloListaClientes;
  private DefaultListModel modeloListaEnEspera;
  private DefaultListModel modeloBuscados;
- private DefaultListModel modeloRealizados;
+ private DefaultListModel modeloRealizados;*/
  //--------------------------------------------
  private JLabel textoNombreAlojamiento;
  private JTextField nombre;
@@ -552,6 +552,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
  private JButton modificar;
  private JLabel textoAlojamientos;
  private JList listaAlojamientos;
+ private DefaultListModel modeloListaAlojamientos;
       
     public HandlerViajes() {
 
@@ -559,6 +560,16 @@ public class VentanaGestion extends JFrame implements ActionListener{
      this.setSize(900,750); 
      this.setLayout(null);
 
+     modeloListaAlojamientos = new DefaultListModel();
+     cargarModelo(modeloListaAlojamientos, sistema.getEmpresa().getListaAlojamientos());
+     listaAlojamientos = new JList(modeloListaAlojamientos);
+     listaAlojamientos.setSize(300,500);
+     listaAlojamientos.setLocation(500,100);
+     listaAlojamientos.addListSelectionListener(this);
+     listaAlojamientos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+     this.add(listaAlojamientos);
+     
+     
           textoNombreAlojamiento=new JLabel("Nombre de alojamiento:");
           textoNombreAlojamiento.setSize(150,25);
           textoNombreAlojamiento.setLocation(75,50);
@@ -631,10 +642,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
           textoAlojamientos.setLocation(500,50);
           this.add(textoAlojamientos);
           
-          listaAlojamientos=new JList();
-          listaAlojamientos.setSize(300,500);
-          listaAlojamientos.setLocation(500,100);
-          this.add(listaAlojamientos);
+          
           
           sistema.getEmpresa().addObserver(this);
  }
@@ -643,53 +651,50 @@ public class VentanaGestion extends JFrame implements ActionListener{
 
      if(evento.getSource().getClass().getName().equals("javax.swing.JButton")){
 
-  if((evento.getSource() == agregar) || (evento.getSource() == modificar) ){
+  if((evento.getSource() == guardar) || (evento.getSource() == modificar) ){
 
-      String nombreP = nombre.getText(); String apellidoP = apellido.getText();
+      String nombreA = nombre.getText(); 
+      Alojamiento.Tipo tipoA= (Alojamiento.Tipo)tipoAlojamiento.getSelectedItem();
+      int estrellas= cantidadEstrellas.getValue();
+      Alojamiento.Pension pensionP= (Alojamiento.Pension)tipoPension.getSelectedItem();
+      if(nombreA.length() > 0){
 
-      if(nombreP.length() > 0 && apellidoP.length() > 0){
-
-   try{
-       int cedulaP = Integer.parseInt(this.ci.getText());
-
-       if(evento.getSource() == agregar){
-    Cliente cli = new Cliente(nombreP, apellidoP, cedulaP, 0, new ArrayList <Destino>(), new ArrayList <Destino>());
-    if(!sistema.getEmpresa().agregarCliente(cli)){
-        JOptionPane.showMessageDialog(null, "ERROR: Ese Cliente ya existe" , "Cliente existente", JOptionPane.ERROR_MESSAGE);
+          if(evento.getSource() == guardar){
+    Alojamiento aloja = new Alojamiento(nombreA, tipoA, estrellas, pensionP);
+    if(!sistema.getEmpresa().agregarAlojamiento(aloja)){
+        JOptionPane.showMessageDialog(null, "ERROR: Ese Alojamiento ya existe" , "Alojamiento existente", JOptionPane.ERROR_MESSAGE);
     }            
        }
        else if(evento.getSource() == modificar){
-    if (!listaClientes.isSelectionEmpty()){
-        Cliente cli = (Cliente)listaClientes.getSelectedValue();
-        cli.setNombre(nombreP);
-        cli.setApellido(apellidoP);
-        cli.setCedula(cedulaP);
+    if (!listaAlojamientos.isSelectionEmpty()){
+        Alojamiento aloja = (Alojamiento)listaAlojamientos.getSelectedValue();
+        aloja.setNombre(nombreA);
+        aloja.setTipo(tipoA);
+        aloja.setEstrellas(estrellas);
+        aloja.setPension(pensionP);
     }
     else{
-        JOptionPane.showMessageDialog(null, "No hay cliente seleccionado" , "Atención", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "No hay Alojamiento seleccionado" , "Atención", JOptionPane.INFORMATION_MESSAGE);
     }
        }
    }
-   catch(NumberFormatException e){
-       JOptionPane.showMessageDialog(null, "ERROR: Ingrese un número valido en la cédula" , "ERROR", JOptionPane.ERROR_MESSAGE);
-       this.ci.setText("");
-   }
+   
       }else{
-   JOptionPane.showMessageDialog(null, "ERROR: Faltan los datos de nombre o apellido" , "ERROR", JOptionPane.ERROR_MESSAGE);
+   JOptionPane.showMessageDialog(null, "ERROR: Falta el Nombre del Alojamiento" , "ERROR", JOptionPane.ERROR_MESSAGE);
       }
   }
   else if(evento.getSource() == eliminar){
-      if (!listaClientes.isSelectionEmpty()){
-   int respuesta = JOptionPane.showConfirmDialog(null, " ¿Eliminar este cliente?", "Confirmación", JOptionPane.WARNING_MESSAGE);
+      if (!listaAlojamientos.isSelectionEmpty()){
+   int respuesta = JOptionPane.showConfirmDialog(null, " �Eliminar este Alojamiento?", "Confirmacion", JOptionPane.WARNING_MESSAGE);
    if (respuesta == JOptionPane.YES_OPTION){
-       Cliente cli = (Cliente)listaClientes.getSelectedValue();
-       sistema.getEmpresa().eliminarCliente(cli);
+       Alojamiento aloja = (Alojamiento)listaAlojamientos.getSelectedValue();
+       sistema.getEmpresa().eliminarAlojamiento(aloja);
    }
       }else{
-   JOptionPane.showMessageDialog(null, "No hay cliente seleccionado" , "Atención", JOptionPane.INFORMATION_MESSAGE);
+   JOptionPane.showMessageDialog(null, "No hay Alojamiento seleccionado" , "Atencion", JOptionPane.INFORMATION_MESSAGE);
       }
   }
-  else if(evento.getSource() == activos ){
+  /*else if(evento.getSource() == activos ){
       cargarModelo(modeloListaClientes, sistema.getEmpresa().getListaClientes());
       listaClientes.setModel(modeloListaClientes);
       cambiarEstadoBotones(true);
@@ -698,31 +703,30 @@ public class VentanaGestion extends JFrame implements ActionListener{
       cargarModelo(modeloListaEnEspera, sistema.getEmpresa().getListaDeEspera());
       listaClientes.setModel(modeloListaEnEspera);
       cambiarEstadoBotones(false);
-  }
+  }*/
   
      }
- }
+ 
  
 
- private void cambiarEstadoBotones(boolean estaHabilitado){
+ /*private void cambiarEstadoBotones(boolean estaHabilitado){
      agregar.setEnabled(estaHabilitado);
      eliminar.setEnabled(estaHabilitado);
      modificar.setEnabled(estaHabilitado);
      activos.setEnabled(!estaHabilitado);
      espera.setEnabled(estaHabilitado);//si está en espera, los demás botones se desactivan
- }
+ }*/
 
 
 
  public void valueChanged(ListSelectionEvent evento) {
-     if (!listaClientes.isSelectionEmpty()){
-  Cliente cli = (Cliente)listaClientes.getSelectedValue();
-  nombre.setText(cli.getNombre());
-  apellido.setText(cli.getApellido());
-  ci.setText(""+cli.getCedula());
-  cargarModelo(modeloRealizados, cli.getViajesRealizados());
-  cargarModelo(modeloBuscados, cli.getDestinosBuscados());
-     }
+     if (!listaAlojamientos.isSelectionEmpty()){
+  Alojamiento aloja = (Alojamiento)listaAlojamientos.getSelectedValue();
+  nombre.setText(aloja.getNombre());
+  tipoAlojamiento.setSelectedItem(aloja.getTipo());
+  cantidadEstrellas.setValue(aloja.getEstrellas());
+  tipoPension.setSelectedItem(aloja.getPension());
+  }
 
  }
  private <E> void cargarLista(DefaultListModel modelo, ArrayList <E> datos){
@@ -744,9 +748,9 @@ public class VentanaGestion extends JFrame implements ActionListener{
 
 
  public void update(Observable o, Object ar){
-     cargarModelo(modeloListaClientes, sistema.getEmpresa().getListaClientes());
-     listaClientes.setSelectedIndex(-1);
-     listaClientes.setModel(modeloListaClientes);
+     cargarModelo(modeloListaAlojamientos, sistema.getEmpresa().getListaAlojamientos());
+     listaAlojamientos.setSelectedIndex(-1);
+     listaAlojamientos.setModel(modeloListaAlojamientos);
  }
     }
     }
