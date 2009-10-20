@@ -8,6 +8,7 @@ import java.util.Observable;
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JDialog;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JMenu;
@@ -17,6 +18,7 @@ import javax.swing.JList;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
+import javax.swing.JComboBox;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.ListSelectionModel;
@@ -506,6 +508,8 @@ public class VentanaGestion extends JFrame implements ActionListener{
           private JButton agregar;
           private JButton eliminar;
           private JButton modificar;
+          private JButton agregarDestino;
+          private JComboBox comboAlojamiento;
           
           public HandlerViajes() {
                
@@ -575,6 +579,11 @@ public class VentanaGestion extends JFrame implements ActionListener{
                modificar.setLocation(500,455);
                modificar.addActionListener(this);
                
+               agregarDestino = new JButton("+");
+               this.add(agregarDestino);
+               agregarDestino.setSize(45,25);
+               agregarDestino.setLocation(720,350);
+               agregarDestino.addActionListener(this); 
                
                listaPaquetesL = new JLabel("Lista de Paquetes");
                this.add(listaPaquetesL);
@@ -601,7 +610,15 @@ public class VentanaGestion extends JFrame implements ActionListener{
                duracionL.setSize(200,25);
                duracionL.setLocation(500,175);
                
+               ArrayList <Alojamiento> alojamientos = sistema.getEmpresa().getListaAlojamientos();                    
+
                
+               JComboBox comboAlojamiento = new JComboBox(alojamientos.toArray());
+               this.add(comboAlojamiento);
+               comboAlojamiento.setSize(150, 25);
+               comboAlojamiento.setLocation(720, 300);
+               comboAlojamiento.setSelectedIndex(-1);
+               comboAlojamiento.addActionListener(this);
                
                alojamientosL = new JLabel("Alojamiento");
                this.add(alojamientosL);
@@ -669,6 +686,71 @@ public class VentanaGestion extends JFrame implements ActionListener{
                          JOptionPane.showMessageDialog(null, "No hay paquete seleccionado" , "Atención", JOptionPane.INFORMATION_MESSAGE);
                     }
                }
+               else if(evento.getSource() == agregarDestino){
+       
+       final JDialog seleccion=new JDialog();
+       seleccion.setTitle("Agregar");
+       seleccion.setSize(450,500);
+       seleccion.setVisible(true);
+              
+       JPanel destinos=new JPanel();
+       destinos.setSize(450,500);
+       destinos.setLayout(null);
+       seleccion.setContentPane(destinos);
+       
+       
+       DefaultListModel modeloDestinos=new DefaultListModel();
+       cargarModelo(modeloDestinos, sistema.getEmpresa().getListaDestinos());
+       
+       final JList listaDestinos = new JList(modeloDestinos);
+       listaDestinos.setSize(200,300);
+       listaDestinos.setLocation(100,75);
+       destinos.add(listaDestinos);
+       listaDestinos.addListSelectionListener(this);
+       listaDestinos.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+              
+       JLabel textoDestinos = new JLabel("Lista de Destinos");
+       destinos.add(textoDestinos);
+       textoDestinos.setSize(100,25);
+       textoDestinos.setLocation(100,25);
+       
+       JButton aceptar=new JButton("Aceptar");
+       aceptar.setSize(100,25);
+       aceptar.setLocation(100,405);
+       destinos.add(aceptar);
+       aceptar.addActionListener(new java.awt.event.ActionListener(){
+            public void actionPerformed (ActionEvent evento){
+                 if (!listaDestinos.isSelectionEmpty()){
+                     Destino des = (Destino)listaDestinos.getSelectedValue();
+                     PaqueteTuristico paq = (PaqueteTuristico)listaPaquetes.getSelectedValue();
+                     paq.agregarDestino(des);
+                 }
+                 else{
+                      JOptionPane.showMessageDialog(null, "No hay destino seleccionado" , "Atencion", JOptionPane.INFORMATION_MESSAGE);
+                 }
+                 
+                 
+            }
+       });
+       
+       JButton cancelar=new JButton("Cancelar");
+       cancelar.setSize(100,25);
+       cancelar.setLocation(230,405);
+       destinos.add(cancelar);
+       cancelar.addActionListener(new java.awt.event.ActionListener(){
+            public void actionPerformed (ActionEvent evento){
+                 seleccion.dispose();
+                 
+            }
+       });
+
+                    
+                    
+               }
+              
+
+               
+               
           }
           
           

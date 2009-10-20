@@ -11,7 +11,8 @@ public class Main{
            ventana.setVisible(true);*/
           /*VG2 venta = new VG2(new Sistema(new Trabajador()));
           venta.setVisible(true);
-          */VentanaGestion venta = new VentanaGestion(new Sistema(new Trabajador()));
+          */
+          VentanaGestion venta = new VentanaGestion(new Sistema(new Trabajador()));
           venta.setVisible(true);
           //System.out.println("Menu");
           
