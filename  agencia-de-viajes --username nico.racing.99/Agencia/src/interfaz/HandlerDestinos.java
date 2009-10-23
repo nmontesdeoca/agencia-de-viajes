@@ -6,14 +6,9 @@ import java.util.Observer;
 import java.util.Observable;
 
 import javax.swing.DefaultListModel;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JDialog;
 import javax.swing.JTextField;
 import javax.swing.JButton;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.JMenuBar;
 import javax.swing.JList;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -22,14 +17,11 @@ import javax.swing.JComboBox;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.ListSelectionModel;
-import javax.swing.ImageIcon;
 
-import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.MouseEvent;
 
+@SuppressWarnings("serial")
 public class HandlerDestinos extends JPanel implements Observer, ActionListener, ListSelectionListener{
      
      private Sistema sistema;
@@ -52,12 +44,13 @@ public class HandlerDestinos extends JPanel implements Observer, ActionListener,
      private DefaultListModel modeloListaDestinos;
      private Destino dummy;
      
-     public HandlerDestinos (VentanaGestion vg, Sistema sistemaP) {
+     public HandlerDestinos (VentanaGestion vn, Sistema sistemaP) {
           
           super();
           this.setSize(1024, 750);
           this.setLayout(null);
           this.sistema= sistemaP;
+          this.vg = vn;
           
           dummy = new Destino();
           
@@ -219,15 +212,14 @@ public class HandlerDestinos extends JPanel implements Observer, ActionListener,
           
           else if(evento.getSource() == paquetes){
                
-               //vg.setContentPane(getPanelPaquetesTuristicos());
+               vg.setContentPane(new HandlerPaquetesTuristicos(vg,sistema));
           }
           
           else if(evento.getSource() == alojamientos){
                
-               //vg.setContentPane(getPanelAlojamientos());
+               vg.setContentPane(new HandlerAlojamientos(vg,sistema));
           }
           
-          //System.out.println(evento);
      }
      
      public void valueChanged(ListSelectionEvent evento) {
