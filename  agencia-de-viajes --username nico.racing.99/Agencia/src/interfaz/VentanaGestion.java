@@ -144,7 +144,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
      
      private JPanel getPanelTrabajadores(){
           if(panelTrabajadores == null){
-               panelClientes = new HandlerClientes(sistema);    
+               panelTrabajadores = new HandlerTrabajadores(sistema);    
           }
           return panelTrabajadores;
      }
