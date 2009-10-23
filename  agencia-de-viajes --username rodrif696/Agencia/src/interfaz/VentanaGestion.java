@@ -37,7 +37,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
      private HandlerClientes panelClientes = null;
      private HandlerTrabajadores panelTrabajadores = null;
      private HandlerAlojamientos panelAlojamientos = null;
-     //private HandlerDestinos panelDestinos = null;
+     private HandlerDestinos panelDestinos = null;
      private HandlerPaquetesTuristicos panelPaquetesTuristicos = null;
      private JMenu menuArchivo = null;
      private JMenu menuOpciones = null;
@@ -160,13 +160,13 @@ public class VentanaGestion extends JFrame implements ActionListener{
           return panelAlojamientos;
      }
      
-     /* private HandlerDestinos getPanelDestinos(){
+     private HandlerDestinos getPanelDestinos(){
           if(panelDestinos == null){
-               panelDestinos = new HandlerDestinos(sistema);
+               panelDestinos = new HandlerDestinos(this, sistema);
 
           }
           return panelDestinos;
-     }*/
+     }
      
       private HandlerPaquetesTuristicos getPanelPaquetesTuristicos(){
           if(panelPaquetesTuristicos == null){
