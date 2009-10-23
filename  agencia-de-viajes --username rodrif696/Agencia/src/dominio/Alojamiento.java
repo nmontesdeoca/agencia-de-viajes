@@ -2,8 +2,8 @@ package dominio;
 
 public class Alojamiento{
      
-     enum Pension{MEDIA_PENSION, PENSION_COMPLETA};
-     enum Tipo{CABANA, HOTEL, CASA, CRUCERO, CAMPING};
+     public enum Pension{MEDIA_PENSION, PENSION_COMPLETA};
+     public enum Tipo{CABANA, HOTEL, CASA, CRUCERO, CAMPING};
      private String nombre;
      private Tipo tipo;
      private int estrellas;
