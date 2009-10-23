@@ -77,6 +77,16 @@ public class PaqueteTuristico{
           return cant;
      }
      
+     public boolean agregarDestino (Destino d){
+          
+          boolean ret= false;
+          if(!this.getDestinos().contains(d)){
+               this.getDestinos().add(d);
+               ret= true;
+          }
+          return ret;
+     }
+     
      public PaqueteTuristico(){
           this.setNombre ("sin definir");
           this.setDestinos (new ArrayList <Destino>());

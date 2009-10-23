@@ -3,6 +3,7 @@ package dominio;
 public class TrabajadorComision extends Trabajador{
      
      public TrabajadorComision (){
+          
           this.setNombre("sin definir");
           this.setApellido("sin definir");
           this.setCi(0);
@@ -13,6 +14,7 @@ public class TrabajadorComision extends Trabajador{
      }
      
      public TrabajadorComision (String nombre, String apellido, int ci, int numeroTrabajador, double ganancias, char[] passwordP){
+          
           this.setNombre(nombre);
           this.setApellido(apellido);
           this.setCi(ci);
@@ -23,6 +25,7 @@ public class TrabajadorComision extends Trabajador{
      }
      
      public TrabajadorComision (Trabajador traba){
+          
           this.setNombre(traba.getNombre());
           this.setApellido(traba.getApellido());
           this.setCi(traba.getCi());

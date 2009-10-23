@@ -3,6 +3,7 @@ package dominio;
 public class TrabajadorBase extends Trabajador{
      
      public TrabajadorBase (){
+          
           this.setNombre("sin definir");
           this.setApellido("sin definir");
           this.setCi(0);
@@ -11,7 +12,9 @@ public class TrabajadorBase extends Trabajador{
           this.setPassword(new char[0]);
           this.setPermisosAdministrativos(false);
      }
+     
      public TrabajadorBase (String nombre, String apellido, int ci, int numeroTrabajador, double ganancias, char[] passwordP){
+          
           this.setNombre(nombre);
           this.setApellido(apellido);
           this.setCi(ci);
@@ -20,7 +23,9 @@ public class TrabajadorBase extends Trabajador{
           this.setPassword(passwordP);
           this.setPermisosAdministrativos(false);
      }
+     
      public TrabajadorBase (Trabajador traba){
+          
           this.setNombre(traba.getNombre());
           this.setApellido(traba.getApellido());
           this.setCi(traba.getCi());
@@ -29,8 +34,7 @@ public class TrabajadorBase extends Trabajador{
           this.setPassword(traba.getPassword());
           this.setPermisosAdministrativos(traba.getPermisosAdministrativos());
      }
-     
-     
+          
      public String toString(){
           return "(B)"+super.toString();
      }
