@@ -161,14 +161,15 @@ public class VentanaGestion extends JFrame implements ActionListener{
      
      private HandlerDestinos getPanelDestinos(){
           if(panelDestinos == null){
-               panelDestinos = new HandlerDestinos(sistema);              
+               panelDestinos = new HandlerDestinos(this,sistema);              
           }
           return panelDestinos;
      }
       
      private HandlerAlojamientos getPanelAlojamientos(){
           if(panelAlojamientos == null){
-               panelAlojamientos = new HandlerAlojamientos(sistema);              
+               panelAlojamientos = 
+                    new HandlerAlojamientos(this,sistema);              
           }
           return panelAlojamientos;
      }

@@ -1,330 +1,238 @@
 package interfaz;
 
 import dominio.*;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Observable;
 import java.util.Observer;
+import java.util.Observable;
 
 import javax.swing.DefaultListModel;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JOptionPane;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JDialog;
 import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
-import javax.swing.event.ListSelectionEvent;
+import javax.swing.JButton;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import javax.swing.JMenuBar;
+import javax.swing.JList;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JSlider;
+import javax.swing.JComboBox;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.ListSelectionModel;
+import javax.swing.ImageIcon;
 
-import dominio.Alojamiento;
-import dominio.Destino;
-import dominio.PaqueteTuristico;
+import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.MouseEvent;
 
 public class HandlerAlojamientos extends JPanel implements Observer, ActionListener, ListSelectionListener{
-    
-    private JList listaPaquetes;
-    private JList listaDestinosPaquetes; 
-    private JList alojamientos;
-    private DefaultListModel modeloListaPaquetes;
-    private DefaultListModel modeloListaDestinosPaquetes;
-    private DefaultListModel modeloAlojamientos;
-    private JTextField nombre;
-    private JTextField precio;
-    private JTextField duracion;
-    private JLabel listaPaquetesL;
-    private JLabel listaDestinosPaquetesL;
-    private JLabel nombreL;
-    private JLabel precioL;
-    private JLabel duracionL;
-    private JLabel alojamientosL;
-    private JButton agregar;
-    private JButton eliminar;
-    private JButton modificar;
-    private JButton agregarDestino;
-    private JComboBox comboAlojamiento;
-    private Sistema sistema;
-    
-    public HandlerAlojamientos(Sistema sistemaP) {
-         
-         super();
-         this.setSize(1024,750);
-         this.setLayout(null);
-         this.sistema = sistemaP;
-         
-         modeloListaPaquetes = new DefaultListModel();
-         modeloListaDestinosPaquetes = new DefaultListModel();
-         modeloAlojamientos = new DefaultListModel();
-         cargarModelo(modeloListaPaquetes, sistema.getEmpresa().getListaPaquetes());
-         
-         listaPaquetes = new JList(modeloListaPaquetes);
-         listaPaquetes.setSize(200,400);
-         listaPaquetes.setLocation(75,85);
-         listaPaquetes.addListSelectionListener(this);
-         listaPaquetes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-         this.add(listaPaquetes);
-         
-         
-         listaDestinosPaquetes = new JList(modeloListaDestinosPaquetes);
-         listaDestinosPaquetes.setSize(200,100);
-         listaDestinosPaquetes.setLocation(500,350);
-         listaDestinosPaquetes.addListSelectionListener(this);
-         listaDestinosPaquetes.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-         this.add(listaDestinosPaquetes);
-         
-         alojamientos = new JList(modeloAlojamientos);
-         alojamientos.setSize(200,25);
-         alojamientos.setLocation(500,300);
-         alojamientos.addListSelectionListener(this);
-         alojamientos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-         this.add(alojamientos);
-         
-         
-         nombre = new JTextField();
-         this.add(nombre);
-         nombre.setSize(200,25);
-         nombre.setLocation(500,100);
-         
-         precio = new JTextField();
-         this.add(precio);
-         precio.setSize(200,25);
-         precio.setLocation(500,150);
-         
-         duracion = new JTextField();
-         this.add(duracion);
-         duracion.setSize(200,25);
-         duracion.setLocation(500,200);
-         
-         
-         agregar = new JButton("Agregar");
-         this.add(agregar);
-         agregar.setSize(120,25);
-         agregar.setLocation(300,175);
-         agregar.addActionListener(this);
-         
-         eliminar = new JButton("Eliminar");
-         this.add(eliminar);
-         eliminar.setSize(120,25);
-         eliminar.setLocation(300,275);
-         eliminar.addActionListener(this);
-         
-         modificar = new JButton("Modificar");
-         this.add(modificar);
-         modificar.setSize(120,25);
-         modificar.setLocation(500,455);
-         modificar.addActionListener(this);
-         
-         agregarDestino = new JButton("+");
-         this.add(agregarDestino);
-         agregarDestino.setSize(45,25);
-         agregarDestino.setLocation(720,350);
-         agregarDestino.addActionListener(this); 
-         
-         listaPaquetesL = new JLabel("Lista de Paquetes");
-         this.add(listaPaquetesL);
-         listaPaquetesL.setSize(150,25);
-         listaPaquetesL.setLocation(75,50);
-         
-         listaDestinosPaquetesL = new JLabel("Lista de Destinos");
-         this.add(listaDestinosPaquetesL);
-         listaDestinosPaquetesL.setSize(150,25);
-         listaDestinosPaquetesL.setLocation(500,325);                             
-         
-         nombreL = new JLabel("Nombre");
-         this.add(nombreL);
-         nombreL.setSize(75,25);
-         nombreL.setLocation(500,75);
-         
-         precioL = new JLabel("Precio");
-         this.add(precioL);  
-         precioL.setSize(75,25);
-         precioL.setLocation(500,125);
-         
-         duracionL = new JLabel("Duracion (entre 1 y 100 dias)");
-         this.add(duracionL);
-         duracionL.setSize(200,25);
-         duracionL.setLocation(500,175);
-         
-         ArrayList <Alojamiento> alojamientos = sistema.getEmpresa().getListaAlojamientos();                    
-
-         
-         JComboBox comboAlojamiento = new JComboBox(alojamientos.toArray());
-         this.add(comboAlojamiento);
-         comboAlojamiento.setSize(150, 25);
-         comboAlojamiento.setLocation(720, 300);
-         comboAlojamiento.setSelectedIndex(-1);
-         comboAlojamiento.addActionListener(this);
-         
-         alojamientosL = new JLabel("Alojamiento");
-         this.add(alojamientosL);
-         alojamientosL.setSize(150,25);
-         alojamientosL.setLocation(500,275);
-         
-         sistema.getEmpresa().addObserver(this);
-    }
-    
-    public void actionPerformed(ActionEvent evento) {
-         
-         if((evento.getSource() == agregar) || (evento.getSource() == modificar) ){
-              
-              String nombreP = nombre.getText();
-              
-              if(nombreP.length() > 0){
+          
+          
+          
+          private JLabel textoNombreAlojamiento;
+          private JTextField nombre;
+          private JLabel textoTipoAlojamiento;
+          private ArrayList <Alojamiento.Tipo> tipo;
+          private JComboBox tipoAlojamiento;
+          private JLabel textoPension;
+          private ArrayList <Alojamiento.Pension> tipop;
+          private JComboBox tipoPension;
+          private JLabel textoCantidadEstrellas;
+          private JSlider cantidadEstrellas;
+          private JButton guardar;
+          private JButton eliminar;
+          private JButton modificar;
+          private JButton paquetesTuristicos;
+          private JButton destinos;
+          private JLabel textoAlojamientos;
+          private JList listaAlojamientos;
+          private DefaultListModel modeloListaAlojamientos;
+          private Sistema sistema;
+          
+          public HandlerAlojamientos(Sistema sistemaP) {
+               
+               super();
+               this.setSize(900,750); 
+               this.setLayout(null);
+               this.sistema=sistemaP;
+               modeloListaAlojamientos = new DefaultListModel();
+               cargarModelo(modeloListaAlojamientos, sistema.getEmpresa().getListaAlojamientos());
+               listaAlojamientos = new JList(modeloListaAlojamientos);
+               listaAlojamientos.setSize(300,500);
+               listaAlojamientos.setLocation(500,100);
+               listaAlojamientos.addListSelectionListener(this);
+               listaAlojamientos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+               this.add(listaAlojamientos);
+               
+               
+               textoNombreAlojamiento=new JLabel("Nombre de alojamiento:");
+               textoNombreAlojamiento.setSize(150,25);
+               textoNombreAlojamiento.setLocation(75,50);
+               this.add(textoNombreAlojamiento);
+               
+               nombre= new JTextField();
+               nombre.setSize(200,25);
+               nombre.setLocation(230,50);
+               this.add(nombre);
+               
+               textoTipoAlojamiento=new JLabel("Tipo de alojamiento:");
+               textoTipoAlojamiento.setSize(150,25);
+               textoTipoAlojamiento.setLocation(75,100);
+               this.add(textoTipoAlojamiento);
+               
+               ArrayList <Alojamiento.Tipo> tipo= new ArrayList <Alojamiento.Tipo>();
+               for(Alojamiento.Tipo dato:Alojamiento.Tipo.values()){
+                    tipo.add(dato);
+               }
+               tipoAlojamiento= new JComboBox(tipo.toArray());
+               tipoAlojamiento.setSize(200,25);
+               tipoAlojamiento.setLocation(230,100);
+               this.add(tipoAlojamiento);
+               
+               textoPension=new JLabel("Pension:");
+               textoPension.setSize(150,25);
+               textoPension.setLocation(75,150);
+               this.add(textoPension);
+               
+               tipop= new ArrayList <Alojamiento.Pension>();
+               for(Alojamiento.Pension datop:Alojamiento.Pension.values()){
+                    tipop.add(datop);
+               }
+               tipoPension= new JComboBox(tipop.toArray());
+               tipoPension.setSize(200,25);
+               tipoPension.setLocation(230,150);
+               this.add(tipoPension);
+               
+               textoCantidadEstrellas=new JLabel("Cantidad de Estrellas:");
+               textoCantidadEstrellas.setSize(150,25);
+               textoCantidadEstrellas.setLocation(75,200);
+               this.add(textoCantidadEstrellas);
+               
+               cantidadEstrellas= new JSlider(JSlider.HORIZONTAL, 1, 7, 1);
+               cantidadEstrellas.setMajorTickSpacing(1);
+               cantidadEstrellas.setMinorTickSpacing(1);
+               cantidadEstrellas.setPaintTicks(true);
+               cantidadEstrellas.setPaintLabels(true);
+               cantidadEstrellas.setSize(200,50);
+               cantidadEstrellas.setLocation(230,200);
+               this.add(cantidadEstrellas);
+               
+               guardar=new JButton("Guardar");
+               guardar.setSize(90,25);
+               guardar.setLocation(80,300);
+               guardar.addActionListener(this);
+               this.add(guardar);
+               
+               eliminar=new JButton("Eliminar");
+               eliminar.setSize(90,25);
+               eliminar.setLocation(500,630);
+               eliminar.addActionListener(this);
+               this.add(eliminar);
+               
+               modificar=new JButton("Modificar");
+               modificar.setSize(90,25);
+               modificar.setLocation(600,630);
+               modificar.addActionListener(this);
+               this.add(modificar);
+               
+               textoAlojamientos=new JLabel("Alojamientos");
+               textoAlojamientos.setSize(150,25);
+               textoAlojamientos.setLocation(500,50);
+               this.add(textoAlojamientos);
+               
+               
+               
+               sistema.getEmpresa().addObserver(this);
+          }
+          
+          public void actionPerformed(ActionEvent evento){
+               
+               if((evento.getSource() == guardar) || (evento.getSource() == modificar) ){
                    
-                   try{
-                        int duracionP = Integer.parseInt(this.duracion.getText());
-                        double precioP = Double.parseDouble(this.precio.getText());
-                        Alojamiento alojaP = (Alojamiento)alojamientos.getSelectedValue();
-                        Object[] destinoP = listaDestinosPaquetes.getSelectedValues();
-                        ArrayList<Destino> destinoPP = new ArrayList<Destino>();
-                        for(int i=0; i<destinoP.length; i++){
-                             destinoPP.add((Destino)destinoP[i]);
-                        }
-                        
-                        if(evento.getSource() == agregar){
-                             PaqueteTuristico paq = new PaqueteTuristico(nombreP, destinoPP, duracionP, precioP, alojaP);
-                             sistema.getEmpresa().agregarPaquete(paq);                                  
-                        }
-                        else if(evento.getSource() == modificar){
-                             if (!listaPaquetes.isSelectionEmpty()){
-                                  PaqueteTuristico paquete = (PaqueteTuristico)listaPaquetes.getSelectedValue();
-                                  paquete.setNombre(nombreP);
-                                  paquete.setDestinos(destinoPP);
-                                  paquete.setPrecio(precioP);
-                                  paquete.setDuracion(duracionP);                                       
-                                  paquete.setAlojamiento(alojaP);
-                             }
+                    String nombreA = nombre.getText(); 
+                    Alojamiento.Tipo tipoA= (Alojamiento.Tipo)tipoAlojamiento.getSelectedItem();
+                    int estrellas= cantidadEstrellas.getValue();
+                    Alojamiento.Pension pensionP= (Alojamiento.Pension)tipoPension.getSelectedItem();
+                    if(nombreA.length() > 0){
+                         
+                         if(evento.getSource() == guardar){
+                              Alojamiento aloja = new Alojamiento(nombreA, tipoA, estrellas, pensionP);
+                              if(!sistema.getEmpresa().agregarAlojamiento(aloja)){
+                                   JOptionPane.showMessageDialog(null, "ERROR: Ese Alojamiento ya existe" , "Alojamiento existente", JOptionPane.ERROR_MESSAGE);
+                              }            
+                         }
+                         else if(evento.getSource() == modificar){
+                              if (!listaAlojamientos.isSelectionEmpty()){
+                                   Alojamiento aloja = (Alojamiento)listaAlojamientos.getSelectedValue();
+                                   aloja.setNombre(nombreA);
+                                   aloja.setTipo(tipoA);
+                                   aloja.setEstrellas(estrellas);
+                                   aloja.setPension(pensionP);
+                              }
                              else{
-                                  JOptionPane.showMessageDialog(null, "No hay paquete seleccionado" , "Atención", JOptionPane.INFORMATION_MESSAGE);
+                                  JOptionPane.showMessageDialog(null, "No hay Alojamiento seleccionado" , "AtenciÃ³n", JOptionPane.INFORMATION_MESSAGE);
                              }
-                        }
-                   }
-                   catch(NumberFormatException e){
-                        JOptionPane.showMessageDialog(null, "ERROR: Ingrese un numero válido en los campos precio y duracion" , "ERROR", JOptionPane.ERROR_MESSAGE);
-                        
-                        this.precio.setText("");
-                        this.duracion.setText("");
-                        
-                   }
-              }else{
-                   JOptionPane.showMessageDialog(null, "ERROR: Falta el dato nombre" , "ERROR", JOptionPane.ERROR_MESSAGE);
-              }
-         }
-         else if(evento.getSource() == eliminar){
-              if (!listaPaquetes.isSelectionEmpty()){
-                   int respuesta = JOptionPane.showConfirmDialog(null, " ¿Eliminar este paquete?", "Confirmación", JOptionPane.WARNING_MESSAGE);
-                   if (respuesta == JOptionPane.YES_OPTION){
-                        PaqueteTuristico paquete = (PaqueteTuristico)listaPaquetes.getSelectedValue();
-                        sistema.getEmpresa().eliminarPaquete(paquete);
-                   }
-              }else{
-                   JOptionPane.showMessageDialog(null, "No hay paquete seleccionado" , "Atención", JOptionPane.INFORMATION_MESSAGE);
-              }
-         }
-         else if(evento.getSource() == agregarDestino){
- 
- final JDialog seleccion=new JDialog();
- seleccion.setTitle("Agregar");
- seleccion.setSize(450,500);
- seleccion.setVisible(true);
-        
- JPanel destinos=new JPanel();
- destinos.setSize(450,500);
- destinos.setLayout(null);
- seleccion.setContentPane(destinos);
- 
- 
- DefaultListModel modeloDestinos=new DefaultListModel();
- cargarModelo(modeloDestinos, sistema.getEmpresa().getListaDestinos());
- 
- final JList listaDestinos = new JList(modeloDestinos);
- listaDestinos.setSize(200,300);
- listaDestinos.setLocation(100,75);
- destinos.add(listaDestinos);
- listaDestinos.addListSelectionListener(this);
- listaDestinos.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-        
- JLabel textoDestinos = new JLabel("Lista de Destinos");
- destinos.add(textoDestinos);
- textoDestinos.setSize(100,25);
- textoDestinos.setLocation(100,25);
- 
- JButton aceptar=new JButton("Aceptar");
- aceptar.setSize(100,25);
- aceptar.setLocation(100,405);
- destinos.add(aceptar);
- aceptar.addActionListener(new java.awt.event.ActionListener(){
-      public void actionPerformed (ActionEvent evento){
-           if (!listaDestinos.isSelectionEmpty()){
-               Destino des = (Destino)listaDestinos.getSelectedValue();
-               PaqueteTuristico paq = (PaqueteTuristico)listaPaquetes.getSelectedValue();
-               paq.agregarDestino(des);
-           }
-           else{
-                JOptionPane.showMessageDialog(null, "No hay destino seleccionado" , "Atencion", JOptionPane.INFORMATION_MESSAGE);
-           }
-           
-           
-      }
- });
- 
- JButton cancelar=new JButton("Cancelar");
- cancelar.setSize(100,25);
- cancelar.setLocation(230,405);
- destinos.add(cancelar);
- cancelar.addActionListener(new java.awt.event.ActionListener(){
-      public void actionPerformed (ActionEvent evento){
-           seleccion.dispose();
-           
-      }
- });
-
-              
-              
-         }
-        
-
-         
-         
-    }
-    
-    
-    
-    
-    public void valueChanged(ListSelectionEvent evento) {
-         if (!listaPaquetes.isSelectionEmpty()){
-              PaqueteTuristico paquete = (PaqueteTuristico)listaPaquetes.getSelectedValue();
-              nombre.setText(paquete.getNombre());
-              precio.setText(""+paquete.getPrecio());
-              duracion.setText(""+paquete.getDuracion());
-              cargarModelo(modeloListaDestinosPaquetes, paquete.getDestinos());
-              ArrayList<Alojamiento> alojas = new ArrayList<Alojamiento>();
-              alojas.add(paquete.getAlojamiento());
-              cargarModelo(modeloAlojamientos, alojas);
-         }
-    }
-    
-    
-    
-    private <E> void cargarModelo (DefaultListModel modelo, ArrayList<E> datos){
-         
-         modelo.clear();
-         for(E objeto:datos){
-              if (objeto != null){
-                   modelo.addElement(objeto);
-              }
-         }    
-    }
-    
-    
-    
-    public void update(Observable o, Object ar){
-         cargarModelo(modeloListaPaquetes, sistema.getEmpresa().getListaPaquetes());
-         listaPaquetes.setSelectedIndex(-1);
-         listaPaquetes.setModel(modeloListaPaquetes);
-    }
-}
+                         }
+                    }
+               else{
+                    JOptionPane.showMessageDialog(null, "ERROR: Falta el Nombre del Alojamiento" , "ERROR", JOptionPane.ERROR_MESSAGE);
+               }
+               }
+               
+               if(evento.getSource() == eliminar){
+                    if (!listaAlojamientos.isSelectionEmpty()){
+                         int respuesta = JOptionPane.showConfirmDialog(null, " ¿Eliminar este Alojamiento?", "Confirmacion", JOptionPane.WARNING_MESSAGE);
+                         if (respuesta == JOptionPane.YES_OPTION){
+                              Alojamiento aloja = (Alojamiento)listaAlojamientos.getSelectedValue();
+                              sistema.getEmpresa().eliminarAlojamiento(aloja);
+                         }
+                    }else{
+                         JOptionPane.showMessageDialog(null, "No hay Alojamiento seleccionado" , "Atencion", JOptionPane.INFORMATION_MESSAGE);
+                    }
+               }
+               
+               
+          }
+          
+          
+          
+          public void valueChanged(ListSelectionEvent evento) {
+               if (!listaAlojamientos.isSelectionEmpty()){
+                    Alojamiento aloja = (Alojamiento)listaAlojamientos.getSelectedValue();
+                    nombre.setText(aloja.getNombre());
+                    tipoAlojamiento.setSelectedItem(aloja.getTipo());
+                    cantidadEstrellas.setValue(aloja.getEstrellas());
+                    tipoPension.setSelectedItem(aloja.getPension());
+               }
+               
+          }
+          private <E> void cargarLista(DefaultListModel modelo, ArrayList <E> datos){
+               
+               for (int i=0;i<modelo.size();i++){
+                    datos.add((E)modelo.get(i));
+                    
+               }
+          }
+          private <E> void cargarModelo (DefaultListModel modelo, ArrayList<E> datos){
+               
+               modelo.clear();
+               for(E objeto:datos){
+                    if (objeto != null){
+                         modelo.addElement(objeto);
+                    }
+               }     
+          }
+          
+          
+          public void update(Observable o, Object ar){
+               cargarModelo(modeloListaAlojamientos, sistema.getEmpresa().getListaAlojamientos());
+               listaAlojamientos.setSelectedIndex(-1);
+               listaAlojamientos.setModel(modeloListaAlojamientos);
+          }
+     }

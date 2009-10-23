@@ -185,6 +185,14 @@ public class HandlerPaquetesTuristicos extends JPanel implements Observer, Actio
     
     public void actionPerformed(ActionEvent evento) {
          
+         if(evento.getSource() == irDestinos){
+              vg.setContentPane(new HandlerDestinos(vg,sistema));
+         }
+         
+         if(evento.getSource() == irAlojamientos){
+              vg.setContentPane(new HandlerAlojamientos(vg,sistema));
+         }
+         
          if((evento.getSource() == agregar) || (evento.getSource() == modificar) ){
               
               String nombreP = nombre.getText();

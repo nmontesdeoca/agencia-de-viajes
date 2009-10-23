@@ -3,7 +3,7 @@ package dominio;
 public class Destino{
      
      
-     enum Tipo{CIUDAD, PUEBLO, VILLA, BALNEARIO, NATURALEZA};
+     public enum Tipo{CIUDAD, PUEBLO, VILLA, BALNEARIO, NATURALEZA};
      private String nombre;
      private String localidad;
      private String pais;
