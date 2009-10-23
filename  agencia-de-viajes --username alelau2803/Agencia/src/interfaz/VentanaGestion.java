@@ -37,7 +37,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
      private HandlerClientes panelClientes = null;
      private HandlerTrabajadores panelTrabajadores = null;
      private HandlerAlojamientos panelAlojamientos = null;
-     //private HandlerDestinos panelDestinos = null;
+     private HandlerDestinos panelDestinos = null;
      private HandlerPaquetesTuristicos panelPaquetesTuristicos = null;
      private JMenu menuArchivo = null;
      private JMenu menuOpciones = null;
@@ -154,19 +154,19 @@ public class VentanaGestion extends JFrame implements ActionListener{
      
      private HandlerAlojamientos getPanelAlojamientos(){
           if(panelAlojamientos == null){
-               panelAlojamientos = new HandlerAlojamientos(sistema);
+               panelAlojamientos = new HandlerAlojamientos(this, sistema);
 
           }
           return panelAlojamientos;
      }
      
-     /* private HandlerDestinos getPanelDestinos(){
+     private HandlerDestinos getPanelDestinos(){
           if(panelDestinos == null){
-               panelDestinos = new HandlerDestinos(sistema);
+               panelDestinos = new HandlerDestinos(this, sistema);
 
           }
           return panelDestinos;
-     }*/
+     }
      
       private HandlerPaquetesTuristicos getPanelPaquetesTuristicos(){
           if(panelPaquetesTuristicos == null){
@@ -284,9 +284,9 @@ public class VentanaGestion extends JFrame implements ActionListener{
           if(j.getText().equals("Alojamientos")){
                this.setContentPane(getPanelAlojamientos());
           }
-          /*if(j.getText().equals("Destinos")){
+          if(j.getText().equals("Destinos")){
                this.setContentPane(getPanelDestinos());
-          }*/
+          }
           if(j.getText().equals("Paquetes Turisticos")){
                this.setContentPane(getPanelPaquetesTuristicos());
           }

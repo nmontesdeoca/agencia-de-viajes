@@ -48,17 +48,20 @@ public class HandlerAlojamientos extends JPanel implements Observer, ActionListe
           private JButton guardar;
           private JButton eliminar;
           private JButton modificar;
-          private JButton paquetesTuristicos;
+          private JButton paquetes;
           private JButton destinos;
+          private JButton paquetesTuristicos;
+          private JButton irDestinos;
           private JLabel textoAlojamientos;
           private JList listaAlojamientos;
           private DefaultListModel modeloListaAlojamientos;
           private Sistema sistema;
+          private VentanaGestion vg;
           
-          public HandlerAlojamientos(Sistema sistemaP) {
+          public HandlerAlojamientos(VentanaGestion vg, Sistema sistemaP) {
                
                super();
-               this.setSize(900,750); 
+               this.setSize(1024,750); 
                this.setLayout(null);
                this.sistema=sistemaP;
                modeloListaAlojamientos = new DefaultListModel();
@@ -80,6 +83,18 @@ public class HandlerAlojamientos extends JPanel implements Observer, ActionListe
                nombre.setSize(200,25);
                nombre.setLocation(230,50);
                this.add(nombre);
+               
+               paquetes= new JButton("Ir a Paquetes");
+               this.add(paquetes);
+               paquetes.setSize(130,25);
+               paquetes.setLocation(750, 25);
+               paquetes.addActionListener(this);
+          
+               irDestinos= new JButton("Ir a Destinos");
+               this.add(irDestinos);
+               irDestinos.setSize(130,25);
+               irDestinos.setLocation(885, 25);
+               irDestinos.addActionListener(this);
                
                textoTipoAlojamiento=new JLabel("Tipo de alojamiento:");
                textoTipoAlojamiento.setSize(150,25);
@@ -179,6 +194,17 @@ public class HandlerAlojamientos extends JPanel implements Observer, ActionListe
                                   JOptionPane.showMessageDialog(null, "No hay Alojamiento seleccionado" , "Atención", JOptionPane.INFORMATION_MESSAGE);
                              }
                          }
+                         else if(evento.getSource() == paquetes){
+               
+               vg.setContentPane(new HandlerPaquetesTuristicos(vg,sistema));
+          }
+          
+          else if(evento.getSource() == irDestinos){
+               
+               vg.setContentPane(new HandlerDestinos(vg,sistema));
+          }
+          
+          //System.out.println(evento);
                     }
                else{
                     JOptionPane.showMessageDialog(null, "ERROR: Falta el Nombre del Alojamiento" , "ERROR", JOptionPane.ERROR_MESSAGE);
