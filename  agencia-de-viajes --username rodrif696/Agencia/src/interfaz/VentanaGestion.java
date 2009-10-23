@@ -284,9 +284,9 @@ public class VentanaGestion extends JFrame implements ActionListener{
           if(j.getText().equals("Alojamientos")){
                this.setContentPane(getPanelAlojamientos());
           }
-          /*if(j.getText().equals("Destinos")){
+          if(j.getText().equals("Destinos")){
                this.setContentPane(getPanelDestinos());
-          }*/
+          }
           if(j.getText().equals("Paquetes Turisticos")){
                this.setContentPane(getPanelPaquetesTuristicos());
           }

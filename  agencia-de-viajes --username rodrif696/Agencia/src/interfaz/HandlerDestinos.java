@@ -52,13 +52,13 @@ public class HandlerDestinos extends JPanel implements Observer, ActionListener,
      private DefaultListModel modeloListaDestinos;
      private Destino dummy;
      
-     public HandlerDestinos (VentanaGestion vg, Sistema sistemaP) {
+     public HandlerDestinos (VentanaGestion vn, Sistema sistemaP) {
           
           super();
           this.setSize(1024, 750);
           this.setLayout(null);
           this.sistema= sistemaP;
-          
+          this.vg= vn;
           dummy = new Destino();
           
           modeloListaDestinos = new DefaultListModel();              
@@ -219,12 +219,12 @@ public class HandlerDestinos extends JPanel implements Observer, ActionListener,
           
           else if(evento.getSource() == paquetes){
                
-               //vg.setContentPane(getPanelPaquetesTuristicos());
+               vg.setContentPane(new HandlerPaquetesTuristicos(vg, sistema));
           }
           
           else if(evento.getSource() == alojamientos){
                
-               //vg.setContentPane(getPanelAlojamientos());
+                //vg.setContentPane(new HandlerAlojamientos(sistema));
           }
           
           //System.out.println(evento);

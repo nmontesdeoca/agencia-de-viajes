@@ -26,9 +26,9 @@ import dominio.Destino;
 import dominio.PaqueteTuristico;
 
 public class HandlerPaquetesTuristicos extends JPanel implements Observer, ActionListener, ListSelectionListener{
-    
+   
     private JList listaPaquetes;
-    private JList listaDestinosPaquetes; 
+    private JList listaDestinosPaquetes;
     private JList alojamientos;
     private DefaultListModel modeloListaPaquetes;
     private DefaultListModel modeloListaDestinosPaquetes;
@@ -51,14 +51,14 @@ public class HandlerPaquetesTuristicos extends JPanel implements Observer, Actio
     private JComboBox comboAlojamiento;
     private Sistema sistema;
     private VentanaGestion vg;
-    
+   
     public HandlerPaquetesTuristicos(VentanaGestion vn, Sistema sistemaP) {
          
          super();
          this.setSize(1024,750);
          this.setLayout(null);
          this.sistema = sistemaP;
-         this.vg = vn; 
+         this.vg = vn;
          
          modeloListaPaquetes = new DefaultListModel();
          modeloListaDestinosPaquetes = new DefaultListModel();
@@ -126,7 +126,7 @@ public class HandlerPaquetesTuristicos extends JPanel implements Observer, Actio
          this.add(agregarDestino);
          agregarDestino.setSize(45,25);
          agregarDestino.setLocation(720,350);
-         agregarDestino.addActionListener(this); 
+         agregarDestino.addActionListener(this);
          
          irDestinos = new JButton("Ir a Destinos");
          this.add(irDestinos);
@@ -148,7 +148,7 @@ public class HandlerPaquetesTuristicos extends JPanel implements Observer, Actio
          listaDestinosPaquetesL = new JLabel("Lista de Destinos");
          this.add(listaDestinosPaquetesL);
          listaDestinosPaquetesL.setSize(150,25);
-         listaDestinosPaquetesL.setLocation(500,325);                             
+         listaDestinosPaquetesL.setLocation(500,325);                            
          
          nombreL = new JLabel("Nombre");
          this.add(nombreL);
@@ -182,13 +182,21 @@ public class HandlerPaquetesTuristicos extends JPanel implements Observer, Actio
          
          sistema.getEmpresa().addObserver(this);
     }
-    
+   
     public void actionPerformed(ActionEvent evento) {
          
+         if(evento.getSource() == irDestinos){
+              vg.setContentPane(new HandlerDestinos(vg,sistema));
+         }
+         
+         if(evento.getSource() == irAlojamientos){
+              vg.setContentPane(new HandlerAlojamientos(vg,sistema));
+         }
+         
          if((evento.getSource() == agregar) || (evento.getSource() == modificar) ){
-              
+             
               String nombreP = nombre.getText();
-              
+             
               if(nombreP.length() > 0){
                    
                    try{
@@ -200,7 +208,7 @@ public class HandlerPaquetesTuristicos extends JPanel implements Observer, Actio
                         for(int i=0; i<destinoP.length; i++){
                              destinoPP.add((Destino)destinoP[i]);
                         }
-                        
+                       
                         if(evento.getSource() == agregar){
                              PaqueteTuristico paq = new PaqueteTuristico(nombreP, destinoPP, duracionP, precioP, alojaP);
                              sistema.getEmpresa().agregarPaquete(paq);                                  
@@ -211,7 +219,7 @@ public class HandlerPaquetesTuristicos extends JPanel implements Observer, Actio
                                   paquete.setNombre(nombreP);
                                   paquete.setDestinos(destinoPP);
                                   paquete.setPrecio(precioP);
-                                  paquete.setDuracion(duracionP);                                       
+                                  paquete.setDuracion(duracionP);                                      
                                   paquete.setAlojamiento(alojaP);
                              }
                              else{
@@ -221,10 +229,10 @@ public class HandlerPaquetesTuristicos extends JPanel implements Observer, Actio
                    }
                    catch(NumberFormatException e){
                         JOptionPane.showMessageDialog(null, "ERROR: Ingrese un numero válido en los campos precio y duracion" , "ERROR", JOptionPane.ERROR_MESSAGE);
-                        
+                       
                         this.precio.setText("");
                         this.duracion.setText("");
-                        
+                       
                    }
               }else{
                    JOptionPane.showMessageDialog(null, "ERROR: Falta el dato nombre" , "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -247,7 +255,7 @@ public class HandlerPaquetesTuristicos extends JPanel implements Observer, Actio
  seleccion.setTitle("Agregar");
  seleccion.setSize(450,500);
  seleccion.setVisible(true);
-        
+       
  JPanel destinos=new JPanel();
  destinos.setSize(450,500);
  destinos.setLayout(null);
@@ -263,7 +271,7 @@ public class HandlerPaquetesTuristicos extends JPanel implements Observer, Actio
  destinos.add(listaDestinos);
  listaDestinos.addListSelectionListener(this);
  listaDestinos.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-        
+       
  JLabel textoDestinos = new JLabel("Lista de Destinos");
  destinos.add(textoDestinos);
  textoDestinos.setSize(100,25);
@@ -299,18 +307,19 @@ public class HandlerPaquetesTuristicos extends JPanel implements Observer, Actio
       }
  });
 
-              
-              
+
+             
+             
          }
-        
+       
 
          
          
     }
-    
-    
-    
-    
+   
+   
+   
+   
     public void valueChanged(ListSelectionEvent evento) {
          if (!listaPaquetes.isSelectionEmpty()){
               PaqueteTuristico paquete = (PaqueteTuristico)listaPaquetes.getSelectedValue();
@@ -323,9 +332,9 @@ public class HandlerPaquetesTuristicos extends JPanel implements Observer, Actio
               cargarModelo(modeloAlojamientos, alojas);
          }
     }
-    
-    
-    
+   
+   
+   
     private <E> void cargarModelo (DefaultListModel modelo, ArrayList<E> datos){
          
          modelo.clear();
@@ -335,9 +344,9 @@ public class HandlerPaquetesTuristicos extends JPanel implements Observer, Actio
               }
          }    
     }
-    
-    
-    
+   
+   
+   
     public void update(Observable o, Object ar){
          cargarModelo(modeloListaPaquetes, sistema.getEmpresa().getListaPaquetes());
          listaPaquetes.setSelectedIndex(-1);
