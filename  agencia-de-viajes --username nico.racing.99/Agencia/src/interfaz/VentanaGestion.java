@@ -62,17 +62,16 @@ public class VentanaGestion extends JFrame implements ActionListener{
                     if (respuesta == JOptionPane.YES_OPTION){
                          System.exit(0);
                     }
-               }
-               
+               }            
           });
      }
      
      private JPanel getPanelInicio(){
+          
           if(panelInicio == null){
                panelInicio = new JPanel();
                panelInicio.setSize(1024,750);
-               panelInicio.setLayout(null);
-               
+               panelInicio.setLayout(null);               
                
                ImageIcon iconViajes = new ImageIcon(getClass().getResource("imagenes/icono_travel.png"));
                ImageIcon iconTrabajador = new ImageIcon(getClass().getResource("imagenes/icono_trabajador.png"));
@@ -92,14 +91,12 @@ public class VentanaGestion extends JFrame implements ActionListener{
                     public void mouseClicked(MouseEvent evento){
                          vn.setContentPane(vn.getPanelClientes());
                     }
-               }                                            
-                                               
+               }                                                                                          
                );
                
                JLabel gestionTrabajador = new JLabel("Gestion Trabajador", iconTrabajador, JLabel.CENTER);          
                gestionTrabajador.setVerticalTextPosition(JLabel.BOTTOM);
-               gestionTrabajador.setHorizontalTextPosition(JLabel.CENTER);
-               
+               gestionTrabajador.setHorizontalTextPosition(JLabel.CENTER);               
                
                panelInicio.add(gestionTrabajador);
                gestionTrabajador.setSize(120,120);
@@ -109,14 +106,12 @@ public class VentanaGestion extends JFrame implements ActionListener{
                     public void mouseClicked(MouseEvent evento){
                          vn.setContentPane(vn.getPanelTrabajadores());
                     }
-               }                                            
-                                                  
+               }                                                                                              
                );
                
                JLabel gestionViajes = new JLabel("Gestion Viajes", iconViajes, JLabel.CENTER);
                gestionViajes.setVerticalTextPosition(JLabel.BOTTOM);
-               gestionViajes.setHorizontalTextPosition(JLabel.CENTER);
-               
+               gestionViajes.setHorizontalTextPosition(JLabel.CENTER);               
                
                panelInicio.add(gestionViajes);
                gestionViajes.setSize(120,120);
@@ -127,10 +122,8 @@ public class VentanaGestion extends JFrame implements ActionListener{
                     public void mouseClicked(MouseEvent evento){
                          vn.setContentPane(vn.getPanelViajes());
                     }
-               }                                            
-                                              
-               );
-               
+               }                                                                                        
+               );              
           }
           return panelInicio;
      }
@@ -226,8 +219,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
           }
           return this.barra;
      }
-     
-     
+         
      public void actionPerformed(ActionEvent e){
           
           JMenuItem j = (JMenuItem)e.getSource();
