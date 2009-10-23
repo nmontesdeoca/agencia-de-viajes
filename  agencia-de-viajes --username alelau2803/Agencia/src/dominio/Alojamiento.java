@@ -3,7 +3,7 @@ package dominio;
 public class Alojamiento{
      
      public enum Pension{MEDIA_PENSION, PENSION_COMPLETA};
-     public enum Tipo{CABANA, HOTEL, CASA, CRUCERO, CAMPING};
+     public enum Tipo{CABAÑA, HOTEL, CASA, CRUCERO, CAMPING};
      private String nombre;
      private Tipo tipo;
      private int estrellas;
@@ -88,7 +88,7 @@ public class Alojamiento{
      
      public String toString(){
           
-          return "Alojamiento: " + this.nombre + "\nTipo: " + this.tipo;
+          return "Nombre: " + this.nombre + this.tipo + this.estrellas + "estrellas " + this.pension;
           
      }
      
