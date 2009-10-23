@@ -33,17 +33,18 @@ import java.awt.event.MouseEvent;
 
 public class VentanaGestion extends JFrame implements ActionListener{
      
-     //private JPanel panelInicio = null;
+     private JPanel panelInicio = null;
      private HandlerClientes panelClientes = null;
-     private JPanel panelTrabajadores = null;
-     private JPanel panelDestinos = null;
-     private JPanel panelPaquetesTuristicos = null;
-     private JPanel panelAlojamientos = null;
+     private HandlerTrabajadores panelTrabajadores = null;
+     private HandlerPaquetesTuristicos panelPaquetesTuristicos = null;
+     private HandlerDestinos panelDestinos = null;
+     private HandlerAlojamientos panelAlojamientos = null;
      private JMenu menuArchivo = null;
      private JMenu menuOpciones = null;
      private JMenu menuAyuda = null;
      private JMenuBar barra = null;
-     private JMenu subMenuGestion = null;
+     private JMenu subMenuGestion = null;     
+     private JMenu subMenuViajes = null;
      private Sistema sistema = null;
      
      
@@ -52,7 +53,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
           super();
           this.setTitle("Gestion");
           this.setSize(1024,750);
-          //this.setContentPane(getPanelInicio());
+          this.setContentPane(getPanelInicio());
           this.setResizable(false);
           this.setJMenuBar(getMenuBarra());
           this.sistema = sistemaP;
@@ -64,16 +65,17 @@ public class VentanaGestion extends JFrame implements ActionListener{
                     if (respuesta == JOptionPane.YES_OPTION){
                          System.exit(0);
                     }
-               }            
+               }
+               
           });
      }
      
-     /*private JPanel getPanelInicio(){
-          
+     private JPanel getPanelInicio(){
           if(panelInicio == null){
                panelInicio = new JPanel();
                panelInicio.setSize(1024,750);
-               panelInicio.setLayout(null);               
+               panelInicio.setLayout(null);
+               
                
                ImageIcon iconViajes = new ImageIcon(getClass().getResource("imagenes/icono_travel.png"));
                ImageIcon iconTrabajador = new ImageIcon(getClass().getResource("imagenes/icono_trabajador.png"));
@@ -93,12 +95,14 @@ public class VentanaGestion extends JFrame implements ActionListener{
                     public void mouseClicked(MouseEvent evento){
                          vn.setContentPane(vn.getPanelClientes());
                     }
-               }                                                                                          
+               }                                            
+                                               
                );
                
                JLabel gestionTrabajador = new JLabel("Gestion Trabajador", iconTrabajador, JLabel.CENTER);          
                gestionTrabajador.setVerticalTextPosition(JLabel.BOTTOM);
-               gestionTrabajador.setHorizontalTextPosition(JLabel.CENTER);               
+               gestionTrabajador.setHorizontalTextPosition(JLabel.CENTER);
+               
                
                panelInicio.add(gestionTrabajador);
                gestionTrabajador.setSize(120,120);
@@ -108,12 +112,14 @@ public class VentanaGestion extends JFrame implements ActionListener{
                     public void mouseClicked(MouseEvent evento){
                          vn.setContentPane(vn.getPanelTrabajadores());
                     }
-               }                                                                                              
+               }                                            
+                                                  
                );
                
-               JLabel gestionViajes = new JLabel("Gestion Viajes", iconViajes, JLabel.CENTER);
+              /* JLabel gestionViajes = new JLabel("Gestion Viajes", iconViajes, JLabel.CENTER);
                gestionViajes.setVerticalTextPosition(JLabel.BOTTOM);
-               gestionViajes.setHorizontalTextPosition(JLabel.CENTER);               
+               gestionViajes.setHorizontalTextPosition(JLabel.CENTER);
+               
                
                panelInicio.add(gestionViajes);
                gestionViajes.setSize(120,120);
@@ -124,11 +130,13 @@ public class VentanaGestion extends JFrame implements ActionListener{
                     public void mouseClicked(MouseEvent evento){
                          vn.setContentPane(vn.getPanelViajes());
                     }
-               }                                                                                        
-               );              
+               }                                            
+                                              
+               );*/
+               
           }
           return panelInicio;
-     }*/
+     }
      
      private HandlerClientes getPanelClientes(){
           if(panelClientes == null){
@@ -137,30 +145,30 @@ public class VentanaGestion extends JFrame implements ActionListener{
           return panelClientes;
      }
      
-     private JPanel getPanelTrabajadores(){
+     private HandlerTrabajadores getPanelTrabajadores(){
           if(panelTrabajadores == null){
                panelTrabajadores = new HandlerTrabajadores(sistema);    
           }
           return panelTrabajadores;
      }
      
-     private JPanel getPanelDestinos(){
-          if(panelDestinos == null){
-               panelDestinos = new HandlerDestinos(this, sistema);              
-          }
-          return panelDestinos;
-     }
-     
-     private JPanel getPanelPaquetesTuristicos(){
+     private HandlerPaquetesTuristicos getPanelPaquetesTuristicos(){
           if(panelPaquetesTuristicos == null){
-               panelPaquetesTuristicos = new HandlerPaquetesTuristicos(this, sistema);              
+               panelPaquetesTuristicos = new HandlerPaquetesTuristicos(this,sistema);              
           }
           return panelPaquetesTuristicos;
      }
      
-      private JPanel getPanelAlojamientos(){
+     private HandlerDestinos getPanelDestinos(){
+          if(panelDestinos == null){
+               panelDestinos = new HandlerDestinos(sistema);              
+          }
+          return panelDestinos;
+     }
+      
+     private HandlerAlojamientos getPanelAlojamientos(){
           if(panelAlojamientos == null){
-               panelAlojamientos = new HandlerAlojamientos(this, sistema);              
+               panelAlojamientos = new HandlerAlojamientos(sistema);              
           }
           return panelAlojamientos;
      }
@@ -211,18 +219,39 @@ public class VentanaGestion extends JFrame implements ActionListener{
           return this.subMenuGestion;
      }
      
+     private JMenu getSubMenuViajes(){
+          if(this.subMenuViajes == null){
+               subMenuViajes = new JMenu("Viajes");
+               poblarSubMenuViajes(subMenuViajes);
+          }
+          return this.subMenuViajes;
+     }
+     
      private void poblarSubMenuGestion(JMenu subMenu){
           JMenuItem clientes = new JMenuItem("Clientes");
           JMenuItem trabajadores = new JMenuItem("Trabajadores");
-          JMenuItem viajes = new JMenuItem("Viajes");
           
           subMenu.add(clientes);
           subMenu.add(trabajadores);
-          subMenu.add(viajes);
+          subMenu.add(getSubMenuViajes());
           
           clientes.addActionListener(this);
           trabajadores.addActionListener(this);
-          viajes.addActionListener(this);
+          
+     }
+     
+     private void poblarSubMenuViajes(JMenu subMenu){
+          JMenuItem paquetesTuristicos = new JMenuItem("Paquetes Turisticos");
+          JMenuItem alojamientos = new JMenuItem("Alojamientos");
+          JMenuItem destinos = new JMenuItem("Destinos");
+          
+          subMenu.add(paquetesTuristicos);
+          subMenu.add(alojamientos);
+          subMenu.add(destinos);
+          
+          paquetesTuristicos.addActionListener(this);
+          alojamientos.addActionListener(this);
+          destinos.addActionListener(this);
           
      }
      
@@ -235,18 +264,25 @@ public class VentanaGestion extends JFrame implements ActionListener{
           }
           return this.barra;
      }
-         
+     
+     
      public void actionPerformed(ActionEvent e){
           
           JMenuItem j = (JMenuItem)e.getSource();
           if(j.getText().equals("Clientes")){
-               this.setContentPane(getPanelClientes());
+               this.setContentPane(getPanelClientes());               
           }
           if(j.getText().equals("Trabajadores")){
                this.setContentPane(getPanelTrabajadores());
           }
-          if(j.getText().equals("Viajes")){
+          if(j.getText().equals("Paquetes Turisticos")){
+               this.setContentPane(getPanelPaquetesTuristicos());
+          }
+          if(j.getText().equals("Destinos")){
                this.setContentPane(getPanelDestinos());
+          }
+          if(j.getText().equals("Alojamientos")){
+               this.setContentPane(getPanelAlojamientos());
           }
      }    
 }
