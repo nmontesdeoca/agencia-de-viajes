@@ -32,9 +32,7 @@ import java.awt.event.WindowEvent;
 import java.awt.event.MouseEvent;
 
 public class HandlerAlojamientos extends JPanel implements Observer, ActionListener, ListSelectionListener{
-          
-          
-          
+                    
           private JLabel textoNombreAlojamiento;
           private JTextField nombre;
           private JLabel textoTipoAlojamiento;
