@@ -33,17 +33,17 @@ import java.awt.event.MouseEvent;
 
 public class VentanaGestion extends JFrame implements ActionListener{
      
-     //private JPanel panelInicio = null;
+     private JPanel panelInicio = null;
      private HandlerClientes panelClientes = null;
      private HandlerTrabajadores panelTrabajadores = null;
-     private HandlerAlojamientos panelAlojamientos = null;
-     private HandlerDestinos panelDestinos = null;
      private HandlerPaquetesTuristicos panelPaquetesTuristicos = null;
+     private HandlerDestinos panelDestinos = null;
+     private HandlerAlojamientos panelAlojamientos = null;
      private JMenu menuArchivo = null;
      private JMenu menuOpciones = null;
      private JMenu menuAyuda = null;
      private JMenuBar barra = null;
-     private JMenu subMenuGestion = null;
+     private JMenu subMenuGestion = null;     
      private JMenu subMenuViajes = null;
      private Sistema sistema = null;
      
@@ -53,7 +53,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
           super();
           this.setTitle("Gestion");
           this.setSize(1024,750);
-          //this.setContentPane(getPanelInicio());
+          this.setContentPane(getPanelInicio());
           this.setResizable(false);
           this.setJMenuBar(getMenuBarra());
           this.sistema = sistemaP;
@@ -70,7 +70,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
           });
      }
      
-    /* private JPanel getPanelInicio(){
+     private JPanel getPanelInicio(){
           if(panelInicio == null){
                panelInicio = new JPanel();
                panelInicio.setSize(1024,750);
@@ -116,7 +116,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
                                                   
                );
                
-               JLabel gestionViajes = new JLabel("Gestion Viajes", iconViajes, JLabel.CENTER);
+              /* JLabel gestionViajes = new JLabel("Gestion Viajes", iconViajes, JLabel.CENTER);
                gestionViajes.setVerticalTextPosition(JLabel.BOTTOM);
                gestionViajes.setHorizontalTextPosition(JLabel.CENTER);
                
@@ -132,11 +132,11 @@ public class VentanaGestion extends JFrame implements ActionListener{
                     }
                }                                            
                                               
-               );
+               );*/
                
           }
           return panelInicio;
-     }*/
+     }
      
      private HandlerClientes getPanelClientes(){
           if(panelClientes == null){
@@ -152,30 +152,28 @@ public class VentanaGestion extends JFrame implements ActionListener{
           return panelTrabajadores;
      }
      
-     private HandlerAlojamientos getPanelAlojamientos(){
-          if(panelAlojamientos == null){
-               panelAlojamientos = new HandlerAlojamientos(sistema);
-
+     private HandlerPaquetesTuristicos getPanelPaquetesTuristicos(){
+          if(panelPaquetesTuristicos == null){
+               panelPaquetesTuristicos = new HandlerPaquetesTuristicos(this,sistema);              
           }
-          return panelAlojamientos;
+          return panelPaquetesTuristicos;
      }
      
      private HandlerDestinos getPanelDestinos(){
           if(panelDestinos == null){
-               panelDestinos = new HandlerDestinos(this, sistema);
-
+               panelDestinos = new HandlerDestinos(this,sistema);              
           }
           return panelDestinos;
      }
-     
-      private HandlerPaquetesTuristicos getPanelPaquetesTuristicos(){
-          if(panelPaquetesTuristicos == null){
-               panelPaquetesTuristicos = new HandlerPaquetesTuristicos(this, sistema);
-
-          }
-          return panelPaquetesTuristicos;
-     } 
       
+     private HandlerAlojamientos getPanelAlojamientos(){
+          if(panelAlojamientos == null){
+               panelAlojamientos = 
+                    new HandlerAlojamientos(this,sistema);              
+          }
+          return panelAlojamientos;
+     }
+     
      private JMenu getMenuArchivo(){
           if(this.menuArchivo == null){
                menuArchivo = new JMenu("Archivo");
@@ -222,7 +220,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
           return this.subMenuGestion;
      }
      
-      private JMenu getSubMenuViajes(){
+     private JMenu getSubMenuViajes(){
           if(this.subMenuViajes == null){
                subMenuViajes = new JMenu("Viajes");
                poblarSubMenuViajes(subMenuViajes);
@@ -233,31 +231,28 @@ public class VentanaGestion extends JFrame implements ActionListener{
      private void poblarSubMenuGestion(JMenu subMenu){
           JMenuItem clientes = new JMenuItem("Clientes");
           JMenuItem trabajadores = new JMenuItem("Trabajadores");
-          JMenu viajes = new JMenu("Viajes");
-          poblarSubMenuViajes(viajes);
           
           subMenu.add(clientes);
           subMenu.add(trabajadores);
-          subMenu.add(viajes);
+          subMenu.add(getSubMenuViajes());
           
           clientes.addActionListener(this);
           trabajadores.addActionListener(this);
           
-          
      }
      
-     private void poblarSubMenuViajes(JMenu subMenu2){
+     private void poblarSubMenuViajes(JMenu subMenu){
+          JMenuItem paquetesTuristicos = new JMenuItem("Paquetes Turisticos");
           JMenuItem alojamientos = new JMenuItem("Alojamientos");
           JMenuItem destinos = new JMenuItem("Destinos");
-          JMenuItem paquetesTuristicos = new JMenuItem("Paquetes Turisticos");
           
-          subMenu2.add(alojamientos);
-          subMenu2.add(destinos);
-          subMenu2.add(paquetesTuristicos);
+          subMenu.add(paquetesTuristicos);
+          subMenu.add(alojamientos);
+          subMenu.add(destinos);
           
+          paquetesTuristicos.addActionListener(this);
           alojamientos.addActionListener(this);
           destinos.addActionListener(this);
-          paquetesTuristicos.addActionListener(this);
           
      }
      
@@ -276,22 +271,19 @@ public class VentanaGestion extends JFrame implements ActionListener{
           
           JMenuItem j = (JMenuItem)e.getSource();
           if(j.getText().equals("Clientes")){
-               this.setContentPane(getPanelClientes());
+               this.setContentPane(getPanelClientes());               
           }
           if(j.getText().equals("Trabajadores")){
                this.setContentPane(getPanelTrabajadores());
           }
-          if(j.getText().equals("Alojamientos")){
-               this.setContentPane(getPanelAlojamientos());
+          if(j.getText().equals("Paquetes Turisticos")){
+               this.setContentPane(getPanelPaquetesTuristicos());
           }
           if(j.getText().equals("Destinos")){
                this.setContentPane(getPanelDestinos());
           }
-          if(j.getText().equals("Paquetes Turisticos")){
-               this.setContentPane(getPanelPaquetesTuristicos());
+          if(j.getText().equals("Alojamientos")){
+               this.setContentPane(getPanelAlojamientos());
           }
-     }
+     }    
 }
-     
-    
-
