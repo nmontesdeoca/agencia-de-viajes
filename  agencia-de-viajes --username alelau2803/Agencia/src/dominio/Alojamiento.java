@@ -88,7 +88,7 @@ public class Alojamiento{
      
      public String toString(){
           
-          return "Nombre: " + this.nombre + this.tipo + this.estrellas + "estrellas " + this.pension;
+          return "Nombre: " + this.nombre + this.tipo + this.estrellas + " Estrellas " + this.pension;
           
      }
      

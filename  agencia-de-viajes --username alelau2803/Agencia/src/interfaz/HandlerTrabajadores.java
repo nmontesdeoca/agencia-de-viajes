@@ -60,7 +60,7 @@ public class HandlerTrabajadores extends JPanel implements Observer, ActionListe
      public HandlerTrabajadores(Sistema sistemaP) {
           
           super();
-          this.setSize(900, 750); 
+          this.setSize(1024, 750); 
           this.setLayout(null);
           this.sistema= sistemaP;
           
