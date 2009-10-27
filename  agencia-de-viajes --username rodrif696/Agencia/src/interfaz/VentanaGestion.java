@@ -30,7 +30,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.MouseEvent;
 
-
 public class VentanaGestion extends JFrame implements ActionListener{
      
      private JPanel panelInicio = null;
@@ -45,20 +44,19 @@ public class VentanaGestion extends JFrame implements ActionListener{
      private JMenuBar barra = null;
      private JMenu subMenuGestion = null;     
      private JMenu subMenuViajes = null;
-     private Sistema sistema = null;
-     
+     private Sistema sistema = null;     
      
      public VentanaGestion(Sistema sistemaP){
           
           super();
           this.setTitle("Gestion");
           this.setSize(1024,750);
-          this.setContentPane(getPanelInicio());
+          //this.setContentPane(getPanelInicio());
           this.setResizable(false);
           this.setJMenuBar(getMenuBarra());
           this.sistema = sistemaP;
           this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-          //uso Adapter para no implementar todos los mÃ©todos del Listener
+          //uso Adapter para no implementar todos los metodos del Listener
           this.addWindowListener(new java.awt.event.WindowAdapter(){
                public void windowClosing(WindowEvent evento){
                     int respuesta = JOptionPane.showConfirmDialog(null, " ¿Desea salir?", "Confirmación", JOptionPane.WARNING_MESSAGE);
@@ -70,7 +68,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
           });
      }
      
-     private JPanel getPanelInicio(){
+     /*private JPanel getPanelInicio(){
           if(panelInicio == null){
                panelInicio = new JPanel();
                panelInicio.setSize(1024,750);
@@ -116,7 +114,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
                                                   
                );
                
-              /* JLabel gestionViajes = new JLabel("Gestion Viajes", iconViajes, JLabel.CENTER);
+               JLabel gestionViajes = new JLabel("Gestion Viajes", iconViajes, JLabel.CENTER);
                gestionViajes.setVerticalTextPosition(JLabel.BOTTOM);
                gestionViajes.setHorizontalTextPosition(JLabel.CENTER);
                
@@ -132,11 +130,11 @@ public class VentanaGestion extends JFrame implements ActionListener{
                     }
                }                                            
                                               
-               );*/
+               );
                
           }
           return panelInicio;
-     }
+     }*/
      
      private HandlerClientes getPanelClientes(){
           if(panelClientes == null){
@@ -264,8 +262,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
                barra.add(getMenuAyuda());
           }
           return this.barra;
-     }
-     
+     }     
      
      public void actionPerformed(ActionEvent e){
           
