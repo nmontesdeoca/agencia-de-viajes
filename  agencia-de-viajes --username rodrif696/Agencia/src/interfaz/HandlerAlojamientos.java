@@ -6,14 +6,9 @@ import java.util.Observer;
 import java.util.Observable;
 
 import javax.swing.DefaultListModel;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JDialog;
 import javax.swing.JTextField;
 import javax.swing.JButton;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.JMenuBar;
 import javax.swing.JList;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -23,16 +18,15 @@ import javax.swing.JComboBox;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.ListSelectionModel;
-import javax.swing.ImageIcon;
 
-import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.MouseEvent;
 
+@SuppressWarnings("serial")
 public class HandlerAlojamientos extends JPanel implements Observer, ActionListener, ListSelectionListener{
-                    
+          
+          
+          
           private JLabel textoNombreAlojamiento;
           private JTextField nombre;
           private JLabel textoTipoAlojamiento;
@@ -46,17 +40,19 @@ public class HandlerAlojamientos extends JPanel implements Observer, ActionListe
           private JButton guardar;
           private JButton eliminar;
           private JButton modificar;
-          private JButton paquetesTuristicos;
-          private JButton destinos;
+          private JButton paquetes;
+          private JButton irDestinos;
           private JLabel textoAlojamientos;
           private JList listaAlojamientos;
           private DefaultListModel modeloListaAlojamientos;
           private Sistema sistema;
+          private VentanaGestion vg;
           
-          public HandlerAlojamientos(Sistema sistemaP) {
+          public HandlerAlojamientos(VentanaGestion vn, Sistema sistemaP) {
                
                super();
-               this.setSize(900,750); 
+               this.vg = vn;
+               this.setSize(1024,750); 
                this.setLayout(null);
                this.sistema=sistemaP;
                modeloListaAlojamientos = new DefaultListModel();
@@ -67,8 +63,7 @@ public class HandlerAlojamientos extends JPanel implements Observer, ActionListe
                listaAlojamientos.addListSelectionListener(this);
                listaAlojamientos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
                this.add(listaAlojamientos);
-               
-               
+                              
                textoNombreAlojamiento=new JLabel("Nombre de alojamiento:");
                textoNombreAlojamiento.setSize(150,25);
                textoNombreAlojamiento.setLocation(75,50);
@@ -79,12 +74,24 @@ public class HandlerAlojamientos extends JPanel implements Observer, ActionListe
                nombre.setLocation(230,50);
                this.add(nombre);
                
+               paquetes= new JButton("Ir a Paquetes");
+               this.add(paquetes);
+               paquetes.setSize(130,25);
+               paquetes.setLocation(750, 25);
+               paquetes.addActionListener(this);
+          
+               irDestinos= new JButton("Ir a Destinos");
+               this.add(irDestinos);
+               irDestinos.setSize(130,25);
+               irDestinos.setLocation(885, 25);
+               irDestinos.addActionListener(this);
+               
                textoTipoAlojamiento=new JLabel("Tipo de alojamiento:");
                textoTipoAlojamiento.setSize(150,25);
                textoTipoAlojamiento.setLocation(75,100);
                this.add(textoTipoAlojamiento);
                
-               ArrayList <Alojamiento.Tipo> tipo= new ArrayList <Alojamiento.Tipo>();
+               tipo= new ArrayList <Alojamiento.Tipo>();
                for(Alojamiento.Tipo dato:Alojamiento.Tipo.values()){
                     tipo.add(dato);
                }
@@ -150,6 +157,13 @@ public class HandlerAlojamientos extends JPanel implements Observer, ActionListe
           }
           
           public void actionPerformed(ActionEvent evento){
+                  
+                  if(evento.getSource() == paquetes){
+                          vg.setContentPane(new HandlerPaquetesTuristicos(vg,sistema));                   
+                  }
+                  if(evento.getSource() == irDestinos){
+                          vg.setContentPane(new HandlerDestinos(vg,sistema));
+                  }
                
                if((evento.getSource() == guardar) || (evento.getSource() == modificar) ){
                    
@@ -176,7 +190,7 @@ public class HandlerAlojamientos extends JPanel implements Observer, ActionListe
                              else{
                                   JOptionPane.showMessageDialog(null, "No hay Alojamiento seleccionado" , "Atención", JOptionPane.INFORMATION_MESSAGE);
                              }
-                         }
+                         }                    
                     }
                else{
                     JOptionPane.showMessageDialog(null, "ERROR: Falta el Nombre del Alojamiento" , "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -210,13 +224,8 @@ public class HandlerAlojamientos extends JPanel implements Observer, ActionListe
                }
                
           }
-          private <E> void cargarLista(DefaultListModel modelo, ArrayList <E> datos){
-               
-               for (int i=0;i<modelo.size();i++){
-                    datos.add((E)modelo.get(i));
-                    
-               }
-          }
+          
+          
           private <E> void cargarModelo (DefaultListModel modelo, ArrayList<E> datos){
                
                modelo.clear();

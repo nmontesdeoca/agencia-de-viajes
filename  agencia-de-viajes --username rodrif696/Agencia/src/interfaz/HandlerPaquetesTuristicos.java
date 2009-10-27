@@ -25,6 +25,7 @@ import dominio.Alojamiento;
 import dominio.Destino;
 import dominio.PaqueteTuristico;
 
+@SuppressWarnings("serial")
 public class HandlerPaquetesTuristicos extends JPanel implements Observer, ActionListener, ListSelectionListener{
    
     private JList listaPaquetes;
@@ -168,7 +169,7 @@ public class HandlerPaquetesTuristicos extends JPanel implements Observer, Actio
          ArrayList <Alojamiento> alojamientos = sistema.getEmpresa().getListaAlojamientos();                    
 
          
-         JComboBox comboAlojamiento = new JComboBox(alojamientos.toArray());
+         comboAlojamiento = new JComboBox(alojamientos.toArray());
          this.add(comboAlojamiento);
          comboAlojamiento.setSize(150, 25);
          comboAlojamiento.setLocation(720, 300);
@@ -190,7 +191,7 @@ public class HandlerPaquetesTuristicos extends JPanel implements Observer, Actio
          }
          
          if(evento.getSource() == irAlojamientos){
-              //vg.setContentPane(new HandlerAlojamientos(vg,sistema));
+              vg.setContentPane(new HandlerAlojamientos(vg,sistema));
          }
          
          if((evento.getSource() == agregar) || (evento.getSource() == modificar) ){
