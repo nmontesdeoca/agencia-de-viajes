@@ -143,7 +143,7 @@ public class HandlerDestinos extends JPanel implements Observer, ActionListener,
           this.add(comboTipo);
           comboTipo.setSize(150, 25);
           comboTipo.setLocation(500, 305);
-          comboTipo.setSelectedIndex(0);
+          //comboTipo.setSelectedIndex(0);
           comboTipo.addActionListener(this);
           
           sistema.getEmpresa().addObserver(this);
