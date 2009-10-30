@@ -143,7 +143,7 @@ public class HandlerDestinos extends JPanel implements Observer, ActionListener,
           this.add(comboTipo);
           comboTipo.setSize(150, 25);
           comboTipo.setLocation(500, 305);
-          comboTipo.setSelectedIndex(0);
+          //comboTipo.setSelectedIndex(0);
           comboTipo.addActionListener(this);
           
           sistema.getEmpresa().addObserver(this);
@@ -204,9 +204,10 @@ public class HandlerDestinos extends JPanel implements Observer, ActionListener,
                }
           }
           
-          else if(evento.getSource() == comboTipo){
+          else if(evento.getActionCommand().equals("comboBoxChanged")){
                
-               Destino.Tipo  t = (Destino.Tipo)comboTipo.getSelectedItem();
+               JComboBox cmb = (JComboBox) evento.getSource();
+               Destino.Tipo t = (Destino.Tipo)cmb.getSelectedItem();
                dummy.setTipo(t);
           }
           
@@ -225,7 +226,8 @@ public class HandlerDestinos extends JPanel implements Observer, ActionListener,
      public void valueChanged(ListSelectionEvent evento) {
           
           if (!listaDestinos.isSelectionEmpty()){
-               dummy = (Destino)listaDestinos.getSelectedValue();
+               JList list = (JList) evento.getSource();
+               dummy = (Destino)list.getSelectedValue();
                nombre.setText(dummy.getNombre());
                localidad.setText(dummy.getLocalidad());
                pais.setText(dummy.getPais());
@@ -242,7 +244,7 @@ public class HandlerDestinos extends JPanel implements Observer, ActionListener,
                }
           }
      }
-          
+     
      public void update(Observable o, Object ar){
           
           cargarModelo(modeloListaDestinos, sistema.getEmpresa().getListaDestinos());
