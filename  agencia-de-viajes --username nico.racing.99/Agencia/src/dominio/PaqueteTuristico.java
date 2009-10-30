@@ -22,7 +22,7 @@ public class PaqueteTuristico{
      public void setDestinos(ArrayList <Destino> destinosX){
           this.destinos= destinosX;
      }
-     public ArrayList <Destino> getDestinos(){
+     public ArrayList<Destino> getDestinos(){
           return this.destinos;
      }
      public void setDuracion(int duracionX){
