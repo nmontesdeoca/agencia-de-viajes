@@ -78,7 +78,7 @@ public class HandlerPaquetesTuristicos extends JPanel implements Observer, Actio
           listaDestinosPaquetes = new JList(modeloListaDestinosPaquetes);
           listaDestinosPaquetes.setSize(200,100);
           listaDestinosPaquetes.setLocation(500,350);
-          listaDestinosPaquetes.addListSelectionListener(this);
+          //listaDestinosPaquetes.addListSelectionListener(this);
           listaDestinosPaquetes.setEnabled(false);
           listaDestinosPaquetes.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
           this.add(listaDestinosPaquetes);
@@ -267,10 +267,10 @@ public class HandlerPaquetesTuristicos extends JPanel implements Observer, Actio
                nombre.setText(paquete.getNombre());
                precio.setText(""+paquete.getPrecio());
                duracion.setText(""+paquete.getDuracion());
-               int max = paquete.getDestinos().size() - 1;
-               listaDestinosPaquetes.setListData(paquete.getDestinos().toArray());               
-               listaDestinosPaquetes.setSelectionInterval(0,max);
-//cargarModelo(modeloListaDestinosPaquetes, paquete.getDestinos());
+              // int max = paquete.getDestinos().size();// - 1;
+               //listaDestinosPaquetes.setListData(paquete.getDestinos().toArray());               
+             //  listaDestinosPaquetes.setSelectionInterval(0,max);
+cargarModelo(modeloListaDestinosPaquetes, paquete.getDestinos());
                comboAlojamiento.setSelectedItem(paquete.getAlojamiento());
           }
      }
@@ -278,12 +278,14 @@ public class HandlerPaquetesTuristicos extends JPanel implements Observer, Actio
      
      
      private <E> void cargarModelo (DefaultListModel modelo, ArrayList<E> datos){
-          
-          modelo.clear();
-          for(int i=0; i< datos.size();i++){
-               modelo.addElement(datos.get(i));
-          }    
-     }
+         
+         modelo.clear();
+         for(E objeto:datos){
+              if (objeto != null){
+                   modelo.addElement(objeto);
+              }
+         }     
+    }
      
       private <E> void cargarLista (DefaultListModel modelo, ArrayList<E> datos){
           
@@ -361,12 +363,13 @@ public class HandlerPaquetesTuristicos extends JPanel implements Observer, Actio
                             for(int i=0;i<des.length;i++){
                                  dest.add((Destino)des[i]);
                             }
-                            //cargarModelo(modeloListaDestinosPaquetes,dest);
+                            cargarModelo(modeloListaDestinosPaquetes,dest);
                              int max = dest.size() - 1;
-                            listaDestinosPaquetes.setListData(dest.toArray());                            
+                            //listaDestinosPaquetes.setListData(dest.toArray());                            
                             listaDestinosPaquetes.setSelectionInterval(0,max);
                             this.dispose();
-                        }else{
+                        }
+                 else{
                              JOptionPane.showMessageDialog(null, "No hay destino seleccionado" , "Atencion", JOptionPane.INFORMATION_MESSAGE);
                         }
                 }
