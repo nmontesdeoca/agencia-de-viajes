@@ -27,6 +27,7 @@ public class HandlerDestinos extends JPanel implements Observer, ActionListener,
      private Sistema sistema;
      private VentanaGestion vg;
      private JList listaDestinos;
+     private JList listaTipos;
      private JTextField nombre;
      private JTextField localidad;
      private JTextField pais;
@@ -42,7 +43,7 @@ public class HandlerDestinos extends JPanel implements Observer, ActionListener,
      private JLabel tipoDestinoL;
      private JComboBox comboTipo;
      private DefaultListModel modeloListaDestinos;
-     private Destino dummy;
+     private DefaultListModel modeloListaTipos;
      
      public HandlerDestinos (VentanaGestion vn, Sistema sistemaP) {
           
@@ -52,16 +53,30 @@ public class HandlerDestinos extends JPanel implements Observer, ActionListener,
           this.sistema= sistemaP;
           this.vg = vn;
           
-          dummy = new Destino();
+          ArrayList <Destino.Tipo> valores = new ArrayList <Destino.Tipo>();
+          for(Destino.Tipo tipoAux : Destino.Tipo.values()){
+               
+               valores.add(tipoAux);                  
+          }
           
-          modeloListaDestinos = new DefaultListModel();              
+          modeloListaDestinos = new DefaultListModel();  
+          modeloListaTipos = new DefaultListModel();
           cargarModelo(modeloListaDestinos, sistema.getEmpresa().getListaDestinos());
+          
+          
           listaDestinos = new JList(modeloListaDestinos);
           listaDestinos.setSize(200,400);
           listaDestinos.setLocation(75,85);
           listaDestinos.addListSelectionListener(this);
           listaDestinos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
           this.add(listaDestinos);
+          
+          listaTipos = new JList(valores.toArray());
+          listaTipos.setSize(200, 90);
+          listaTipos.setLocation(500, 305);
+          listaTipos.addListSelectionListener(this);
+          listaTipos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+          this.add(listaTipos);
           
           nombre = new JTextField();
           this.add(nombre);
@@ -105,7 +120,7 @@ public class HandlerDestinos extends JPanel implements Observer, ActionListener,
           modificar = new JButton("Modificar");
           this.add(modificar);
           modificar.setSize(120,25);
-          modificar.setLocation(500, 360);
+          modificar.setLocation(500, 420);
           modificar.addActionListener(this);
           
           listaDestinosL = new JLabel("Lista de Destinos");
@@ -131,20 +146,7 @@ public class HandlerDestinos extends JPanel implements Observer, ActionListener,
           tipoDestinoL = new JLabel("Tipo");
           this.add(tipoDestinoL);
           tipoDestinoL.setSize(150,25);
-          tipoDestinoL.setLocation(500,270);
-          
-          ArrayList <Destino.Tipo> valores = new ArrayList <Destino.Tipo>();
-          for(Destino.Tipo tipoAux : Destino.Tipo.values()){
-               
-               valores.add(tipoAux);                  
-          }
-          
-          JComboBox comboTipo = new JComboBox(valores.toArray());
-          this.add(comboTipo);
-          comboTipo.setSize(150, 25);
-          comboTipo.setLocation(500, 305);
-          //comboTipo.setSelectedIndex(0);
-          comboTipo.addActionListener(this);
+          tipoDestinoL.setLocation(500,270);          
           
           sistema.getEmpresa().addObserver(this);
      }
@@ -156,17 +158,13 @@ public class HandlerDestinos extends JPanel implements Observer, ActionListener,
                String nombreP = nombre.getText();
                String localidadP = localidad.getText();
                String paisP = pais.getText();
+               Destino.Tipo tipoP = (Destino.Tipo)listaTipos.getSelectedValue();
                
                if(nombreP.length() > 0 && localidadP.length() > 0 && paisP.length() >0){                              
                     
                     if(evento.getSource() == agregar){                                    
                          
-                         Destino dest = new Destino();
-                         
-                         dest.setNombre(nombreP);
-                         dest.setLocalidad(localidadP);
-                         dest.setPais(paisP);
-                         dest.setTipo(dummy.getTipo());
+                         Destino dest = new Destino(nombreP, localidadP, paisP, tipoP);
                          
                          if(!sistema.getEmpresa().agregarDestino(dest)){
                               JOptionPane.showMessageDialog(null, "ERROR: Ese Destino ya existe" , "Destino existente", JOptionPane.ERROR_MESSAGE);
@@ -177,10 +175,11 @@ public class HandlerDestinos extends JPanel implements Observer, ActionListener,
                          
                          if (!listaDestinos.isSelectionEmpty()){
                               
-                              dummy = (Destino)listaDestinos.getSelectedValue();                                                                                      
-                              dummy.setNombre(nombreP);
-                              dummy.setLocalidad(localidadP);
-                              dummy.setPais(paisP);                                            
+                              Destino dest2 = (Destino)listaDestinos.getSelectedValue();                                                                                      
+                              dest2.setNombre(nombreP);
+                              dest2.setLocalidad(localidadP);
+                              dest2.setPais(paisP);    
+                              dest2.setTipo(tipoP);
                          }
                          else{
                               JOptionPane.showMessageDialog(null, "No hay destino seleccionado" , "Atención", JOptionPane.INFORMATION_MESSAGE);
@@ -193,22 +192,16 @@ public class HandlerDestinos extends JPanel implements Observer, ActionListener,
           }
           
           else if(evento.getSource() == eliminar){
+               
                if (!listaDestinos.isSelectionEmpty()){
                     int respuesta = JOptionPane.showConfirmDialog(null, " ¿Eliminar este destino?", "Confirmación", JOptionPane.WARNING_MESSAGE);
                     if (respuesta == JOptionPane.YES_OPTION){
-                         dummy = (Destino)listaDestinos.getSelectedValue();
-                         sistema.getEmpresa().eliminarDestino(dummy);
+                         Destino dest2 = (Destino)listaDestinos.getSelectedValue();
+                         sistema.getEmpresa().eliminarDestino(dest2);
                     }
                }else{
                     JOptionPane.showMessageDialog(null, "No hay destino seleccionado" , "Atención", JOptionPane.INFORMATION_MESSAGE);
                }
-          }
-          
-          else if(evento.getActionCommand().equals("comboBoxChanged")){
-               
-               JComboBox cmb = (JComboBox) evento.getSource();
-               Destino.Tipo t = (Destino.Tipo)cmb.getSelectedItem();
-               dummy.setTipo(t);
           }
           
           else if(evento.getSource() == paquetes){
@@ -226,12 +219,19 @@ public class HandlerDestinos extends JPanel implements Observer, ActionListener,
      public void valueChanged(ListSelectionEvent evento) {
           
           if (!listaDestinos.isSelectionEmpty()){
-               JList list = (JList) evento.getSource();
-               dummy = (Destino)list.getSelectedValue();
-               nombre.setText(dummy.getNombre());
-               localidad.setText(dummy.getLocalidad());
-               pais.setText(dummy.getPais());
-               comboTipo.setSelectedItem(dummy.getTipo());
+               
+               if(evento.getSource() == listaDestinos){
+                    
+                    Destino dest2 = (Destino)listaDestinos.getSelectedValue();
+                    nombre.setText(dest2.getNombre());
+                    localidad.setText(dest2.getLocalidad());
+                    pais.setText(dest2.getPais());
+                    listaTipos.setSelectedValue(dest2.getTipo(), false);
+               }
+               else if(evento.getSource() == listaTipos){
+                    
+                    Destino dest2 = (Destino)listaDestinos.getSelectedValue(); 
+               }
           }            
      }
      
