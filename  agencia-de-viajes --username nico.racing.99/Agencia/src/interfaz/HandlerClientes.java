@@ -71,6 +71,7 @@ public class HandlerClientes extends JPanel implements Observer, ActionListener,
                listaBuscados = new JList(modeloBuscados);
                listaBuscados.setSize(200,100);
                listaBuscados.setLocation(500,430);
+               listaBuscados.setEnabled(false);
                this.add(listaBuscados);
                
                nombre = new JTextField();
@@ -174,7 +175,7 @@ public class HandlerClientes extends JPanel implements Observer, ActionListener,
                          Object[] desBusc = (Object[])listaBuscados.getSelectedValues();
                          ArrayList<Destino> desBus = new ArrayList<Destino>();
                          for(int i=0;i<desBusc.length;i++){
-                        	 desBus.add((Destino)desBusc[i]);
+                          desBus.add((Destino)desBusc[i]);
                          }
                          if(nombreP.length() > 0 && apellidoP.length() > 0){
                               
@@ -182,7 +183,7 @@ public class HandlerClientes extends JPanel implements Observer, ActionListener,
                                    int cedulaP = Integer.parseInt(this.ci.getText());
                                    
                                    if(evento.getSource() == agregar){
-                                        Cliente cli = new Cliente(nombreP, apellidoP, cedulaP, 0, desBus, new ArrayList <Destino>());
+                                        Cliente cli = new Cliente(nombreP, apellidoP, cedulaP, 0, new ArrayList <Destino>(), desBus);
                                         if(!sistema.getEmpresa().agregarCliente(cli)){
                                              JOptionPane.showMessageDialog(null, "ERROR: Ese Cliente ya existe" , "Cliente existente", JOptionPane.ERROR_MESSAGE);
                                         }            
@@ -246,14 +247,8 @@ public class HandlerClientes extends JPanel implements Observer, ActionListener,
                               JOptionPane.showMessageDialog(null, "No hay destino seleccionado" , "Atencion", JOptionPane.INFORMATION_MESSAGE);
                          }
                     }
-                    
-                    
-                    
-                    
                }
-          }
-          
-          
+          } 
           
           
           private void cambiarEstadoBotones(boolean estaHabilitado){
@@ -295,17 +290,17 @@ public class HandlerClientes extends JPanel implements Observer, ActionListener,
           }
           
           private class DestinosBuscados extends JDialog implements ActionListener{
-        	  
-        	  
-        	  JPanel destinos;
-        	  DefaultListModel modeloDestinos;
-        	  JList listaDestinos;
-        	  JLabel textoDestinos;
-        	  JButton aceptar;
-        	  JButton cancelar;
-        	 
-        	  public DestinosBuscados(){
-        	 
+           
+           
+           JPanel destinos;
+           DefaultListModel modeloDestinos;
+           JList listaDestinos;
+           JLabel textoDestinos;
+           JButton aceptar;
+           JButton cancelar;
+          
+           public DestinosBuscados(){
+          
               this.setTitle("Agregar1");
               this.setSize(450,500);
               this.setVisible(true);
@@ -337,7 +332,7 @@ public class HandlerClientes extends JPanel implements Observer, ActionListener,
               destinos.add(aceptar);
               aceptar.addActionListener(this);
                    
-            	 
+              
              
               
               cancelar=new JButton("Cancelar");
@@ -346,25 +341,27 @@ public class HandlerClientes extends JPanel implements Observer, ActionListener,
               destinos.add(cancelar);
               cancelar.addActionListener(this);
               
-        	  }
-        	  
+           }
+           
               public void actionPerformed (ActionEvent evento){
                   if(evento.getSource() == aceptar){
-            	  if (!listaDestinos.isSelectionEmpty()){
+               if (!listaDestinos.isSelectionEmpty()){
                        Object[] des = (Object[])listaDestinos.getSelectedValues();
                        ArrayList<Destino> dest = new ArrayList<Destino>();
                        for(int i=0; i<des.length; i++){
-                    	   dest.add((Destino)des[i]);
+                        dest.add((Destino)des[i]);
                        }
                        cargarModelo(modeloBuscados,dest);
                        this.dispose();
+                        int max = dest.size() - 1;                                                   
+                        listaBuscados.setSelectionInterval(0,max);
                   }
                   else{
                        JOptionPane.showMessageDialog(null, "No hay destino seleccionado" , "Atencion", JOptionPane.INFORMATION_MESSAGE);
                   }
                   
                  }else if(evento.getSource() == cancelar){
-                	 this.dispose();
+                  this.dispose();
                  }
                   
              }
