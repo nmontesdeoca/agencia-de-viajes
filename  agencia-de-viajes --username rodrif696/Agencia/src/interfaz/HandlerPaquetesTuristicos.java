@@ -29,7 +29,7 @@ import dominio.PaqueteTuristico;
 public class HandlerPaquetesTuristicos extends JPanel implements Observer, ActionListener, ListSelectionListener{
      
      private JList listaPaquetes;
-     private JList listaDestinosPaquetes;
+     private JList listaDestinosPaquetes; 
      private JList alojamientos;
      private DefaultListModel modeloListaPaquetes;
      private DefaultListModel modeloListaDestinosPaquetes;
@@ -53,13 +53,14 @@ public class HandlerPaquetesTuristicos extends JPanel implements Observer, Actio
      private Sistema sistema;
      private VentanaGestion vg;
      
+     
      public HandlerPaquetesTuristicos(VentanaGestion vn, Sistema sistemaP) {
           
           super();
           this.setSize(1024,750);
           this.setLayout(null);
           this.sistema = sistemaP;
-          this.vg = vn;
+          this.vg = vn; 
           
           modeloListaPaquetes = new DefaultListModel();
           modeloListaDestinosPaquetes = new DefaultListModel();
@@ -77,17 +78,18 @@ public class HandlerPaquetesTuristicos extends JPanel implements Observer, Actio
           listaDestinosPaquetes = new JList(modeloListaDestinosPaquetes);
           listaDestinosPaquetes.setSize(200,100);
           listaDestinosPaquetes.setLocation(500,350);
-          listaDestinosPaquetes.addListSelectionListener(this);
+          //listaDestinosPaquetes.addListSelectionListener(this);
+          listaDestinosPaquetes.setEnabled(false);
           listaDestinosPaquetes.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
           this.add(listaDestinosPaquetes);
           
-          alojamientos = new JList(modeloAlojamientos);
+         /* alojamientos = new JList(modeloAlojamientos);
           alojamientos.setSize(200,25);
           alojamientos.setLocation(500,300);
           alojamientos.addListSelectionListener(this);
           alojamientos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
           this.add(alojamientos);
-          
+          */
           
           nombre = new JTextField();
           this.add(nombre);
@@ -127,7 +129,7 @@ public class HandlerPaquetesTuristicos extends JPanel implements Observer, Actio
           this.add(agregarDestino);
           agregarDestino.setSize(45,25);
           agregarDestino.setLocation(720,350);
-          agregarDestino.addActionListener(this);
+          agregarDestino.addActionListener(this); 
           
           irDestinos = new JButton("Ir a Destinos");
           this.add(irDestinos);
@@ -149,7 +151,7 @@ public class HandlerPaquetesTuristicos extends JPanel implements Observer, Actio
           listaDestinosPaquetesL = new JLabel("Lista de Destinos");
           this.add(listaDestinosPaquetesL);
           listaDestinosPaquetesL.setSize(150,25);
-          listaDestinosPaquetesL.setLocation(500,325);                            
+          listaDestinosPaquetesL.setLocation(500,325);                             
           
           nombreL = new JLabel("Nombre");
           this.add(nombreL);
@@ -166,14 +168,14 @@ public class HandlerPaquetesTuristicos extends JPanel implements Observer, Actio
           duracionL.setSize(200,25);
           duracionL.setLocation(500,175);
           
-          ArrayList <Alojamiento> alojamientos = sistema.getEmpresa().getListaAlojamientos();                    
+          ArrayList <Alojamiento> alojamientos1 = sistema.getEmpresa().getListaAlojamientos();                    
           
           
-          comboAlojamiento = new JComboBox(alojamientos.toArray());
+          comboAlojamiento = new JComboBox(alojamientos1.toArray());
           this.add(comboAlojamiento);
           comboAlojamiento.setSize(150, 25);
-          comboAlojamiento.setLocation(720, 300);
-          comboAlojamiento.setSelectedIndex(-1);
+          comboAlojamiento.setLocation(500, 300);
+          //comboAlojamiento.setSelectedIndex(-1);
           comboAlojamiento.addActionListener(this);
           
           alojamientosL = new JLabel("Alojamiento");
@@ -193,8 +195,8 @@ public class HandlerPaquetesTuristicos extends JPanel implements Observer, Actio
           if(evento.getSource() == irAlojamientos){
                vg.setContentPane(new HandlerAlojamientos(vg,sistema));
           }
-          
-          if((evento.getSource() == agregar) || (evento.getSource() == modificar) ){
+               
+          if((evento.getSource() == agregar) || (evento.getSource() == modificar)){
                
                String nombreP = nombre.getText();
                
@@ -203,7 +205,7 @@ public class HandlerPaquetesTuristicos extends JPanel implements Observer, Actio
                     try{
                          int duracionP = Integer.parseInt(this.duracion.getText());
                          double precioP = Double.parseDouble(this.precio.getText());
-                         Alojamiento alojaP = (Alojamiento)alojamientos.getSelectedValue();
+                         Alojamiento alojaP = (Alojamiento)comboAlojamiento.getSelectedItem();
                          Object[] destinoP = listaDestinosPaquetes.getSelectedValues();
                          ArrayList<Destino> destinoPP = new ArrayList<Destino>();
                          for(int i=0; i<destinoP.length; i++){
@@ -220,7 +222,7 @@ public class HandlerPaquetesTuristicos extends JPanel implements Observer, Actio
                                    paquete.setNombre(nombreP);
                                    paquete.setDestinos(destinoPP);
                                    paquete.setPrecio(precioP);
-                                   paquete.setDuracion(duracionP);                                      
+                                   paquete.setDuracion(duracionP);                                       
                                    paquete.setAlojamiento(alojaP);
                               }
                               else{
@@ -252,70 +254,8 @@ public class HandlerPaquetesTuristicos extends JPanel implements Observer, Actio
           }
           else if(evento.getSource() == agregarDestino){
                
-               final JDialog seleccion=new JDialog();
-               seleccion.setTitle("Agregar");
-               seleccion.setSize(450,500);
-               seleccion.setVisible(true);
-               
-               JPanel destinos=new JPanel();
-               destinos.setSize(450,500);
-               destinos.setLayout(null);
-               seleccion.setContentPane(destinos);
-               
-               
-               DefaultListModel modeloDestinos=new DefaultListModel();
-               cargarModelo(modeloDestinos, sistema.getEmpresa().getListaDestinos());
-               
-               final JList listaDestinos = new JList(modeloDestinos);
-               listaDestinos.setSize(200,300);
-               listaDestinos.setLocation(100,75);
-               destinos.add(listaDestinos);
-               listaDestinos.addListSelectionListener(this);
-               listaDestinos.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-               
-               JLabel textoDestinos = new JLabel("Lista de Destinos");
-               destinos.add(textoDestinos);
-               textoDestinos.setSize(100,25);
-               textoDestinos.setLocation(100,25);
-               
-               JButton aceptar=new JButton("Aceptar");
-               aceptar.setSize(100,25);
-               aceptar.setLocation(100,405);
-               destinos.add(aceptar);
-               aceptar.addActionListener(new java.awt.event.ActionListener(){
-                    public void actionPerformed (ActionEvent evento){
-                         if (!listaDestinos.isSelectionEmpty()){
-                              Destino des = (Destino)listaDestinos.getSelectedValue();
-                              PaqueteTuristico paq = (PaqueteTuristico)listaPaquetes.getSelectedValue();
-                              paq.agregarDestino(des);
-                         }
-                         else{
-                              JOptionPane.showMessageDialog(null, "No hay destino seleccionado" , "Atencion", JOptionPane.INFORMATION_MESSAGE);
-                         }
-                         
-                         
-                    }
-               });
-               
-               JButton cancelar=new JButton("Cancelar");
-               cancelar.setSize(100,25);
-               cancelar.setLocation(230,405);
-               destinos.add(cancelar);
-               cancelar.addActionListener(new java.awt.event.ActionListener(){
-                    public void actionPerformed (ActionEvent evento){
-                         seleccion.dispose();
-                         
-                    }
-               });
-               
-               
-               
-               
+             new Destinos();                                  
           }
-          
-          
-          
-          
      }
      
      
@@ -327,21 +267,34 @@ public class HandlerPaquetesTuristicos extends JPanel implements Observer, Actio
                nombre.setText(paquete.getNombre());
                precio.setText(""+paquete.getPrecio());
                duracion.setText(""+paquete.getDuracion());
-               cargarModelo(modeloListaDestinosPaquetes, paquete.getDestinos());
-               ArrayList<Alojamiento> alojas = new ArrayList<Alojamiento>();
-               alojas.add(paquete.getAlojamiento());
-               cargarModelo(modeloAlojamientos, alojas);
+              // int max = paquete.getDestinos().size();// - 1;
+               //listaDestinosPaquetes.setListData(paquete.getDestinos().toArray());               
+             //  listaDestinosPaquetes.setSelectionInterval(0,max);
+cargarModelo(modeloListaDestinosPaquetes, paquete.getDestinos());
+               comboAlojamiento.setSelectedItem(paquete.getAlojamiento());
+                 int max = paquete.getDestinos().size() - 1;
+                 //listaDestinosPaquetes.setListData(dest.toArray());                            
+                 listaDestinosPaquetes.setSelectionInterval(0,max);
           }
      }
      
      
      
      private <E> void cargarModelo (DefaultListModel modelo, ArrayList<E> datos){
+         
+         modelo.clear();
+         for(E objeto:datos){
+              if (objeto != null){
+                   modelo.addElement(objeto);
+              }
+         }     
+    }
+     
+      private <E> void cargarLista (DefaultListModel modelo, ArrayList<E> datos){
           
-          modelo.clear();
-          for(E objeto:datos){
+           for(Object objeto:modelo.toArray()){
                if (objeto != null){
-                    modelo.addElement(objeto);
+                    datos.add((E)objeto);
                }
           }    
      }
@@ -353,4 +306,81 @@ public class HandlerPaquetesTuristicos extends JPanel implements Observer, Actio
           listaPaquetes.setSelectedIndex(-1);
           listaPaquetes.setModel(modeloListaPaquetes);
      }
+     
+     private class Destinos extends JDialog implements ActionListener {
+      
+      JPanel destinos;
+      DefaultListModel modeloDestinos;
+      JList listaDestinos;
+      JLabel textoDestinos;
+      JButton cancelar;
+      JButton aceptar;
+      
+      
+      public Destinos(){
+       
+       this.setTitle("Agregar");
+             this.setSize(450,500);
+             this.setVisible(true);
+             
+             destinos=new JPanel();
+             destinos.setSize(450,500);
+             destinos.setLayout(null);
+             this.setContentPane(destinos);
+       
+             modeloDestinos = new DefaultListModel();
+             cargarModelo(modeloDestinos, sistema.getEmpresa().getListaDestinos());
+             
+             listaDestinos = new JList(modeloDestinos);
+             listaDestinos.setSize(200,300);
+             listaDestinos.setLocation(100,75);
+             destinos.add(listaDestinos);
+             //listaDestinos.addListSelectionListener(this);
+             listaDestinos.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+             
+             textoDestinos = new JLabel("Lista de Destinos");
+             destinos.add(textoDestinos);
+             textoDestinos.setSize(100,25);
+             textoDestinos.setLocation(100,25);
+             
+             aceptar=new JButton("Aceptar");
+             aceptar.setSize(100,25);
+             aceptar.setLocation(100,405);
+             destinos.add(aceptar);
+             aceptar.addActionListener(this);
+             
+             cancelar=new JButton("Cancelar");
+             cancelar.setSize(100,25);
+             cancelar.setLocation(230,405);
+             destinos.add(cancelar);
+             cancelar.addActionListener(this);
+             
+      }
+      
+       public void actionPerformed (ActionEvent evento){
+              
+                if(evento.getSource() == aceptar){
+                 if (!listaDestinos.isSelectionEmpty()){
+                         Object[] des = (Object[])listaDestinos.getSelectedValues();
+                            ArrayList<Destino> dest = new ArrayList<Destino>();
+                            for(int i=0;i<des.length;i++){
+                                 dest.add((Destino)des[i]);
+                            }
+                            cargarModelo(modeloListaDestinosPaquetes,dest);
+                             int max = dest.size() - 1;
+                            //listaDestinosPaquetes.setListData(dest.toArray());                            
+                            listaDestinosPaquetes.setSelectionInterval(0,max);
+                            this.dispose();
+                        }
+                 else{
+                             JOptionPane.showMessageDialog(null, "No hay destino seleccionado" , "Atencion", JOptionPane.INFORMATION_MESSAGE);
+                        }
+                }
+                else if(evento.getSource() == cancelar){
+                 this.dispose();
+                }
+                  
+                 
+              }
+        }
 }
