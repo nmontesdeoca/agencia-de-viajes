@@ -272,6 +272,9 @@ public class HandlerPaquetesTuristicos extends JPanel implements Observer, Actio
              //  listaDestinosPaquetes.setSelectionInterval(0,max);
 cargarModelo(modeloListaDestinosPaquetes, paquete.getDestinos());
                comboAlojamiento.setSelectedItem(paquete.getAlojamiento());
+                 int max = paquete.getDestinos().size() - 1;
+                 //listaDestinosPaquetes.setListData(dest.toArray());                            
+                 listaDestinosPaquetes.setSelectionInterval(0,max);
           }
      }
      

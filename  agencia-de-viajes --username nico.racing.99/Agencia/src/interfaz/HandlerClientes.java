@@ -269,6 +269,8 @@ public class HandlerClientes extends JPanel implements Observer, ActionListener,
                     ci.setText(""+cli.getCedula());
                     cargarModelo(modeloRealizados, cli.getViajesRealizados());
                     cargarModelo(modeloBuscados, cli.getDestinosBuscados());
+                     int max = cli.getDestinosBuscados().size() - 1;
+                     listaBuscados.setSelectionInterval(0,max);
                }
                
           }
