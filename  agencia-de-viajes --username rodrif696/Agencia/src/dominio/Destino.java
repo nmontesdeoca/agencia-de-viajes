@@ -1,7 +1,6 @@
 package dominio;
 
-public class Destino{
-     
+public class Destino{     
      
      public enum Tipo{CIUDAD, PUEBLO, VILLA, BALNEARIO, NATURALEZA};
      private String nombre;
@@ -57,8 +56,7 @@ public class Destino{
           this.setNombre("sinNombre");
           this.setLocalidad("sinLocalidad");
           this.setPais("sinPais");
-          this.setTipo(Tipo.CIUDAD);
-          
+          this.setTipo(Tipo.CIUDAD);         
      }
      
      public Destino(String nombreP, String localidadP, String paisP, Tipo tipoP){
@@ -74,14 +72,12 @@ public class Destino{
           this.setNombre(d.getNombre());
           this.setLocalidad(d.getLocalidad());
           this.setPais(d.getPais());
-          this.setTipo(d.getTipo());
-          
+          this.setTipo(d.getTipo());          
      }
      
      public String toString(){
           
-          return this.tipo + ": " + this.nombre + "(" + this.localidad + ", " + this.pais + ")";
-          
+          return this.tipo + ": " + this.nombre + "(" + this.localidad + ", " + this.pais + ")";          
      }
      
      public boolean equals(Object o){
@@ -89,10 +85,7 @@ public class Destino{
           boolean esIgual = false;
           if(this.getNombre().equals(((Destino)o).getNombre()) && this.localidad.equals(((Destino)o).getLocalidad()) && this.pais.equals(((Destino)o).getPais())){
                esIgual = true;
-          }
-          
-          return esIgual;
-          
-     }
-     
+          }          
+          return esIgual;          
+     }    
 }

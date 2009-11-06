@@ -65,8 +65,7 @@ public class Alojamiento{
           this.setNombre("sinNombre");
           this.setTipo(Tipo.HOTEL);
           this.setEstrellas(0);
-          this.setPension(Pension.MEDIA_PENSION);
-          
+          this.setPension(Pension.MEDIA_PENSION);          
      }
      
      public Alojamiento(String nombreP, Tipo tipoP, int estrellasP, Pension pensionP){
@@ -74,8 +73,7 @@ public class Alojamiento{
           this.setNombre(nombreP);
           this.setTipo(tipoP);
           this.setEstrellas(estrellasP);
-          this.setPension(pensionP);
-          
+          this.setPension(pensionP);          
      }
      
      public Alojamiento(Alojamiento a){
@@ -88,8 +86,7 @@ public class Alojamiento{
      
      public String toString(){
           
-          return "Alojamiento: " + this.nombre + "\nTipo: " + this.tipo;
-          
+          return "Alojamiento: " + this.nombre + "\nTipo: " + this.tipo;          
      }
      
      public boolean equals(Object o){
@@ -97,10 +94,7 @@ public class Alojamiento{
           boolean esIgual = false;
           if(this.nombre.equals(((Alojamiento)o).getNombre()) && this.tipo.equals(((Alojamiento)o).getTipo())){
                esIgual = true;
-          }
-          
-          return esIgual;
-          
-     }
-     
+          }          
+          return esIgual;          
+     }     
 }

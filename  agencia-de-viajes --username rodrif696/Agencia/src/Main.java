@@ -13,8 +13,6 @@ public class Main{
           venta.setVisible(true);
           */VentanaGestion venta = new VentanaGestion(new Sistema(new Trabajador()));
           venta.setVisible(true);
-          System.out.println("Menu");
-          
      }
      
 }

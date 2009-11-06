@@ -63,8 +63,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
                     if (respuesta == JOptionPane.YES_OPTION){
                          System.exit(0);
                     }
-               }
-               
+               }               
           });
      }
      
@@ -185,8 +184,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
                          }
                     }
                });
-               menuArchivo.add(salir);    
-               
+               menuArchivo.add(salir);                   
           }
           return this.menuArchivo;
      }
@@ -194,8 +192,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
      private JMenu getMenuOpciones(){
           if(this.menuOpciones == null){
                menuOpciones = new JMenu("Opciones");
-               menuOpciones.add(new JMenuItem("Preferencias"));
-               
+               menuOpciones.add(new JMenuItem("Preferencias"));               
           }
           return this.menuOpciones;
      }
@@ -204,8 +201,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
           if(this.menuAyuda == null){
                menuAyuda = new JMenu("Ayuda");
                menuAyuda.add(new JMenuItem("Manual"));
-               menuAyuda.add(new JMenuItem("Acerca de..."));
-               
+               menuAyuda.add(new JMenuItem("Acerca de..."));               
           }
           return this.menuAyuda;
      }
@@ -227,6 +223,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
      }
      
      private void poblarSubMenuGestion(JMenu subMenu){
+          
           JMenuItem clientes = new JMenuItem("Clientes");
           JMenuItem trabajadores = new JMenuItem("Trabajadores");
           
@@ -235,8 +232,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
           subMenu.add(getSubMenuViajes());
           
           clientes.addActionListener(this);
-          trabajadores.addActionListener(this);
-          
+          trabajadores.addActionListener(this);          
      }
      
      private void poblarSubMenuViajes(JMenu subMenu){
@@ -250,8 +246,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
           
           paquetesTuristicos.addActionListener(this);
           alojamientos.addActionListener(this);
-          destinos.addActionListener(this);
-          
+          destinos.addActionListener(this);          
      }
      
      private JMenuBar getMenuBarra(){

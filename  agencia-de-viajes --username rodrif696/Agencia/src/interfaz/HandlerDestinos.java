@@ -61,8 +61,7 @@ public class HandlerDestinos extends JPanel implements Observer, ActionListener,
           
           modeloListaDestinos = new DefaultListModel();  
           modeloListaTipos = new DefaultListModel();
-          cargarModelo(modeloListaDestinos, sistema.getEmpresa().getListaDestinos());
-          
+          cargarModelo(modeloListaDestinos, sistema.getEmpresa().getListaDestinos());         
           
           listaDestinos = new JList(modeloListaDestinos);
           listaDestinos.setSize(200,400);

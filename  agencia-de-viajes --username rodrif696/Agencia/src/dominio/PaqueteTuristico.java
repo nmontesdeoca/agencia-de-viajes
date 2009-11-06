@@ -15,15 +15,19 @@ public class PaqueteTuristico{
      public void setNombre(String nombreX){
           this.nombre= nombreX;
      }
+     
      public String getNombre(){
           return this.nombre;
      }
+     
      public void setDestinos(ArrayList <Destino> destinosX){
           this.destinos= destinosX;
      }
+     
      public ArrayList <Destino> getDestinos(){
           return this.destinos;
      }
+     
      public void setDuracion(int duracionX){
           if(duracionX>0 && duracionX<100){
                this.duracion= duracionX;
@@ -32,9 +36,11 @@ public class PaqueteTuristico{
                this.duracion= 1;
           } 
      }
+     
      public int getDuracion(){
           return this.duracion;
      }
+     
      public void setPrecio(double precioX){
           if(precioX>0){
                this.precio= precioX;
@@ -43,9 +49,11 @@ public class PaqueteTuristico{
                this.precio= 1;
           }
      }
+     
      public double getPrecio(){
           return this.precio;
      }
+     
      private void setCodigo(int codigoX){
           if(codigoX>0){
                this.codigo= codigoX;
@@ -54,12 +62,15 @@ public class PaqueteTuristico{
                this.codigo= COUNT++;
           } 
      }
+     
      public int getCodigo(){
           return this.codigo;
      }
+     
      public void setAlojamiento(Alojamiento alojamientoX){
           this.alojamiento= alojamientoX;
      }
+     
      public Alojamiento getAlojamiento(){
           return this.alojamiento;
      }
@@ -94,8 +105,7 @@ public class PaqueteTuristico{
           this.setPrecio (0);
           COUNT++;
           this.setCodigo (0);
-          this.setAlojamiento (new Alojamiento());
-          
+          this.setAlojamiento (new Alojamiento());          
      } 
      
      public PaqueteTuristico(String nombre, ArrayList <Destino> destino, int duracion, double precio, Alojamiento alojamiento){
@@ -121,7 +131,8 @@ public class PaqueteTuristico{
      public String toString(){
           return "PaqueteTuristico: "+this.codigo +" "+this.nombre +" "+this.precio;
      } 
+     
      public boolean equals (Object o){
           return this.codigo==((PaqueteTuristico)o).getCodigo();
-     }  
+     } 
 }

@@ -28,11 +28,11 @@ public class VentanaLogin extends JFrame implements ActionListener{
           this.setSize(300,200);
           this.setContentPane(getPanel());
           this.setResizable(false);
-          this.sistema = sistemaP;
-          
+          this.sistema = sistemaP;          
      }
      
      private JPanel getPanel(){
+          
           if(panel == null){
                panel = new JPanel();
                panel.setSize(300,200); 
@@ -46,6 +46,7 @@ public class VentanaLogin extends JFrame implements ActionListener{
      }
      
      private JTextField getNumeroTrabajador(){
+          
           if(this.numeroTrabajador == null){
                numeroTrabajador = new JTextField();
                numeroTrabajador.setSize(190,25);
@@ -56,6 +57,7 @@ public class VentanaLogin extends JFrame implements ActionListener{
      }
      
      private JPasswordField getPassword(){
+          
           if(this.password == null){
                password = new JPasswordField();
                password.setSize(190,25);
@@ -66,6 +68,7 @@ public class VentanaLogin extends JFrame implements ActionListener{
      }
      
      private JButton getAceptar(){
+         
           if(this.aceptar == null){
                aceptar = new JButton("Ingresar");
                aceptar.setSize(90,25);
@@ -76,6 +79,7 @@ public class VentanaLogin extends JFrame implements ActionListener{
      }
      
      private JButton getCancelar(){
+         
           if(this.cancelar == null){
                cancelar = new JButton("Salir");
                cancelar.setSize(90,25);
@@ -86,6 +90,7 @@ public class VentanaLogin extends JFrame implements ActionListener{
      }
      
      public void actionPerformed(ActionEvent e){
+          
           if(e.getSource() == aceptar){
                try{
                     int num = Integer.parseInt(this.getNumeroTrabajador().getText());

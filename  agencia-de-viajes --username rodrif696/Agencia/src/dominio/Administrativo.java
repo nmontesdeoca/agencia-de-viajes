@@ -4,8 +4,7 @@ public class Administrativo extends Trabajador{
      
      public Administrativo(){
           
-          this.setPermisosAdministrativos(true);
-          
+          this.setPermisosAdministrativos(true);          
      }
      
      public Administrativo (String nombre, String apellido, int ci, int numeroTrabajador, int ganancias, char[] passwordP){
@@ -16,8 +15,7 @@ public class Administrativo extends Trabajador{
           this.setNumTrabajador(numeroTrabajador);
           this.setGanancias(ganancias);
           this.setPassword(passwordP);
-          this.setPermisosAdministrativos(true);
-          
+          this.setPermisosAdministrativos(true);         
      }
      
      public Administrativo(Administrativo admin){
@@ -38,6 +36,5 @@ public class Administrativo extends Trabajador{
      
      public String toString(){
           return "Administrativo: "+super.toString();
-     }
-     
+     }     
 }
