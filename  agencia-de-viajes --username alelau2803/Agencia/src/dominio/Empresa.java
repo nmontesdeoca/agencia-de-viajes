@@ -266,6 +266,7 @@ public class Empresa extends Observable{
  this.listaDestinos = new ArrayList<Destino>();
  this.listaTrabajadores = new ArrayList<Trabajador>() ;
  this.listaAlojamientos = new ArrayList<Alojamiento>();
+ this.listaTrabajadoresAux = new ArrayList<Trabajador>() ;
 
     }
 
