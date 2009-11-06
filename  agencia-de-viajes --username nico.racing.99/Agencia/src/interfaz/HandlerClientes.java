@@ -4,8 +4,10 @@ import java.util.Observer;
 import java.util.Observable;
 import javax.swing.JPanel;
 import java.awt.event.ActionListener;
+import java.awt.Rectangle;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.JList;
+import javax.swing.JScrollPane;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
@@ -22,9 +24,10 @@ public class HandlerClientes extends JPanel implements Observer, ActionListener,
           private Sistema sistema;
           private JList listaClientes;
           private JList listaBuscados;
+          private JList listaRealizados;
+          private JScrollPane scrollListaRealizados;
           private JButton agregaListaBuscados;
           private JButton quitaListaBuscados;
-          private JList listaRealizados;
           private JTextField nombre;
           private JTextField apellido;
           private JTextField ci;
@@ -33,6 +36,7 @@ public class HandlerClientes extends JPanel implements Observer, ActionListener,
           private JButton modificar;
           private JButton activos;
           private JButton espera;
+          private JButton realizarVenta;
           private JLabel listaClientesL;
           private JLabel nombreL;
           private JLabel apellidoL;
@@ -64,15 +68,20 @@ public class HandlerClientes extends JPanel implements Observer, ActionListener,
                this.add(listaClientes);
                
                listaRealizados = new JList(modeloRealizados);
-               listaRealizados.setSize(200,100);
-               listaRealizados.setLocation(500,280);
+               //listaRealizados.setSize(200,100);
+               //listaRealizados.setLocation(500,280);
                this.add(listaRealizados);
-               
+                  
                listaBuscados = new JList(modeloBuscados);
                listaBuscados.setSize(200,100);
                listaBuscados.setLocation(500,430);
                listaBuscados.setEnabled(false);
                this.add(listaBuscados);
+               
+               scrollListaRealizados = new JScrollPane();
+               scrollListaRealizados.setBounds(new Rectangle(500,280,200,100));
+               scrollListaRealizados.setViewportView(listaRealizados);
+               this.add(scrollListaRealizados);
                
                nombre = new JTextField();
                this.add(nombre);
@@ -119,6 +128,12 @@ public class HandlerClientes extends JPanel implements Observer, ActionListener,
                espera.setSize(110,25);
                espera.setLocation(175,500);
                espera.addActionListener(this);
+               
+               realizarVenta = new JButton("eeeeee Realizar Venta NAU() ");
+               this.add(realizarVenta);
+               realizarVenta.setSize(250,25);
+               realizarVenta.setLocation(100,600);
+               realizarVenta.addActionListener(this);
                
                agregaListaBuscados = new JButton("+");
                this.add(agregaListaBuscados);
@@ -246,6 +261,15 @@ public class HandlerClientes extends JPanel implements Observer, ActionListener,
                          }else{
                               JOptionPane.showMessageDialog(null, "No hay destino seleccionado" , "Atencion", JOptionPane.INFORMATION_MESSAGE);
                          }
+                    }
+                    else if(evento.getSource() == realizarVenta){
+                         if(!listaClientes.isSelectionEmpty()){
+                              Cliente c = (Cliente)listaClientes.getSelectedValue();
+                              Trabajador t = (Trabajador)sistema.getTrabajadorActual(); 
+                              sistema.getEmpresa().ventaViaje(c,t);
+                         }else{
+                              JOptionPane.showMessageDialog(null, "No hay cliente seleccionado" , "Atencion", JOptionPane.INFORMATION_MESSAGE);
+                         }                         
                     }
                }
           } 

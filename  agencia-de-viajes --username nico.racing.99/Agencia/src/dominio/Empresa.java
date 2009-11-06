@@ -222,8 +222,7 @@ public class Empresa extends Observable{
      }
      
      public PaqueteTuristico chequearPaquetesCon(ArrayList<Destino> destino){
-          
-          int minimo = (int)Math.ceil(destino.size()/2);
+          double minimo = Math.ceil(((double)destino.size()/2));
           Iterator<PaqueteTuristico> iterPaquetes = this.getListaPaquetes().iterator();
           PaqueteTuristico retorno = null;
           boolean encontre = false;
@@ -265,7 +264,7 @@ public class Empresa extends Observable{
           this.listaDestinos = new ArrayList<Destino>();
           this.listaTrabajadores = new ArrayList<Trabajador>() ;
           this.listaAlojamientos = new ArrayList<Alojamiento>();
-          
+          this.listaTrabajadoresAux = new ArrayList<Trabajador>();
      }
      
      public static Empresa GetInstance(){
