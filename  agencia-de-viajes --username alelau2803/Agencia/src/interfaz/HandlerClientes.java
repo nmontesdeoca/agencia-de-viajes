@@ -164,32 +164,24 @@ public class HandlerClientes extends JPanel implements Observer, ActionListener,
      }
      
      public void actionPerformed(ActionEvent evento) {
-          
           if(evento.getSource().getClass().getName().equals("javax.swing.JButton")){
-               
                if((evento.getSource() == agregar) || (evento.getSource() == modificar) ){
-                    
                     String nombreP = nombre.getText(); String apellidoP = apellido.getText();
-                    
                     if(nombreP.length() > 0 && apellidoP.length() > 0){
-                         
                          try{
                               int cedulaP = Integer.parseInt(this.ci.getText());
-                              
                               if(evento.getSource() == agregar){
                                    Cliente cli = new Cliente(nombreP, apellidoP, cedulaP, 0, new ArrayList <Destino>(), new ArrayList <Destino>());
                                    if(!sistema.getEmpresa().agregarCliente(cli)){
                                         JOptionPane.showMessageDialog(null, "ERROR: Ese Cliente ya existe" , "Cliente existente", JOptionPane.ERROR_MESSAGE);
                                    }            
-                              }
-                              else if(evento.getSource() == modificar){
+                              }else if(evento.getSource() == modificar){
                                    if (!listaClientes.isSelectionEmpty()){
                                         Cliente cli = (Cliente)listaClientes.getSelectedValue();
                                         cli.setNombre(nombreP);
                                         cli.setApellido(apellidoP);
                                         cli.setCedula(cedulaP);
-                                   }
-                                   else{
+                                   }else{
                                         JOptionPane.showMessageDialog(null, "No hay cliente seleccionado" , "Atención", JOptionPane.INFORMATION_MESSAGE);
                                    }
                               }
@@ -212,19 +204,15 @@ public class HandlerClientes extends JPanel implements Observer, ActionListener,
                     }else{
                          JOptionPane.showMessageDialog(null, "No hay cliente seleccionado" , "Atención", JOptionPane.INFORMATION_MESSAGE);
                     }
-               }
-               else if(evento.getSource() == activos ){
+               }else if(evento.getSource() == activos ){
                     cargarModelo(modeloListaClientes, sistema.getEmpresa().getListaClientes());
                     listaClientes.setModel(modeloListaClientes);
                     cambiarEstadoBotones(true);
-               }
-               else if(evento.getSource() == espera ){
+               }else if(evento.getSource() == espera ){
                     cargarModelo(modeloListaEnEspera, sistema.getEmpresa().getListaDeEspera());
                     listaClientes.setModel(modeloListaEnEspera);
                     cambiarEstadoBotones(false);
-               }
-               else if(evento.getSource()== agregaListaBuscados){
-                    
+               }else if(evento.getSource()== agregaListaBuscados){
                     final JDialog seleccion=new JDialog();
                     seleccion.setTitle("Agregar");
                     seleccion.setSize(450,500);
@@ -259,7 +247,6 @@ public class HandlerClientes extends JPanel implements Observer, ActionListener,
                          public void actionPerformed (ActionEvent evento){
                               if (!listaDestinos.isSelectionEmpty()){
                                    if (!listaClientes.isSelectionEmpty()){
-                                        
                                         seleccion.dispose();
                                    }else{
                                         ArrayList<Destino> aux = new ArrayList<Destino>();
@@ -267,12 +254,9 @@ public class HandlerClientes extends JPanel implements Observer, ActionListener,
                                         cargarModelo((DefaultListModel)listaBuscados.getModel(),aux);
                                         seleccion.dispose();
                                    }
-                              }
-                              else{
+                              }else{
                                    JOptionPane.showMessageDialog(null, "No hay destino seleccionado" , "Atencion", JOptionPane.INFORMATION_MESSAGE);
                               }
-                              
-                              
                          }
                     });
                     
@@ -283,13 +267,9 @@ public class HandlerClientes extends JPanel implements Observer, ActionListener,
                     cancelar.addActionListener(new java.awt.event.ActionListener(){
                          public void actionPerformed (ActionEvent evento){
                               seleccion.dispose();
-                              
                          }
                     });
-                    
-                    
-               }
-               else if (evento.getSource()== quitaListaBuscados){
+               }else if (evento.getSource()== quitaListaBuscados){
                     if (!listaBuscados.isSelectionEmpty()){
                          int respuesta = JOptionPane.showConfirmDialog(null, "�Eliminar este destino?", "Confirmacion", JOptionPane.WARNING_MESSAGE);
                          if (respuesta == JOptionPane.YES_OPTION){
@@ -302,10 +282,6 @@ public class HandlerClientes extends JPanel implements Observer, ActionListener,
                }
           }
      }
-     
-     
-     
-     
      private void cambiarEstadoBotones(boolean estaHabilitado){
           agregar.setEnabled(estaHabilitado);
           eliminar.setEnabled(estaHabilitado);
@@ -313,9 +289,7 @@ public class HandlerClientes extends JPanel implements Observer, ActionListener,
           activos.setEnabled(!estaHabilitado);
           espera.setEnabled(estaHabilitado);//si está en espera, los demás botones se desactivan
      }
-     
-     
-     
+          
      public void valueChanged(ListSelectionEvent evento) {
           if (!listaClientes.isSelectionEmpty()){
                Cliente cli = (Cliente)listaClientes.getSelectedValue();
@@ -325,11 +299,9 @@ public class HandlerClientes extends JPanel implements Observer, ActionListener,
                cargarModelo(modeloRealizados, cli.getViajesRealizados());
                cargarModelo(modeloBuscados, cli.getDestinosBuscados());
           }
-          
      }
      
      private <E> void cargarModelo (DefaultListModel modelo, ArrayList<E> datos){
-          
           modelo.clear();
           for(E objeto:datos){
                if (objeto != null){
@@ -339,7 +311,6 @@ public class HandlerClientes extends JPanel implements Observer, ActionListener,
      }
      
      private <E> void cargarLista (DefaultListModel modelo, ArrayList<E> datos){
-          
           for(Object objeto:modelo.toArray()){
                if (objeto != null){
                     datos.add((E)objeto);
@@ -375,8 +346,7 @@ private class DialogoViajes extends JDialog implements Observer, ActionListener,
             panelDestinos.setSize(450,500);
             panelDestinos.setLayout(null);
             seleccion.setContentPane(panelDestinos);
-                    
-                    
+                               
             modeloDestinos=new DefaultListModel();
             cargarModelo(modeloDestinos, sistema.getEmpresa().getListaDestinos());
                     
@@ -387,24 +357,24 @@ private class DialogoViajes extends JDialog implements Observer, ActionListener,
             listaDestinos.addListSelectionListener(this);
             listaDestinos.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
                     
-             textoDestinos = new JLabel("Lista de Destinos");
-             panelDestinos.add(textoDestinos);
-             textoDestinos.setSize(100,25);
-             textoDestinos.setLocation(100,25);
+            textoDestinos = new JLabel("Lista de Destinos");
+            panelDestinos.add(textoDestinos);
+            textoDestinos.setSize(100,25);
+            textoDestinos.setLocation(100,25);
                     
-             agregar=new JButton("Agregar");
-             agregar.setSize(100,25);
-             agregar.setLocation(100,405);
-             panelDestinos.add(agregar);
-             agregar.addActionListener(this);
+            agregar=new JButton("Agregar");
+            agregar.setSize(100,25);
+            agregar.setLocation(100,405);
+            panelDestinos.add(agregar);
+            agregar.addActionListener(this);
              
-             cancelar=new JButton("Cancelar");
-             cancelar.setSize(100,25);
-             cancelar.setLocation(230,405);
-             panelDestinos.add(cancelar);
-             cancelar.addActionListener(this);
+            cancelar=new JButton("Cancelar");
+            cancelar.setSize(100,25);
+            cancelar.setLocation(230,405);
+            panelDestinos.add(cancelar);
+            cancelar.addActionListener(this);
              
-             sistema.getEmpresa().addObserver(this);
+            sistema.getEmpresa().addObserver(this);
                   
      }
      public void actionPerformed(ActionEvent evento) {
@@ -413,7 +383,6 @@ private class DialogoViajes extends JDialog implements Observer, ActionListener,
      
                               if (!listaDestinos.isSelectionEmpty()){
                                    if (!listaClientes.isSelectionEmpty()){
-                                        
                                         seleccion.dispose();
                                    }else{
                                         ArrayList<Destino> aux = new ArrayList<Destino>();
@@ -426,17 +395,13 @@ private class DialogoViajes extends JDialog implements Observer, ActionListener,
                                    JOptionPane.showMessageDialog(null, "No hay destino seleccionado" , "Atencion", JOptionPane.INFORMATION_MESSAGE);
                               }
                               
-                              
                }else if(evento.getSource() == cancelar){
                     seleccion.dispose();
-                              
                          }
                     };
-                    
-                    
                }
+     
       private <E> void cargarModelo (DefaultListModel modelo, ArrayList<E> datos){
-          
           modelo.clear();
           for(E objeto:datos){
                if (objeto != null){
@@ -445,7 +410,3 @@ private class DialogoViajes extends JDialog implements Observer, ActionListener,
           }
      }
 }
-    
-     
-
-     
