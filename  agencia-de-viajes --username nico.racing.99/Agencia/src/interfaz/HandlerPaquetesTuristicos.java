@@ -2,6 +2,7 @@ package interfaz;
 
 import dominio.*;
 
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JScrollPane;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -31,6 +33,8 @@ public class HandlerPaquetesTuristicos extends JPanel implements Observer, Actio
      private JList listaPaquetes;
      private JList listaDestinosPaquetes; 
      private JList alojamientos;
+     private JScrollPane scrollListaPaquetes;
+     private JScrollPane scrollListaDestinosPaquetes;
      private DefaultListModel modeloListaPaquetes;
      private DefaultListModel modeloListaDestinosPaquetes;
      private DefaultListModel modeloAlojamientos;
@@ -68,20 +72,30 @@ public class HandlerPaquetesTuristicos extends JPanel implements Observer, Actio
           cargarModelo(modeloListaPaquetes, sistema.getEmpresa().getListaPaquetes());
           
           listaPaquetes = new JList(modeloListaPaquetes);
-          listaPaquetes.setSize(200,400);
-          listaPaquetes.setLocation(75,85);
+          //listaPaquetes.setSize(200,400);
+          //listaPaquetes.setLocation(75,85);
           listaPaquetes.addListSelectionListener(this);
           listaPaquetes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
           this.add(listaPaquetes);
           
+          scrollListaPaquetes = new JScrollPane();
+          scrollListaPaquetes.setBounds(new Rectangle(75,85,200,400));
+          scrollListaPaquetes.setViewportView(listaPaquetes);
+          this.add(scrollListaPaquetes);
+          
           
           listaDestinosPaquetes = new JList(modeloListaDestinosPaquetes);
-          listaDestinosPaquetes.setSize(200,100);
-          listaDestinosPaquetes.setLocation(500,350);
+          //listaDestinosPaquetes.setSize(200,100);
+          //listaDestinosPaquetes.setLocation(500,350);
           //listaDestinosPaquetes.addListSelectionListener(this);
           listaDestinosPaquetes.setEnabled(false);
           listaDestinosPaquetes.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
           this.add(listaDestinosPaquetes);
+          
+          scrollListaDestinosPaquetes = new JScrollPane();
+          scrollListaDestinosPaquetes.setBounds(new Rectangle(500,350,200,100));
+          scrollListaDestinosPaquetes.setViewportView(listaDestinosPaquetes);
+          this.add(scrollListaDestinosPaquetes);
           
          /* alojamientos = new JList(modeloAlojamientos);
           alojamientos.setSize(200,25);
@@ -315,6 +329,7 @@ cargarModelo(modeloListaDestinosPaquetes, paquete.getDestinos());
       JLabel textoDestinos;
       JButton cancelar;
       JButton aceptar;
+      JScrollPane scrollListaDestinos;
       
       
       public Destinos(){
@@ -332,11 +347,16 @@ cargarModelo(modeloListaDestinosPaquetes, paquete.getDestinos());
              cargarModelo(modeloDestinos, sistema.getEmpresa().getListaDestinos());
              
              listaDestinos = new JList(modeloDestinos);
-             listaDestinos.setSize(200,300);
-             listaDestinos.setLocation(100,75);
+             //listaDestinos.setSize(200,300);
+             //listaDestinos.setLocation(100,75);
              destinos.add(listaDestinos);
              //listaDestinos.addListSelectionListener(this);
              listaDestinos.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+             
+             scrollListaDestinos = new JScrollPane();
+             scrollListaDestinos.setBounds(new Rectangle(100,75,200,300));
+             scrollListaDestinos.setViewportView(listaDestinos);
+             destinos.add(scrollListaDestinos);
              
              textoDestinos = new JLabel("Lista de Destinos");
              destinos.add(textoDestinos);

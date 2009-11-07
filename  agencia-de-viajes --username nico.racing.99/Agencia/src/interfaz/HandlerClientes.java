@@ -26,6 +26,8 @@ public class HandlerClientes extends JPanel implements Observer, ActionListener,
           private JList listaBuscados;
           private JList listaRealizados;
           private JScrollPane scrollListaRealizados;
+          private JScrollPane scrollListaBuscados;
+          private JScrollPane scrollListaClientes;
           private JButton agregaListaBuscados;
           private JButton quitaListaBuscados;
           private JTextField nombre;
@@ -61,8 +63,8 @@ public class HandlerClientes extends JPanel implements Observer, ActionListener,
                cargarModelo(modeloListaClientes, sistema.getEmpresa().getListaClientes());
                cargarModelo(modeloListaEnEspera, sistema.getEmpresa().getListaDeEspera());
                listaClientes = new JList(modeloListaClientes);
-               listaClientes.setSize(200,400);
-               listaClientes.setLocation(75,85);
+               //listaClientes.setSize(200,400);
+               //listaClientes.setLocation(75,85);
                listaClientes.addListSelectionListener(this);
                listaClientes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
                this.add(listaClientes);
@@ -73,15 +75,25 @@ public class HandlerClientes extends JPanel implements Observer, ActionListener,
                this.add(listaRealizados);
                   
                listaBuscados = new JList(modeloBuscados);
-               listaBuscados.setSize(200,100);
-               listaBuscados.setLocation(500,430);
+               //listaBuscados.setSize(200,100);
+               //listaBuscados.setLocation(500,430);
                listaBuscados.setEnabled(false);
                this.add(listaBuscados);
+               
+               scrollListaBuscados = new JScrollPane();
+               scrollListaBuscados.setBounds(new Rectangle(500,430,200,100));
+               scrollListaBuscados.setViewportView(listaBuscados);
+               this.add(scrollListaBuscados);
                
                scrollListaRealizados = new JScrollPane();
                scrollListaRealizados.setBounds(new Rectangle(500,280,200,100));
                scrollListaRealizados.setViewportView(listaRealizados);
                this.add(scrollListaRealizados);
+               
+               scrollListaClientes = new JScrollPane();
+               scrollListaClientes.setBounds(new Rectangle(75,85,200,400));
+               scrollListaClientes.setViewportView(listaClientes);
+               this.add(scrollListaClientes);
                
                nombre = new JTextField();
                this.add(nombre);
@@ -324,6 +336,7 @@ public class HandlerClientes extends JPanel implements Observer, ActionListener,
            JLabel textoDestinos;
            JButton aceptar;
            JButton cancelar;
+           JScrollPane scrollListaDestinos;
           
            public DestinosBuscados(){
           
@@ -341,11 +354,16 @@ public class HandlerClientes extends JPanel implements Observer, ActionListener,
               cargarModelo(modeloDestinos, sistema.getEmpresa().getListaDestinos());
                 
               listaDestinos = new JList(modeloDestinos);
-              listaDestinos.setSize(200,300);
-              listaDestinos.setLocation(100,75);
+              //listaDestinos.setSize(200,300);
+              //listaDestinos.setLocation(100,75);
               destinos.add(listaDestinos);
               //listaDestinos.addListSelectionListener(this);
               listaDestinos.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+              
+              scrollListaDestinos = new JScrollPane();
+              scrollListaDestinos.setBounds(new Rectangle(100,75,200,300));
+              scrollListaDestinos.setViewportView(listaDestinos);
+              destinos.add(scrollListaDestinos);
               
               textoDestinos = new JLabel("Lista de Destinos");
               destinos.add(textoDestinos);

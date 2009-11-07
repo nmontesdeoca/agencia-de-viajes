@@ -25,6 +25,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.ListSelectionModel;
 
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -33,6 +34,7 @@ public class HandlerTrabajadores extends JPanel implements Observer, ActionListe
      
      private Sistema sistema;
      private JList listaTrabajadores;
+     private JScrollPane scrollListaTrabajadores;
      private JTextField nombre;
      private JTextField apellido;
      private JTextField ci;
@@ -68,12 +70,18 @@ public class HandlerTrabajadores extends JPanel implements Observer, ActionListe
           modeloListaComision = new DefaultListModel();
           
           cargarModelo(modeloListaTrabajadores, sistema.getEmpresa().getListaTrabajadores());
+          
           listaTrabajadores = new JList(modeloListaTrabajadores);
           listaTrabajadores.setSize(200,400);
           listaTrabajadores.setLocation(75,85);
           listaTrabajadores.addListSelectionListener(this);
           listaTrabajadores.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
           this.add(listaTrabajadores);
+          
+          scrollListaTrabajadores = new JScrollPane();
+          scrollListaTrabajadores.setBounds(new Rectangle(75,85,200,400));
+          scrollListaTrabajadores.setViewportView(listaTrabajadores);
+          this.add(scrollListaTrabajadores);
           
           nombre = new JTextField();
           this.add(nombre);

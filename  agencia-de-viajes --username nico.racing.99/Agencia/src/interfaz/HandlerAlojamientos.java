@@ -19,6 +19,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.ListSelectionModel;
 
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -44,6 +45,7 @@ public class HandlerAlojamientos extends JPanel implements Observer, ActionListe
           private JButton irDestinos;
           private JLabel textoAlojamientos;
           private JList listaAlojamientos;
+          private JScrollPane scrollListaAlojamientos;
           private DefaultListModel modeloListaAlojamientos;
           private Sistema sistema;
           private VentanaGestion vg;
@@ -58,11 +60,16 @@ public class HandlerAlojamientos extends JPanel implements Observer, ActionListe
                modeloListaAlojamientos = new DefaultListModel();
                cargarModelo(modeloListaAlojamientos, sistema.getEmpresa().getListaAlojamientos());
                listaAlojamientos = new JList(modeloListaAlojamientos);
-               listaAlojamientos.setSize(300,500);
-               listaAlojamientos.setLocation(500,100);
+               //listaAlojamientos.setSize(300,500);
+               //listaAlojamientos.setLocation(500,100);
                listaAlojamientos.addListSelectionListener(this);
                listaAlojamientos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
                this.add(listaAlojamientos);
+               
+               scrollListaAlojamientos = new JScrollPane();
+               scrollListaAlojamientos.setBounds(new Rectangle(500,100,300,500));
+               scrollListaAlojamientos.setViewportView(listaAlojamientos);
+               this.add(scrollListaAlojamientos);
                               
                textoNombreAlojamiento=new JLabel("Nombre de alojamiento:");
                textoNombreAlojamiento.setSize(150,25);

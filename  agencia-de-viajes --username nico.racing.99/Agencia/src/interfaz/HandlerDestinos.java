@@ -18,6 +18,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.ListSelectionModel;
 
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -28,6 +29,7 @@ public class HandlerDestinos extends JPanel implements Observer, ActionListener,
      private VentanaGestion vg;
      private JList listaDestinos;
      private JList listaTipos;
+     private JScrollPane scrollListaDestinos;
      private JTextField nombre;
      private JTextField localidad;
      private JTextField pais;
@@ -65,11 +67,16 @@ public class HandlerDestinos extends JPanel implements Observer, ActionListener,
           
           
           listaDestinos = new JList(modeloListaDestinos);
-          listaDestinos.setSize(200,400);
-          listaDestinos.setLocation(75,85);
+          //listaDestinos.setSize(200,400);
+          //listaDestinos.setLocation(75,85);
           listaDestinos.addListSelectionListener(this);
           listaDestinos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
           this.add(listaDestinos);
+          
+          scrollListaDestinos = new JScrollPane();
+          scrollListaDestinos.setBounds(new Rectangle(75,85,200,400));
+          scrollListaDestinos.setViewportView(listaDestinos);
+          this.add(scrollListaDestinos);
           
           listaTipos = new JList(valores.toArray());
           listaTipos.setSize(200, 90);
