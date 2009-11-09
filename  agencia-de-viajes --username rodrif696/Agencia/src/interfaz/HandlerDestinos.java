@@ -18,6 +18,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.ListSelectionModel;
 
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -28,6 +29,7 @@ public class HandlerDestinos extends JPanel implements Observer, ActionListener,
      private VentanaGestion vg;
      private JList listaDestinos;
      private JList listaTipos;
+     private JScrollPane scrollListaDestinos;
      private JTextField nombre;
      private JTextField localidad;
      private JTextField pais;
@@ -48,7 +50,7 @@ public class HandlerDestinos extends JPanel implements Observer, ActionListener,
      public HandlerDestinos (VentanaGestion vn, Sistema sistemaP) {
           
           super();
-          this.setSize(1024, 750);
+          this.setSize(900, 740);
           this.setLayout(null);
           this.sistema= sistemaP;
           this.vg = vn;
@@ -61,14 +63,20 @@ public class HandlerDestinos extends JPanel implements Observer, ActionListener,
           
           modeloListaDestinos = new DefaultListModel();  
           modeloListaTipos = new DefaultListModel();
-          cargarModelo(modeloListaDestinos, sistema.getEmpresa().getListaDestinos());         
+          cargarModelo(modeloListaDestinos, sistema.getEmpresa().getListaDestinos());
+          
           
           listaDestinos = new JList(modeloListaDestinos);
-          listaDestinos.setSize(200,400);
-          listaDestinos.setLocation(75,85);
+          //listaDestinos.setSize(200,400);
+          //listaDestinos.setLocation(75,85);
           listaDestinos.addListSelectionListener(this);
           listaDestinos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
           this.add(listaDestinos);
+          
+          scrollListaDestinos = new JScrollPane();
+          scrollListaDestinos.setBounds(new Rectangle(75,85,200,400));
+          scrollListaDestinos.setViewportView(listaDestinos);
+          this.add(scrollListaDestinos);
           
           listaTipos = new JList(valores.toArray());
           listaTipos.setSize(200, 90);
@@ -95,13 +103,13 @@ public class HandlerDestinos extends JPanel implements Observer, ActionListener,
           paquetes= new JButton("Ir a Paquetes");
           this.add(paquetes);
           paquetes.setSize(130,25);
-          paquetes.setLocation(750, 25);
+          paquetes.setLocation(630, 25);
           paquetes.addActionListener(this);
           
           alojamientos= new JButton("Ir a Alojamientos");
           this.add(alojamientos);
           alojamientos.setSize(130,25);
-          alojamientos.setLocation(885, 25);
+          alojamientos.setLocation(765, 25);
           alojamientos.addActionListener(this);
           
           agregar = new JButton("Agregar");
