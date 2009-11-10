@@ -215,14 +215,14 @@ public class Empresa extends Observable{
           
           if(p != null){
                c.getDestinosBuscados().clear();
-               c.getViajesRealizados().addAll(p.getDestinos());               
+               c.getViajesRealizados().addAll(p.getDestinos());
+               
           }
           return p;
      }
      
      public PaqueteTuristico chequearPaquetesCon(ArrayList<Destino> destino){
-          
-          int minimo = (int)Math.ceil(destino.size()/2);
+          double minimo = Math.ceil(((double)destino.size()/2));
           Iterator<PaqueteTuristico> iterPaquetes = this.getListaPaquetes().iterator();
           PaqueteTuristico retorno = null;
           boolean encontre = false;
@@ -246,12 +246,14 @@ public class Empresa extends Observable{
                     listaDeEspera.remove(c);
                     ventaViaje(c,listaTrabajadoresAux.remove(i));
                }
-          }          
+          }
+          
      }
      
      public double calcularSueldo(Trabajador t){
           
-          return t.calcularGanancias(this.getMontoBase());          
+          return t.calcularGanancias(this.getMontoBase());
+          
      }
      
      private Empresa(){
@@ -262,7 +264,7 @@ public class Empresa extends Observable{
           this.listaDestinos = new ArrayList<Destino>();
           this.listaTrabajadores = new ArrayList<Trabajador>() ;
           this.listaAlojamientos = new ArrayList<Alojamiento>();
-          this.listaTrabajadoresAux = new ArrayList<Trabajador>();          
+          this.listaTrabajadoresAux = new ArrayList<Trabajador>();
      }
      
      public static Empresa GetInstance(){
@@ -270,12 +272,14 @@ public class Empresa extends Observable{
           if(EMPRESA == null){
                EMPRESA = new Empresa();
           }
-          return EMPRESA;      
+          return EMPRESA;
+          
      }
      
      public String toString(){
           
-          return "Empresa: " + this.nombre + "\nRuc: " + this.ruc;          
+          return "Empresa: " + this.nombre + "\nRuc: " + this.ruc;
+          
      }    
      
      public void notificar() {
@@ -288,7 +292,8 @@ public class Empresa extends Observable{
           boolean esIgual = false;
           if(this.ruc == ((Empresa)o).getRuc()){
                esIgual = true;
-          }          
+          }
+          
           return esIgual;
      }
 }

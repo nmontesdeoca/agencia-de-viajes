@@ -28,7 +28,8 @@ public class Sistema{
      public Sistema(Trabajador trabajadorP){
           
           empresa = Empresa.GetInstance();
-          this.setTrabajadorActual(trabajadorP);          
+          //this.setTrabajadorActual(trabajadorP);
+          trabajadorActual = trabajadorP;
      }
      
      public boolean validarUsuario(Trabajador trabajadorP){
@@ -42,6 +43,8 @@ public class Sistema{
                     retorno = true;
                } 
           }
-          return retorno;          
-     }     
+          return retorno;
+          
+     }
+     
 }
