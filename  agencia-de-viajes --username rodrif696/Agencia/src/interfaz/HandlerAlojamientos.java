@@ -24,9 +24,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 @SuppressWarnings("serial")
-public class HandlerAlojamientos extends JPanel implements Observer, ActionListener, ListSelectionListener{
-     
-     
+public class HandlerAlojamientos extends JPanel implements Observer, ActionListener, ListSelectionListener{   
      
      private JLabel textoNombreAlojamiento;
      private JTextField nombre;
@@ -73,12 +71,12 @@ public class HandlerAlojamientos extends JPanel implements Observer, ActionListe
           
           textoNombreAlojamiento=new JLabel("Nombre de alojamiento:");
           textoNombreAlojamiento.setSize(150,25);
-          textoNombreAlojamiento.setLocation(75,50);
+          textoNombreAlojamiento.setLocation(75,200);
           this.add(textoNombreAlojamiento);
           
           nombre= new JTextField();
           nombre.setSize(200,25);
-          nombre.setLocation(230,50);
+          nombre.setLocation(230,200);
           this.add(nombre);
           
           paquetes= new JButton("Ir a Paquetes");
@@ -95,7 +93,7 @@ public class HandlerAlojamientos extends JPanel implements Observer, ActionListe
           
           textoTipoAlojamiento=new JLabel("Tipo de alojamiento:");
           textoTipoAlojamiento.setSize(150,25);
-          textoTipoAlojamiento.setLocation(75,100);
+          textoTipoAlojamiento.setLocation(75,250);
           this.add(textoTipoAlojamiento);
           
           tipo= new ArrayList <Alojamiento.Tipo>();
@@ -104,12 +102,12 @@ public class HandlerAlojamientos extends JPanel implements Observer, ActionListe
           }
           tipoAlojamiento= new JComboBox(tipo.toArray());
           tipoAlojamiento.setSize(200,25);
-          tipoAlojamiento.setLocation(230,100);
+          tipoAlojamiento.setLocation(230,250);
           this.add(tipoAlojamiento);
           
           textoPension=new JLabel("Pension:");
           textoPension.setSize(150,25);
-          textoPension.setLocation(75,150);
+          textoPension.setLocation(75,300);
           this.add(textoPension);
           
           tipop= new ArrayList <Alojamiento.Pension>();
@@ -118,12 +116,12 @@ public class HandlerAlojamientos extends JPanel implements Observer, ActionListe
           }
           tipoPension= new JComboBox(tipop.toArray());
           tipoPension.setSize(200,25);
-          tipoPension.setLocation(230,150);
+          tipoPension.setLocation(230,300);
           this.add(tipoPension);
           
           textoCantidadEstrellas=new JLabel("Cantidad de Estrellas:");
           textoCantidadEstrellas.setSize(150,25);
-          textoCantidadEstrellas.setLocation(75,200);
+          textoCantidadEstrellas.setLocation(75,350);
           this.add(textoCantidadEstrellas);
           
           cantidadEstrellas= new JSlider(JSlider.HORIZONTAL, 1, 6, 1);
@@ -132,12 +130,12 @@ public class HandlerAlojamientos extends JPanel implements Observer, ActionListe
           cantidadEstrellas.setPaintTicks(true);
           cantidadEstrellas.setPaintLabels(true);
           cantidadEstrellas.setSize(200,50);
-          cantidadEstrellas.setLocation(230,200);
+          cantidadEstrellas.setLocation(230,350);
           this.add(cantidadEstrellas);
           
           guardar=new JButton("Agregar");
           guardar.setSize(90,25);
-          guardar.setLocation(80,280);
+          guardar.setLocation(80,430);
           guardar.addActionListener(this);
           this.add(guardar);
           
@@ -157,9 +155,7 @@ public class HandlerAlojamientos extends JPanel implements Observer, ActionListe
           textoAlojamientos.setSize(150,25);
           textoAlojamientos.setLocation(500,60);
           this.add(textoAlojamientos);
-          
-          
-          
+        
           sistema.getEmpresa().addObserver(this);
      }
      
@@ -214,13 +210,9 @@ public class HandlerAlojamientos extends JPanel implements Observer, ActionListe
                }else{
                     JOptionPane.showMessageDialog(null, "No hay Alojamiento seleccionado" , "Atencion", JOptionPane.INFORMATION_MESSAGE);
                }
-          }
-          
-          
+          }       
      }
-     
-     
-     
+   
      public void valueChanged(ListSelectionEvent evento) {
           if (!listaAlojamientos.isSelectionEmpty()){
                Alojamiento aloja = (Alojamiento)listaAlojamientos.getSelectedValue();
@@ -228,11 +220,9 @@ public class HandlerAlojamientos extends JPanel implements Observer, ActionListe
                tipoAlojamiento.setSelectedItem(aloja.getTipo());
                cantidadEstrellas.setValue(aloja.getEstrellas());
                tipoPension.setSelectedItem(aloja.getPension());
-          }
-          
+          }       
      }
-     
-     
+         
      private <E> void cargarModelo (DefaultListModel modelo, ArrayList<E> datos){
           
           modelo.clear();
@@ -242,8 +232,7 @@ public class HandlerAlojamientos extends JPanel implements Observer, ActionListe
                }
           }     
      }
-     
-     
+          
      public void update(Observable o, Object ar){
           cargarModelo(modeloListaAlojamientos, sistema.getEmpresa().getListaAlojamientos());
           listaAlojamientos.setSelectedIndex(-1);

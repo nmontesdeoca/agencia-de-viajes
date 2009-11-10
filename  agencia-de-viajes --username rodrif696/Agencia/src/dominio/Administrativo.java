@@ -26,8 +26,7 @@ public class Administrativo extends Trabajador{
           this.setNumTrabajador(admin.getNumTrabajador());
           this.setGanancias(admin.getGanancias());
           this.setPassword(admin.getPassword());
-          this.setPermisosAdministrativos(admin.getPermisosAdministrativos());
-          
+          this.setPermisosAdministrativos(admin.getPermisosAdministrativos());          
      } 
      
      public double calcularGanancias (double montoBase){

@@ -1,6 +1,7 @@
 package dominio;
 
 public class Trabajador{
+     
      private String nombre;
      private String apellido;
      private int ci;
@@ -86,6 +87,7 @@ public class Trabajador{
      }
      
      public Trabajador (){
+          
           this.setNombre("sin definir");
           this.setApellido("sin definir");
           this.setCi(0);

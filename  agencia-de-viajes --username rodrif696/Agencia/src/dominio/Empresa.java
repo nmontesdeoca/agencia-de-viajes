@@ -18,6 +18,7 @@ public class Empresa extends Observable{
      private static Empresa EMPRESA = null;
      
      public boolean agregarCliente(Cliente c){  
+          
           boolean ret = false;
           if(!this.getListaClientes().contains(c)){
                this.getListaClientes().add(c);
@@ -28,6 +29,7 @@ public class Empresa extends Observable{
      }
      
      public boolean agregarPaquete(PaqueteTuristico p){
+          
           boolean ret = false;
           if(!this.getListaPaquetes().contains(p)){
                this.getListaPaquetes().add(p);
@@ -38,6 +40,7 @@ public class Empresa extends Observable{
      }
      
      public boolean agregarDestino(Destino d){
+          
           boolean ret = false;
           if(!this.getListaDestinos().contains(d)){
                this.getListaDestinos().add(d);
@@ -58,6 +61,7 @@ public class Empresa extends Observable{
      }
      
      public boolean agregarAlojamiento(Alojamiento a){
+          
           boolean ret = false;
           if(!this.getListaAlojamientos().contains(a)){
                this.getListaAlojamientos().add(a);
@@ -112,6 +116,7 @@ public class Empresa extends Observable{
      }
      
      public void setRuc(int rucP){
+          
           if(rucP > 0){
                this.ruc = rucP;
           }else{
@@ -164,6 +169,7 @@ public class Empresa extends Observable{
      }
      
      public boolean eliminarAlojamiento(Alojamiento a){
+          
           boolean res = this.getListaAlojamientos().remove(a);
           Iterator<PaqueteTuristico> iter1 = this.getListaPaquetes().iterator();
           while(iter1.hasNext()){
@@ -177,6 +183,7 @@ public class Empresa extends Observable{
      }
      
      public boolean eliminarTrabajador(Trabajador t){
+          
           boolean b =  this.getListaTrabajadores().remove(t);
           notificar();
           return b;
@@ -197,6 +204,7 @@ public class Empresa extends Observable{
      }
      
      public boolean ventaViaje(Cliente c, Trabajador t){
+          
           boolean ret = false;
           PaqueteTuristico p = asignarPaquete(c);
           if(p != null){
@@ -223,6 +231,7 @@ public class Empresa extends Observable{
      }
      
      public PaqueteTuristico chequearPaquetesCon(ArrayList<Destino> destino){
+          
           double minimo = Math.ceil(((double)destino.size()/2));
           Iterator<PaqueteTuristico> iterPaquetes = this.getListaPaquetes().iterator();
           PaqueteTuristico retorno = null;
@@ -273,14 +282,12 @@ public class Empresa extends Observable{
           if(EMPRESA == null){
                EMPRESA = new Empresa();
           }
-          return EMPRESA;
-         
+          return EMPRESA;        
      }
      
      public String toString(){
          
-          return "Empresa: " + this.nombre + "\nRuc: " + this.ruc;
-         
+          return "Empresa: " + this.nombre + "\nRuc: " + this.ruc;         
      }    
      
      public void notificar() {
@@ -293,9 +300,7 @@ public class Empresa extends Observable{
           boolean esIgual = false;
           if(this.ruc == ((Empresa)o).getRuc()){
                esIgual = true;
-          }
-         
+          }       
           return esIgual;
      }
 }
-

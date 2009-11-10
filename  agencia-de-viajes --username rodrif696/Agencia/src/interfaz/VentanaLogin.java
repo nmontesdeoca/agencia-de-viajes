@@ -11,7 +11,6 @@ import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-
 public class VentanaLogin extends JFrame implements ActionListener{
      
      private JTextField numeroTrabajador = null;
@@ -113,6 +112,5 @@ public class VentanaLogin extends JFrame implements ActionListener{
           }else{
                this.dispose();
           }
-     }
-     
+     }   
 }

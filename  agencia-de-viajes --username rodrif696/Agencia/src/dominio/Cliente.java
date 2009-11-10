@@ -59,6 +59,7 @@ public class Cliente{
      }
      
      public Cliente(){
+          
           this.setNombre ("sin definir");
           this.setApellido ("sin definir");
           this.setCedula (0);
@@ -68,6 +69,7 @@ public class Cliente{
      }
      
      public Cliente(String nombre, String apellido, int cedula, int antiguedad, ArrayList <Destino> realizados, ArrayList <Destino> buscados){
+          
           this.setNombre(nombre);
           this.setApellido (apellido);
           this.setCedula (cedula);
@@ -77,6 +79,7 @@ public class Cliente{
      }
      
      public Cliente (Cliente actual){
+          
           this.setNombre (actual.getNombre());
           this.setApellido (actual.getApellido());
           this.setCedula (actual.getCedula());
@@ -88,6 +91,7 @@ public class Cliente{
      public String toString(){
           return this.nombre +" "+this.apellido+" C.I.:"+this.cedula;
      } 
+     
      public boolean equals (Object o){
           return this.cedula==((Cliente)o).getCedula();
      }

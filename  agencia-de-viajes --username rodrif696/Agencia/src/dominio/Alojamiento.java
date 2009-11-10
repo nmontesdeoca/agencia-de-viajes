@@ -86,7 +86,7 @@ public class Alojamiento{
      
      public String toString(){
           
-          return "Alojamiento: " + this.nombre + "\nTipo: " + this.tipo;          
+          return this.tipo + " " + this.nombre + " (" + this.pension + ", " + this.estrellas + " estrellas)" ;          
      }
      
      public boolean equals(Object o){

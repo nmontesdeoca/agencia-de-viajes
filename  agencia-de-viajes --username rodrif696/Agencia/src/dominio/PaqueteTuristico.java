@@ -99,6 +99,7 @@ public class PaqueteTuristico{
      }
      
      public PaqueteTuristico(){
+          
           this.setNombre ("sin definir");
           this.setDestinos (new ArrayList <Destino>());
           this.setDuracion (0);
@@ -109,6 +110,7 @@ public class PaqueteTuristico{
      } 
      
      public PaqueteTuristico(String nombre, ArrayList <Destino> destino, int duracion, double precio, Alojamiento alojamiento){
+          
           this.setNombre(nombre);
           this.setDestinos (destino);
           this.setDuracion (duracion);
@@ -119,6 +121,7 @@ public class PaqueteTuristico{
      }
      
      public PaqueteTuristico(PaqueteTuristico actual){
+          
           this.setNombre (actual.getNombre());
           this.setDestinos (actual.getDestinos());
           this.setDuracion (actual.getDuracion());
@@ -129,7 +132,7 @@ public class PaqueteTuristico{
      }
      
      public String toString(){
-          return "PaqueteTuristico: "+this.codigo +" "+this.nombre +" "+this.precio;
+          return "Paquete" +this.codigo + " " +this.nombre + " " + "(" + this.precio + ")";
      } 
      
      public boolean equals (Object o){

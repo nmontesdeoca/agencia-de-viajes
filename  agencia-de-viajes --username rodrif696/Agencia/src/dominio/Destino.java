@@ -37,6 +37,7 @@ public class Destino{
      }
      
      public void setTipo(Tipo tipoP){
+          
           boolean encontre = false;
           if(!encontre){
                for(Tipo elemento: Tipo.values()){
@@ -77,7 +78,7 @@ public class Destino{
      
      public String toString(){
           
-          return this.tipo + ": " + this.nombre + "(" + this.localidad + ", " + this.pais + ")";          
+          return this.tipo + " " + this.nombre + "(" + this.localidad + ", " + this.pais + ")";          
      }
      
      public boolean equals(Object o){

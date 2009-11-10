@@ -36,6 +36,6 @@ public class TrabajadorBase extends Trabajador{
      }
           
      public String toString(){
-          return "(B)"+super.toString();
+          return "(Base)"+super.toString();
      }
 }

@@ -30,7 +30,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.MouseEvent;
 
-
 public class VentanaGestion extends JFrame implements ActionListener{
      
      private JPanel panelInicio = null;
@@ -46,8 +45,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
      private JMenu subMenuGestion = null;     
      private JMenu subMenuViajes = null;
      private Sistema sistema = null;
-     
-     
+          
      public VentanaGestion(Sistema sistemaP){
           
           super();
@@ -65,8 +63,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
                     if (respuesta == JOptionPane.YES_OPTION){
                          System.exit(0);
                     }
-               }
-               
+               }              
           });
      }
      
@@ -75,8 +72,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
                panelInicio = new JPanel();
                panelInicio.setSize(1024,750);
                panelInicio.setLayout(null);
-               
-               
+                              
                ImageIcon iconViajes = new ImageIcon(getClass().getResource("imagenes/icono_travel.png"));
                ImageIcon iconTrabajador = new ImageIcon(getClass().getResource("imagenes/icono_trabajador.png"));
                ImageIcon iconCliente = new ImageIcon(getClass().getResource("imagenes/icono_cliente.png"));
@@ -95,15 +91,13 @@ public class VentanaGestion extends JFrame implements ActionListener{
                     public void mouseClicked(MouseEvent evento){
                          vn.setContentPane(vn.getPanelClientes());
                     }
-               }                                            
-                                               
+               }                                                                                          
                );
                
                JLabel gestionTrabajador = new JLabel("Gestion Trabajador", iconTrabajador, JLabel.CENTER);          
                gestionTrabajador.setVerticalTextPosition(JLabel.BOTTOM);
                gestionTrabajador.setHorizontalTextPosition(JLabel.CENTER);
-               
-               
+                             
                panelInicio.add(gestionTrabajador);
                gestionTrabajador.setSize(120,120);
                gestionTrabajador.setLocation(452,275);
@@ -112,15 +106,13 @@ public class VentanaGestion extends JFrame implements ActionListener{
                     public void mouseClicked(MouseEvent evento){
                          vn.setContentPane(vn.getPanelTrabajadores());
                     }
-               }                                            
-                                                  
+               }                                                                                              
                );
                
                /* JLabel gestionViajes = new JLabel("Gestion Viajes", iconViajes, JLabel.CENTER);
                 gestionViajes.setVerticalTextPosition(JLabel.BOTTOM);
                 gestionViajes.setHorizontalTextPosition(JLabel.CENTER);
-                
-                
+                                
                 panelInicio.add(gestionViajes);
                 gestionViajes.setSize(120,120);
                 gestionViajes.setLocation(602,275);
@@ -130,10 +122,8 @@ public class VentanaGestion extends JFrame implements ActionListener{
                 public void mouseClicked(MouseEvent evento){
                 vn.setContentPane(vn.getPanelViajes());
                 }
-                }                                            
-                
-                );*/
-               
+                }                                                           
+                );*/               
           }
           return panelInicio;
      }
@@ -175,6 +165,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
      }
      
      private JMenu getMenuArchivo(){
+          
           if(this.menuArchivo == null){
                menuArchivo = new JMenu("Archivo");
                menuArchivo.add(getSubMenuGestion());
@@ -187,8 +178,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
                          }
                     }
                });
-               menuArchivo.add(salir);    
-               
+               menuArchivo.add(salir);                   
           }
           return this.menuArchivo;
      }
@@ -196,8 +186,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
      private JMenu getMenuOpciones(){
           if(this.menuOpciones == null){
                menuOpciones = new JMenu("Opciones");
-               menuOpciones.add(new JMenuItem("Preferencias"));
-               
+               menuOpciones.add(new JMenuItem("Preferencias"));              
           }
           return this.menuOpciones;
      }
@@ -206,8 +195,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
           if(this.menuAyuda == null){
                menuAyuda = new JMenu("Ayuda");
                menuAyuda.add(new JMenuItem("Manual"));
-               menuAyuda.add(new JMenuItem("Acerca de..."));
-               
+               menuAyuda.add(new JMenuItem("Acerca de..."));               
           }
           return this.menuAyuda;
      }
@@ -237,8 +225,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
           subMenu.add(getSubMenuViajes());
           
           clientes.addActionListener(this);
-          trabajadores.addActionListener(this);
-          
+          trabajadores.addActionListener(this);          
      }
      
      private void poblarSubMenuViajes(JMenu subMenu){
@@ -252,8 +239,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
           
           paquetesTuristicos.addActionListener(this);
           alojamientos.addActionListener(this);
-          destinos.addActionListener(this);
-          
+          destinos.addActionListener(this);          
      }
      
      private JMenuBar getMenuBarra(){
@@ -265,8 +251,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
           }
           return this.barra;
      }
-     
-     
+          
      public void actionPerformed(ActionEvent e){
           
           JMenuItem j = (JMenuItem)e.getSource();

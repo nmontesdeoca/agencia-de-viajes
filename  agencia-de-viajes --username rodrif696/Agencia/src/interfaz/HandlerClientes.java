@@ -288,8 +288,7 @@ public class HandlerClientes extends JPanel implements Observer, ActionListener,
                }
           }
      }
-     
-     
+          
      private void cambiarEstadoBotones(boolean estaHabilitado){
           agregar.setEnabled(estaHabilitado);
           eliminar.setEnabled(estaHabilitado);
@@ -297,8 +296,6 @@ public class HandlerClientes extends JPanel implements Observer, ActionListener,
           activos.setEnabled(!estaHabilitado);
           espera.setEnabled(estaHabilitado);//si está en espera, los demás botones se desactivan
      }
-     
-     
      
      public void valueChanged(ListSelectionEvent evento) {
           if (!listaClientes.isSelectionEmpty()){
@@ -310,8 +307,7 @@ public class HandlerClientes extends JPanel implements Observer, ActionListener,
                cargarModelo(modeloBuscados, cli.getDestinosBuscados());
                int max = cli.getDestinosBuscados().size() - 1;
                listaBuscados.setSelectionInterval(0,max);
-          }
-          
+          }      
      }
      
      private <E> void cargarModelo (DefaultListModel modelo, ArrayList<E> datos){
@@ -331,8 +327,7 @@ public class HandlerClientes extends JPanel implements Observer, ActionListener,
      }
      
      private class DestinosBuscados extends JDialog implements ActionListener{
-          
-          
+                   
           JPanel destinos;
           DefaultListModel modeloDestinos;
           JList listaDestinos;
@@ -405,8 +400,7 @@ public class HandlerClientes extends JPanel implements Observer, ActionListener,
                     
                }else if(evento.getSource() == cancelar){
                     this.dispose();
-               }
-               
+               }            
           }
      }
 }
