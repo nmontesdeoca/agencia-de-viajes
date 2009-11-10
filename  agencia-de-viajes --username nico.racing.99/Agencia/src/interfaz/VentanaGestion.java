@@ -116,23 +116,23 @@ public class VentanaGestion extends JFrame implements ActionListener{
                                                   
                );
                
-              /* JLabel gestionViajes = new JLabel("Gestion Viajes", iconViajes, JLabel.CENTER);
-               gestionViajes.setVerticalTextPosition(JLabel.BOTTOM);
-               gestionViajes.setHorizontalTextPosition(JLabel.CENTER);
-               
-               
-               panelInicio.add(gestionViajes);
-               gestionViajes.setSize(120,120);
-               gestionViajes.setLocation(602,275);
-               
-               gestionViajes.addMouseListener(new java.awt.event.MouseAdapter(){
-                    
-                    public void mouseClicked(MouseEvent evento){
-                         vn.setContentPane(vn.getPanelViajes());
-                    }
-               }                                            
-                                              
-               );*/
+               /* JLabel gestionViajes = new JLabel("Gestion Viajes", iconViajes, JLabel.CENTER);
+                gestionViajes.setVerticalTextPosition(JLabel.BOTTOM);
+                gestionViajes.setHorizontalTextPosition(JLabel.CENTER);
+                
+                
+                panelInicio.add(gestionViajes);
+                gestionViajes.setSize(120,120);
+                gestionViajes.setLocation(602,275);
+                
+                gestionViajes.addMouseListener(new java.awt.event.MouseAdapter(){
+                
+                public void mouseClicked(MouseEvent evento){
+                vn.setContentPane(vn.getPanelViajes());
+                }
+                }                                            
+                
+                );*/
                
           }
           return panelInicio;
@@ -165,7 +165,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
           }
           return panelDestinos;
      }
-      
+     
      private HandlerAlojamientos getPanelAlojamientos(){
           if(panelAlojamientos == null){
                panelAlojamientos = 

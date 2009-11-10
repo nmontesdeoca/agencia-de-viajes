@@ -50,7 +50,7 @@ public class HandlerDestinos extends JPanel implements Observer, ActionListener,
      public HandlerDestinos (VentanaGestion vn, Sistema sistemaP) {
           
           super();
-          this.setSize(1024, 750);
+          this.setSize(900, 740);
           this.setLayout(null);
           this.sistema= sistemaP;
           this.vg = vn;
@@ -103,13 +103,13 @@ public class HandlerDestinos extends JPanel implements Observer, ActionListener,
           paquetes= new JButton("Ir a Paquetes");
           this.add(paquetes);
           paquetes.setSize(130,25);
-          paquetes.setLocation(750, 25);
+          paquetes.setLocation(630, 25);
           paquetes.addActionListener(this);
           
           alojamientos= new JButton("Ir a Alojamientos");
           this.add(alojamientos);
           alojamientos.setSize(130,25);
-          alojamientos.setLocation(885, 25);
+          alojamientos.setLocation(765, 25);
           alojamientos.addActionListener(this);
           
           agregar = new JButton("Agregar");
