@@ -279,7 +279,9 @@ public class HandlerClientes extends JPanel implements Observer, ActionListener,
                     if(!listaClientes.isSelectionEmpty()){
                          Cliente c = (Cliente)listaClientes.getSelectedValue();
                          Trabajador t = (Trabajador)sistema.getTrabajadorActual();
-                         sistema.getEmpresa().ventaViaje(c,t);
+                         if(sistema.getEmpresa().ventaViaje(c,t)){
+                              JOptionPane.showMessageDialog(null, "Venta exitosa" , "Success!", JOptionPane.INFORMATION_MESSAGE);
+                         }
                     }else{
                          JOptionPane.showMessageDialog(null, "No hay cliente seleccionado" , "Atencion", JOptionPane.INFORMATION_MESSAGE);
                     }                        

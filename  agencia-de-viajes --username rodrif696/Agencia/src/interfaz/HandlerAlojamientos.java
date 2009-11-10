@@ -126,7 +126,7 @@ public class HandlerAlojamientos extends JPanel implements Observer, ActionListe
           textoCantidadEstrellas.setLocation(75,200);
           this.add(textoCantidadEstrellas);
           
-          cantidadEstrellas= new JSlider(JSlider.HORIZONTAL, 1, 7, 1);
+          cantidadEstrellas= new JSlider(JSlider.HORIZONTAL, 1, 6, 1);
           cantidadEstrellas.setMajorTickSpacing(1);
           cantidadEstrellas.setMinorTickSpacing(1);
           cantidadEstrellas.setPaintTicks(true);
@@ -135,7 +135,7 @@ public class HandlerAlojamientos extends JPanel implements Observer, ActionListe
           cantidadEstrellas.setLocation(230,200);
           this.add(cantidadEstrellas);
           
-          guardar=new JButton("Guardar");
+          guardar=new JButton("Agregar");
           guardar.setSize(90,25);
           guardar.setLocation(80,280);
           guardar.addActionListener(this);

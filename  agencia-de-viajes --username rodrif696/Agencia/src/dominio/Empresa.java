@@ -144,7 +144,7 @@ public class Empresa extends Observable{
      }
      
      public void setMontoBase(double montoBaseP){
-          this.montoBase = montoBaseP;   
+          this.montoBase = montoBaseP;  
      }
      
      public void setListaTrabajadoresAux(ArrayList<Trabajador> listaTrabajadoresAuxP){
@@ -152,7 +152,7 @@ public class Empresa extends Observable{
      }
      
      public boolean eliminarDestino(Destino d){
-          
+         
           boolean res = this.getListaDestinos().remove(d);
           Iterator<PaqueteTuristico> iter = this.getListaPaquetes().iterator();
           while(iter.hasNext()){
@@ -189,7 +189,7 @@ public class Empresa extends Observable{
      }
      
      public boolean eliminarCliente(Cliente c){
-          
+         
           boolean b = this.listaClientes.remove(c);
           listaDeEspera.remove(c);
           notificar();
@@ -203,16 +203,17 @@ public class Empresa extends Observable{
                t.setGanancias(t.getGanancias() + p.getPrecio());
                ret = true;
           }else{
-               this.getListaDeEspera().add(c);
+               if(!this.getListaDeEspera().contains(c))
+                    this.getListaDeEspera().add(c);
                this.getListaTrabajadoresAux().add(t);
           }
           return ret;
      }
      
      public PaqueteTuristico asignarPaquete(Cliente c){
-          
+         
           PaqueteTuristico p = chequearPaquetesCon(c.getDestinosBuscados());
-          
+         
           if(p != null){
                c.getDestinosBuscados().clear();
                c.getViajesRealizados().addAll(p.getDestinos());
@@ -228,7 +229,7 @@ public class Empresa extends Observable{
           boolean encontre = false;
           while(iterPaquetes.hasNext() && !encontre){
                PaqueteTuristico p = iterPaquetes.next();
-               if(p.cantidadDestinos(destino) >= minimo){
+               if(p.cantidadDestinos(destino) >= minimo && minimo != 0){
                     retorno = p;
                     encontre = true;
                }
@@ -237,7 +238,7 @@ public class Empresa extends Observable{
      }
      
      public void chequearDisponibilidad(){
-          
+         
           Iterator<Cliente> iter = listaDeEspera.iterator();
           while(iter.hasNext()){
                Cliente c = iter.next();
@@ -247,17 +248,17 @@ public class Empresa extends Observable{
                     ventaViaje(c,listaTrabajadoresAux.remove(i));
                }
           }
-          
+         
      }
      
      public double calcularSueldo(Trabajador t){
-          
+         
           return t.calcularGanancias(this.getMontoBase());
-          
+         
      }
      
      private Empresa(){
-          
+         
           this.listaClientes = new ArrayList<Cliente>();
           this.listaDeEspera = new ArrayList<Cliente>();
           this.listaPaquetes = new ArrayList<PaqueteTuristico>();
@@ -268,32 +269,33 @@ public class Empresa extends Observable{
      }
      
      public static Empresa GetInstance(){
-          
+         
           if(EMPRESA == null){
                EMPRESA = new Empresa();
           }
           return EMPRESA;
-          
+         
      }
      
      public String toString(){
-          
+         
           return "Empresa: " + this.nombre + "\nRuc: " + this.ruc;
-          
+         
      }    
      
      public void notificar() {
           this.setChanged();
-          this.notifyObservers(); 
+          this.notifyObservers();
      }
      
      public boolean equals(Object o){
-          
+         
           boolean esIgual = false;
           if(this.ruc == ((Empresa)o).getRuc()){
                esIgual = true;
           }
-          
+         
           return esIgual;
      }
 }
+
