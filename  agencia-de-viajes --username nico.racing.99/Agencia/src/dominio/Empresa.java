@@ -203,7 +203,8 @@ public class Empresa extends Observable{
                t.setGanancias(t.getGanancias() + p.getPrecio());
                ret = true;
           }else{
-               this.getListaDeEspera().add(c);
+               if(!this.getListaDeEspera().contains(c))
+                    this.getListaDeEspera().add(c);
                this.getListaTrabajadoresAux().add(t);
           }
           return ret;
@@ -228,7 +229,7 @@ public class Empresa extends Observable{
           boolean encontre = false;
           while(iterPaquetes.hasNext() && !encontre){
                PaqueteTuristico p = iterPaquetes.next();
-               if(p.cantidadDestinos(destino) >= minimo){
+               if(p.cantidadDestinos(destino) >= minimo && minimo != 0){
                     retorno = p;
                     encontre = true;
                }
