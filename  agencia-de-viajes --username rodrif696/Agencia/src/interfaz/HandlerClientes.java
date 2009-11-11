@@ -213,7 +213,7 @@ public class HandlerClientes extends JPanel implements Observer, ActionListener,
                               if(evento.getSource() == agregar){
                                    Cliente cli = new Cliente(nombreP, apellidoP, cedulaP, 0, new ArrayList <Destino>(), desBus);
                                    if(!sistema.getEmpresa().agregarCliente(cli)){
-                                        JOptionPane.showMessageDialog(null, "ERROR: Ese Cliente ya existe" , "Cliente existente", JOptionPane.ERROR_MESSAGE);
+                                        JOptionPane.showMessageDialog(null, "   Ese Cliente ya existe" , "ERROR", JOptionPane.ERROR_MESSAGE);
                                    }            
                               }
                               else if(evento.getSource() == modificar){
@@ -225,27 +225,27 @@ public class HandlerClientes extends JPanel implements Observer, ActionListener,
                                         cli.setDestinosBuscados(desBus);
                                    }
                                    else{
-                                        JOptionPane.showMessageDialog(null, "No hay cliente seleccionado" , "Atención", JOptionPane.INFORMATION_MESSAGE);
+                                        JOptionPane.showMessageDialog(null, "   No hay cliente seleccionado" , "ERROR", JOptionPane.ERROR_MESSAGE);
                                    }
                               }
                          }
                          catch(NumberFormatException e){
-                              JOptionPane.showMessageDialog(null, "ERROR: Ingrese un número valido en la cédula" , "ERROR", JOptionPane.ERROR_MESSAGE);
+                              JOptionPane.showMessageDialog(null, "   Ingrese un numero valido en la cedula" , "ERROR", JOptionPane.ERROR_MESSAGE);
                               this.ci.setText("");
                          }
                     }else{
-                         JOptionPane.showMessageDialog(null, "ERROR: Faltan los datos de nombre o apellido" , "ERROR", JOptionPane.ERROR_MESSAGE);
+                         JOptionPane.showMessageDialog(null, "   Faltan los datos de nombre o apellido" , "ERROR", JOptionPane.ERROR_MESSAGE);
                     }
                }
                else if(evento.getSource() == eliminar){
                     if (!listaClientes.isSelectionEmpty()){
-                         int respuesta = JOptionPane.showConfirmDialog(null, " ¿Eliminar este cliente?", "Confirmación", JOptionPane.WARNING_MESSAGE);
+                         int respuesta = JOptionPane.showConfirmDialog(null, "   �Eliminar este cliente?", "CONFIRMACION", JOptionPane.WARNING_MESSAGE);
                          if (respuesta == JOptionPane.YES_OPTION){
                               Cliente cli = (Cliente)listaClientes.getSelectedValue();
                               sistema.getEmpresa().eliminarCliente(cli);
                          }
                     }else{
-                         JOptionPane.showMessageDialog(null, "No hay cliente seleccionado" , "Atención", JOptionPane.INFORMATION_MESSAGE);
+                         JOptionPane.showMessageDialog(null, "   No hay cliente seleccionado" , "ERROR", JOptionPane.ERROR_MESSAGE);
                     }
                }
                else if(evento.getSource() == activos ){
@@ -266,13 +266,13 @@ public class HandlerClientes extends JPanel implements Observer, ActionListener,
                }
                else if (evento.getSource()== quitaListaBuscados){
                     if (!listaBuscados.isSelectionEmpty()){
-                         int respuesta = JOptionPane.showConfirmDialog(null, "�Eliminar este destino?", "Confirmacion", JOptionPane.WARNING_MESSAGE);
+                         int respuesta = JOptionPane.showConfirmDialog(null, "   �Eliminar este destino?", "CONFIRMACION", JOptionPane.WARNING_MESSAGE);
                          if (respuesta == JOptionPane.YES_OPTION){
                               Destino des = (Destino)listaBuscados.getSelectedValue();
                               sistema.getEmpresa().eliminarDestino(des);
                          }
                     }else{
-                         JOptionPane.showMessageDialog(null, "No hay destino seleccionado" , "Atencion", JOptionPane.INFORMATION_MESSAGE);
+                         JOptionPane.showMessageDialog(null, "   No hay destino seleccionado" , "ERROR", JOptionPane.ERROR_MESSAGE);
                     }
                }
                else if(evento.getSource() == realizarVenta){
@@ -280,10 +280,10 @@ public class HandlerClientes extends JPanel implements Observer, ActionListener,
                          Cliente c = (Cliente)listaClientes.getSelectedValue();
                          Trabajador t = (Trabajador)sistema.getTrabajadorActual();
                          if(sistema.getEmpresa().ventaViaje(c,t)){
-                              JOptionPane.showMessageDialog(null, "Venta exitosa" , "Success!", JOptionPane.INFORMATION_MESSAGE);
+                              JOptionPane.showMessageDialog(null, "       VENTA REALIZADA" , "SUCCESS!", JOptionPane.INFORMATION_MESSAGE);
                          }
                     }else{
-                         JOptionPane.showMessageDialog(null, "No hay cliente seleccionado" , "Atencion", JOptionPane.INFORMATION_MESSAGE);
+                         JOptionPane.showMessageDialog(null, "   No hay cliente seleccionado" , "ERROR", JOptionPane.ERROR_MESSAGE);
                     }                        
                }
           }
@@ -395,7 +395,7 @@ public class HandlerClientes extends JPanel implements Observer, ActionListener,
                          listaBuscados.setSelectionInterval(0,max);
                     }
                     else{
-                         JOptionPane.showMessageDialog(null, "No hay destino seleccionado" , "Atencion", JOptionPane.INFORMATION_MESSAGE);
+                         JOptionPane.showMessageDialog(null, "   No hay destino seleccionado" , "ERROR", JOptionPane.ERROR_MESSAGE);
                     }
                     
                }else if(evento.getSource() == cancelar){

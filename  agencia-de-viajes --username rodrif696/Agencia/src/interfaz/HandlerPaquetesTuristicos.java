@@ -237,30 +237,30 @@ public class HandlerPaquetesTuristicos extends JPanel implements Observer, Actio
                                    paquete.setAlojamiento(alojaP);
                               }
                               else{
-                                   JOptionPane.showMessageDialog(null, "No hay paquete seleccionado" , "Atención", JOptionPane.INFORMATION_MESSAGE);
+                                   JOptionPane.showMessageDialog(null, "   No hay paquete seleccionado" , "ERROR", JOptionPane.ERROR);
                               }
                          }
                     }
                     catch(NumberFormatException e){
-                         JOptionPane.showMessageDialog(null, "ERROR: Ingrese un numero válido en los campos precio y duracion" , "ERROR", JOptionPane.ERROR_MESSAGE);
+                         JOptionPane.showMessageDialog(null, "   Ingrese un numero válido en los campos precio y duracion" , "ERROR", JOptionPane.ERROR_MESSAGE);
                          
                          this.precio.setText("");
                          this.duracion.setText("");
                          
                     }
                }else{
-                    JOptionPane.showMessageDialog(null, "ERROR: Falta el dato nombre" , "ERROR", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "   Falta el dato nombre" , "ERROR", JOptionPane.ERROR_MESSAGE);
                }
           }
           else if(evento.getSource() == eliminar){
                if (!listaPaquetes.isSelectionEmpty()){
-                    int respuesta = JOptionPane.showConfirmDialog(null, " ¿Eliminar este paquete?", "Confirmación", JOptionPane.WARNING_MESSAGE);
+                    int respuesta = JOptionPane.showConfirmDialog(null, "   ¿Eliminar este paquete?", "CONFIRMACION", JOptionPane.WARNING_MESSAGE);
                     if (respuesta == JOptionPane.YES_OPTION){
                          PaqueteTuristico paquete = (PaqueteTuristico)listaPaquetes.getSelectedValue();
                          sistema.getEmpresa().eliminarPaquete(paquete);
                     }
                }else{
-                    JOptionPane.showMessageDialog(null, "No hay paquete seleccionado" , "Atención", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "   No hay paquete seleccionado" , "ERROR", JOptionPane.ERROR_MESSAGE);
                }
           }
           else if(evento.getSource() == agregarDestino){
@@ -381,7 +381,7 @@ public class HandlerPaquetesTuristicos extends JPanel implements Observer, Actio
                          this.dispose();
                     }
                     else{
-                         JOptionPane.showMessageDialog(null, "No hay destino seleccionado" , "Atencion", JOptionPane.INFORMATION_MESSAGE);
+                         JOptionPane.showMessageDialog(null, "   No hay destino seleccionado" , "ERROR", JOptionPane.ERROR_MESSAGE);
                     }
                }
                else if(evento.getSource() == cancelar){

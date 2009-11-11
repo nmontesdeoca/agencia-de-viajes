@@ -174,7 +174,7 @@ public class HandlerDestinos extends JPanel implements Observer, ActionListener,
                          Destino dest = new Destino(nombreP, localidadP, paisP, tipoP);
                          
                          if(!sistema.getEmpresa().agregarDestino(dest)){
-                              JOptionPane.showMessageDialog(null, "ERROR: Ese Destino ya existe" , "Destino existente", JOptionPane.ERROR_MESSAGE);
+                              JOptionPane.showMessageDialog(null, "   Ese Destino ya existe" , "ERROR", JOptionPane.ERROR_MESSAGE);
                          }        
                     }
                     
@@ -189,25 +189,25 @@ public class HandlerDestinos extends JPanel implements Observer, ActionListener,
                               dest2.setTipo(tipoP);
                          }
                          else{
-                              JOptionPane.showMessageDialog(null, "No hay destino seleccionado" , "Atención", JOptionPane.INFORMATION_MESSAGE);
+                              JOptionPane.showMessageDialog(null, "   No hay destino seleccionado" , "ERROR", JOptionPane.ERROR_MESSAGE);
                          }
                     }
                }      
                else{
-                    JOptionPane.showMessageDialog(null, "ERROR: Faltan los datos de nombre, localidad o pais" , "ERROR", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "   Faltan los datos de nombre, localidad o pais" , "ERROR", JOptionPane.ERROR_MESSAGE);
                }
           }
           
           else if(evento.getSource() == eliminar){
                
                if (!listaDestinos.isSelectionEmpty()){
-                    int respuesta = JOptionPane.showConfirmDialog(null, " ¿Eliminar este destino?", "Confirmación", JOptionPane.WARNING_MESSAGE);
+                    int respuesta = JOptionPane.showConfirmDialog(null, "   ¿Eliminar este destino?", "CONFIRMACION", JOptionPane.WARNING_MESSAGE);
                     if (respuesta == JOptionPane.YES_OPTION){
                          Destino dest2 = (Destino)listaDestinos.getSelectedValue();
                          sistema.getEmpresa().eliminarDestino(dest2);
                     }
                }else{
-                    JOptionPane.showMessageDialog(null, "No hay destino seleccionado" , "Atención", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "   No hay destino seleccionado" , "ERROR", JOptionPane.ERROR_MESSAGE);
                }
           }
           

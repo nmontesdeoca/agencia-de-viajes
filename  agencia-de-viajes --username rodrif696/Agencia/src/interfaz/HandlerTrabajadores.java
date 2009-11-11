@@ -205,7 +205,7 @@ public class HandlerTrabajadores extends JPanel implements Observer, ActionListe
                                    }     
                                    
                                    if(!sistema.getEmpresa().agregarTrabajador(trab)){
-                                        JOptionPane.showMessageDialog(null, "ERROR: Ese Trabajador ya existe" , "Trabajador existente", JOptionPane.ERROR_MESSAGE);
+                                        JOptionPane.showMessageDialog(null, "   Ese Trabajador ya existe" , "ERROR", JOptionPane.ERROR_MESSAGE);
                                    }         
                               }
                               
@@ -233,30 +233,30 @@ public class HandlerTrabajadores extends JPanel implements Observer, ActionListe
                                         trab.setGanancias(gananciasP);
                                    }
                                    else{
-                                        JOptionPane.showMessageDialog(null, "No hay trabajador seleccionado" , "Atención", JOptionPane.INFORMATION_MESSAGE);
+                                        JOptionPane.showMessageDialog(null, "   No hay trabajador seleccionado" , "ERROR", JOptionPane.ERROR_MESSAGE);
                                    }
                               }
                          }
                          catch(NumberFormatException e){
-                              JOptionPane.showMessageDialog(null, "ERROR: Ingrese un numero válido en los campos numericos" , "ERROR", JOptionPane.ERROR_MESSAGE);
+                              JOptionPane.showMessageDialog(null, "   Ingrese un numero válido en los campos numericos" , "ERROR", JOptionPane.ERROR_MESSAGE);
                               this.ci.setText("");
                          }    
                     }
                     
                     else{
-                         JOptionPane.showMessageDialog(null, "ERROR: Faltan los datos de nombre o apellido " , "ERROR", JOptionPane.ERROR_MESSAGE);
+                         JOptionPane.showMessageDialog(null, "   Faltan los datos de nombre o apellido " , "ERROR", JOptionPane.ERROR_MESSAGE);
                     }
                }
                
                else if(evento.getSource() == eliminar){
                     if (!listaTrabajadores.isSelectionEmpty()){
-                         int respuesta = JOptionPane.showConfirmDialog(null, " ¿Eliminar este trabajador?", "Confirmación", JOptionPane.WARNING_MESSAGE);
+                         int respuesta = JOptionPane.showConfirmDialog(null, "   ¿Eliminar este trabajador?", "CONFIRMACION", JOptionPane.WARNING_MESSAGE);
                          if (respuesta == JOptionPane.YES_OPTION){
                               Trabajador trab = (Trabajador)listaTrabajadores.getSelectedValue();
                               sistema.getEmpresa().eliminarTrabajador(trab);
                          }
                     }else{
-                         JOptionPane.showMessageDialog(null, "No hay trabajador seleccionado" , "Atención", JOptionPane.INFORMATION_MESSAGE);
+                         JOptionPane.showMessageDialog(null, "   No hay trabajador seleccionado" , "ERROR", JOptionPane.ERROR_MESSAGE);
                     }
                }
           }                           

@@ -179,7 +179,7 @@ public class HandlerAlojamientos extends JPanel implements Observer, ActionListe
                     if(evento.getSource() == guardar){
                          Alojamiento aloja = new Alojamiento(nombreA, tipoA, estrellas, pensionP);
                          if(!sistema.getEmpresa().agregarAlojamiento(aloja)){
-                              JOptionPane.showMessageDialog(null, "ERROR: Ese Alojamiento ya existe" , "Alojamiento existente", JOptionPane.ERROR_MESSAGE);
+                              JOptionPane.showMessageDialog(null, "   Ese Alojamiento ya existe" , "ERROR", JOptionPane.ERROR_MESSAGE);
                          }            
                     }
                     else if(evento.getSource() == modificar){
@@ -191,24 +191,24 @@ public class HandlerAlojamientos extends JPanel implements Observer, ActionListe
                               aloja.setPension(pensionP);
                          }
                          else{
-                              JOptionPane.showMessageDialog(null, "No hay Alojamiento seleccionado" , "AtenciÃ³n", JOptionPane.INFORMATION_MESSAGE);
+                              JOptionPane.showMessageDialog(null, "   No hay Alojamiento seleccionado" , "ERROR", JOptionPane.ERROR_MESSAGE);
                          }
                     }                    
                }
                else{
-                    JOptionPane.showMessageDialog(null, "ERROR: Falta el Nombre del Alojamiento" , "ERROR", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "   Falta el Nombre del Alojamiento" , "ERROR", JOptionPane.ERROR_MESSAGE);
                }
           }
           
           if(evento.getSource() == eliminar){
                if (!listaAlojamientos.isSelectionEmpty()){
-                    int respuesta = JOptionPane.showConfirmDialog(null, " ¿Eliminar este Alojamiento?", "Confirmacion", JOptionPane.WARNING_MESSAGE);
+                    int respuesta = JOptionPane.showConfirmDialog(null, "   ¿Eliminar este Alojamiento?", "CONFIRMACION", JOptionPane.WARNING_MESSAGE);
                     if (respuesta == JOptionPane.YES_OPTION){
                          Alojamiento aloja = (Alojamiento)listaAlojamientos.getSelectedValue();
                          sistema.getEmpresa().eliminarAlojamiento(aloja);
                     }
                }else{
-                    JOptionPane.showMessageDialog(null, "No hay Alojamiento seleccionado" , "Atencion", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "   No hay Alojamiento seleccionado" , "ERROR", JOptionPane.ERROR_MESSAGE);
                }
           }       
      }

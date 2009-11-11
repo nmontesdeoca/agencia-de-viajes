@@ -101,10 +101,10 @@ public class VentanaLogin extends JFrame implements ActionListener{
                          v.setVisible(true);
                          this.dispose();
                     }else{
-                         JOptionPane.showMessageDialog(null, "ERROR: Verifique numero de trabajador o su contraseï¿½a" , "Usuario Invalido", JOptionPane.ERROR_MESSAGE);
+                         JOptionPane.showMessageDialog(null, "   Verifique numero de trabajador o su contraseña" , "ERROR", JOptionPane.ERROR_MESSAGE);
                     }
                }catch(Exception exception){
-                    JOptionPane.showMessageDialog(null, "ERROR: Ingrese un numero de usuario valido" , "ERROR", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "   Ingrese un numero de usuario valido" , "ERROR", JOptionPane.ERROR_MESSAGE);
                     this.getNumeroTrabajador().setText("");
                     this.getPassword().setText("");
                }  
