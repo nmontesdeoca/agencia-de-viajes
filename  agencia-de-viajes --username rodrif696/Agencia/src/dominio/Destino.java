@@ -1,6 +1,9 @@
 package dominio;
 
-public class Destino{     
+import persistencia.*;
+import dominio.brokers.*;
+
+public class Destino extends Persistente{     
      
      public enum Tipo{CIUDAD, PUEBLO, VILLA, BALNEARIO, NATURALEZA};
      private String nombre;
@@ -89,4 +92,9 @@ public class Destino{
           }          
           return esIgual;          
      }    
+     
+     public Broker getBroker(){
+          
+          return new BrokerDestino();
+     }
 }

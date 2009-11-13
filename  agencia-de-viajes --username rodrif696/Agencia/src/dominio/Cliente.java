@@ -1,7 +1,10 @@
 package dominio;
-import java.util.ArrayList;
 
-public class Cliente{
+import java.util.ArrayList;
+import persistencia.*;
+import dominio.brokers.*;
+
+public class Cliente extends Persistente{
      
      private String nombre;
      private String apellido;
@@ -94,5 +97,10 @@ public class Cliente{
      
      public boolean equals (Object o){
           return this.cedula==((Cliente)o).getCedula();
+     }
+     
+     public Broker getBroker(){
+          
+          return new BrokerCliente();
      }
 }

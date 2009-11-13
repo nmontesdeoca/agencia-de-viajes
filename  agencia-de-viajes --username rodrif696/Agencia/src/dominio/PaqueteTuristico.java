@@ -1,8 +1,11 @@
 package dominio;
+
 import java.util.ArrayList;
 import java.util.Iterator;
+import persistencia.*;
+import dominio.brokers.*;
 
-public class PaqueteTuristico{
+public class PaqueteTuristico extends Persistente{
      
      private String nombre;
      private ArrayList<Destino> destinos;
@@ -138,4 +141,9 @@ public class PaqueteTuristico{
      public boolean equals (Object o){
           return this.codigo==((PaqueteTuristico)o).getCodigo();
      } 
+     
+     public Broker getBroker(){
+          
+          return new BrokerPaqueteTuristico();
+     }
 }
