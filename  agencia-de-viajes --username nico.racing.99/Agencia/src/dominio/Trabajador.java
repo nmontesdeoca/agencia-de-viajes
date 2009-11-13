@@ -1,6 +1,8 @@
 package dominio;
+import dominio.brokers.*;
+import persistencia.*;
 
-public class Trabajador{
+public class Trabajador extends Persistente{
      private String nombre;
      private String apellido;
      private int ci;
@@ -89,5 +91,9 @@ public class Trabajador{
      }
      public double calcularGanancias (double montoBase){
           return (this.getGanancias()*15)/100+montoBase;
+     }
+     
+     public Broker getBroker(){
+          return new BrokerTrabajador();
      }
 }

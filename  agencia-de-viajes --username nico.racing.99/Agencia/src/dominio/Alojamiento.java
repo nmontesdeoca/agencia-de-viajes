@@ -1,6 +1,9 @@
 package dominio;
+import dominio.brokers.*;
+import persistencia.*;
 
-public class Alojamiento{
+
+public class Alojamiento extends Persistente{
      
      public enum Pension{MEDIA_PENSION, PENSION_COMPLETA};
      public enum Tipo{CABANA, HOTEL, CASA, CRUCERO, CAMPING};
@@ -103,4 +106,7 @@ public class Alojamiento{
           
      }
      
+     public Broker getBroker(){
+          return new BrokerAlojamiento();
+     }
 }
