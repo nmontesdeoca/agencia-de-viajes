@@ -5,6 +5,9 @@ import java.sql.*;
 public class HandlerPersistencia{
      
      private static HandlerPersistencia HANDLER_PERSISTENCIA = null;
+     private static String stringConexion;
+     private Connection conexion;
+     private ResultSet reader;
      
      public HandlerPersistencia(){
           
@@ -14,22 +17,17 @@ public class HandlerPersistencia{
                Class.forName("com.mysql.jdbc.Driver");
                
                //creamos la conexion
-               Connection conexion = DriverManager.getConnection("jdbc:mysql://localhost/dbViajes?user=&password=");
-               
-               //creamos objeto Statement para hacer consulta
-               Statement consulta = conexion.createStatement();
-               
-               //consulta sql
-               String sql = "";
-               ResultSet result = consulta.executeQuery(sql);
-               
+               conexion = DriverManager.getConnection("jdbc:mysql://localhost/agencia?user=&password=");
+              
+               /*                        
                //iterar en el result
                while( result.next() ){
                     
                     //obtener datos del result, sabiendo la posicion de la columna( ej: 2 )
                     result.getString(2);
-                    
-               }
+               */
+               
+               
                
           }catch(ClassNotFoundException classNotFoundException){
                
@@ -38,7 +36,15 @@ public class HandlerPersistencia{
           }
      }
      
-      public static HandlerPersistencia GetInstance(){
+     public void setStringConexion(String nuevoString){
+          this.stringConexion = nuevoString;
+     }
+     
+     public String getStringConexion(){
+          return this.stringConexion;
+     }     
+          
+     public static HandlerPersistencia GetInstance(){
           
           if(HANDLER_PERSISTENCIA == null){
                HANDLER_PERSISTENCIA = new HandlerPersistencia();
@@ -46,9 +52,35 @@ public class HandlerPersistencia{
           return HANDLER_PERSISTENCIA;
           
      }
-      
-      public String ejecutarSentencia( String s ){
-           return s;
-      }
+     
+     public Object ejecutarSentencia( String s ){
+          try{
+          //creamos objeto Statement para hacer consulta
+          Statement consulta = conexion.createStatement();          
+  
+          reader = consulta.executeQuery(s);
+          consulta.close();
+          }catch(SQLException sqlException){
+               
+          }
+          return  null;
+          
+     }
+     
+     public void terminarConsulta(){
+          try{
+               reader.close();
+          }catch(SQLException e){
+               System.out.println("Imposible terminar consulta");
+          }
+     }
+     
+     public void cerrarConexion(){
+          try{
+               conexion.close();
+          }catch(SQLException e){
+               System.out.println("Imposible cerrar conexion");
+          }
+     }
      
 }

@@ -11,6 +11,7 @@ public class Alojamiento extends Persistente{
      private Tipo tipo;
      private int estrellas;
      private Pension pension;
+     private long oId;
      
      public String getNombre(){
           return this.nombre;
