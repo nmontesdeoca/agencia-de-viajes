@@ -5,7 +5,7 @@ import persistencia.*;
 public class BrokerAlojamiento extends Broker{
      
      public String SQLInsertar (IPersistente obj){
-          
+
           return "";
      }          
      
@@ -25,7 +25,7 @@ public class BrokerAlojamiento extends Broker{
      }
      
      public IPersistente readerToObject (IPersistente obj){
-          
+
           return obj;
      }
 }

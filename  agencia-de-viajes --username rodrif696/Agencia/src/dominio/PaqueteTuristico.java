@@ -14,7 +14,12 @@ public class PaqueteTuristico extends Persistente{
      private int codigo;
      private Alojamiento alojamiento;
      private static int COUNT=0;
-     private long oId;
+     private long oid;
+     
+     public long getOid(){
+          
+          return this.oid;
+     }
      
      public void setNombre(String nombreX){
           this.nombre= nombreX;

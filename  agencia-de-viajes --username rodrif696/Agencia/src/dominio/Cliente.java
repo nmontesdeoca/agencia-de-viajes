@@ -12,23 +12,36 @@ public class Cliente extends Persistente{
      private int antiguedad;
      private ArrayList <Destino> viajesRealizados;
      private ArrayList <Destino> destinosBuscados;
-     private long oId;
+     private long oid;
+     
+     public long getOid(){
+          
+          return this.oid;
+     }
      
      public void setNombre(String nombreX){
-          this.nombre= nombreX;
           
+          this.nombre= nombreX;         
      }
+     
      public String getNombre(){
+          
           return this.nombre; 
      }
+     
      public void setApellido(String apellidoX){
+          
           this.apellido= apellidoX;
           
      }
+     
      public String getApellido(){
+          
           return this.apellido;
      }
+     
      public void setCedula(int cedulaX){
+          
           if(cedulaX>0){
                this.cedula= cedulaX;
           }
@@ -37,28 +50,42 @@ public class Cliente extends Persistente{
           } 
           
      }
+     
      public int getCedula(){
+          
           return this.cedula;
      }
+     
      public void setAntiguedad(int antiguedadX){
+          
           this.antiguedad= antiguedadX;
           
      }
+     
      public int getAntiguedad(){
+          
           return this.antiguedad;
      }
+     
      public void setViajesRealizados(ArrayList <Destino> viajes){
+          
           this.viajesRealizados= viajes;
           
      }
+     
      public ArrayList <Destino> getViajesRealizados(){
+         
           return this.viajesRealizados;
      }
+     
      public void setDestinosBuscados(ArrayList <Destino> destinos){
+          
           this.destinosBuscados = destinos;
           
      }
+     
      public ArrayList <Destino> getDestinosBuscados(){
+          
           return this.destinosBuscados;
      }
      
@@ -93,10 +120,12 @@ public class Cliente extends Persistente{
      }
      
      public String toString(){
+          
           return this.nombre +" "+this.apellido+" C.I.:"+this.cedula;
      } 
      
      public boolean equals (Object o){
+          
           return this.cedula==((Cliente)o).getCedula();
      }
      

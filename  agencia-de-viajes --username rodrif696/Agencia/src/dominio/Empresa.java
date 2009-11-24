@@ -262,8 +262,7 @@ public class Empresa extends Observable{
      
      public double calcularSueldo(Trabajador t){
          
-          return t.calcularGanancias(this.getMontoBase());
-         
+          return t.calcularGanancias(this.getMontoBase());         
      }
      
      private Empresa(){

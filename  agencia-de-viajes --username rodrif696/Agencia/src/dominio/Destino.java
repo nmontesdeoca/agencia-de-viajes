@@ -10,7 +10,12 @@ public class Destino extends Persistente{
      private String localidad;
      private String pais;
      private Tipo tipo;
-     private long oId;
+     private long oid;
+          
+     public long getOid(){
+          
+          return this.oid;
+     }
      
      public String getNombre(){
           return this.nombre;

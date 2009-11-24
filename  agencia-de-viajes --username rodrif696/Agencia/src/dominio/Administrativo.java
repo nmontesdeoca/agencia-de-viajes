@@ -34,6 +34,6 @@ public class Administrativo extends Trabajador{
      }
      
      public String toString(){
-          return "Administrativo: "+super.toString();
+          return "(A) "+super.toString();
      }     
 }
