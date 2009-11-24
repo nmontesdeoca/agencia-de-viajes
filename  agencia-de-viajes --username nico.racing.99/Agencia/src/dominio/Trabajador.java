@@ -10,7 +10,11 @@ public class Trabajador extends Persistente{
      private double ganancias;
      public char[] password;
      public boolean permisosAdministrativos;
-     private long oId;
+     private long oid;
+     
+     public long getOid(){
+          return this.oid;
+     }
      
      public void setNombre (String nomTrabajador){
           this.nombre=nomTrabajador;

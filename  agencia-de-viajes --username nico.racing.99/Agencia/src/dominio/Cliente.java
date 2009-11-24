@@ -11,7 +11,11 @@ public class Cliente extends Persistente{
      private int antiguedad;
      private ArrayList <Destino> viajesRealizados;
      private ArrayList <Destino> destinosBuscados;
-     private long oId;
+     private long oid;
+     
+     public long getOid(){
+          return this.oid;
+     }
      
      public void setNombre(String nombreX){
           this.nombre= nombreX;

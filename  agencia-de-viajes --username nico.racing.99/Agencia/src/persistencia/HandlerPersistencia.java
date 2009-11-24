@@ -53,6 +53,16 @@ public class HandlerPersistencia{
           
      }
      
+     public Object leerRegistro(String col){
+          Object o = null;
+          try{
+             o = reader.getObject(col);
+          }catch(SQLException e){
+          
+          }
+          return o;
+     }
+     
      public Object ejecutarSentencia( String s ){
           try{
           //creamos objeto Statement para hacer consulta
