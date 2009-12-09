@@ -32,12 +32,10 @@ public class HandlerPaquetesTuristicos extends JPanel implements Observer, Actio
      
      private JList listaPaquetes;
      private JList listaDestinosPaquetes;
-     private JList alojamientos;
      private JScrollPane scrollListaPaquetes;
      private JScrollPane scrollListaDestinosPaquetes;
      private DefaultListModel modeloListaPaquetes;
      private DefaultListModel modeloListaDestinosPaquetes;
-     private DefaultListModel modeloAlojamientos;
      private JTextField nombre;
      private JTextField precio;
      private JTextField duracion;
@@ -68,7 +66,6 @@ public class HandlerPaquetesTuristicos extends JPanel implements Observer, Actio
          
           modeloListaPaquetes = new DefaultListModel();
           modeloListaDestinosPaquetes = new DefaultListModel();
-          modeloAlojamientos = new DefaultListModel();
           cargarModelo(modeloListaPaquetes, sistema.getEmpresa().getListaPaquetes());
          
           listaPaquetes = new JList(modeloListaPaquetes);
@@ -239,12 +236,12 @@ public class HandlerPaquetesTuristicos extends JPanel implements Observer, Actio
                                    paquete.setAlojamiento(alojaP);
                               }
                               else{
-                                   JOptionPane.showMessageDialog(null, "No hay paquete seleccionado" , "Atención", JOptionPane.INFORMATION_MESSAGE);
+                                   JOptionPane.showMessageDialog(null, "No hay paquete seleccionado" , "Atenciï¿½n", JOptionPane.INFORMATION_MESSAGE);
                               }
                          }
                     }
                     catch(NumberFormatException e){
-                         JOptionPane.showMessageDialog(null, "ERROR: Ingrese un numero válido en los campos precio y duracion" , "ERROR", JOptionPane.ERROR_MESSAGE);
+                         JOptionPane.showMessageDialog(null, "ERROR: Ingrese un numero vï¿½lido en los campos precio y duracion" , "ERROR", JOptionPane.ERROR_MESSAGE);
                          
                          this.precio.setText("");
                          this.duracion.setText("");
@@ -256,13 +253,13 @@ public class HandlerPaquetesTuristicos extends JPanel implements Observer, Actio
           }
           else if(evento.getSource() == eliminar){
                if (!listaPaquetes.isSelectionEmpty()){
-                    int respuesta = JOptionPane.showConfirmDialog(null, " ¿Eliminar este paquete?", "Confirmación", JOptionPane.WARNING_MESSAGE);
+                    int respuesta = JOptionPane.showConfirmDialog(null, " ï¿½Eliminar este paquete?", "Confirmaciï¿½n", JOptionPane.WARNING_MESSAGE);
                     if (respuesta == JOptionPane.YES_OPTION){
                          PaqueteTuristico paquete = (PaqueteTuristico)listaPaquetes.getSelectedValue();
                          sistema.getEmpresa().eliminarPaquete(paquete);
                     }
                }else{
-                    JOptionPane.showMessageDialog(null, "No hay paquete seleccionado" , "Atención", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "No hay paquete seleccionado" , "Atenciï¿½n", JOptionPane.INFORMATION_MESSAGE);
                }
           }
           else if(evento.getSource() == agregarDestino){
@@ -302,17 +299,6 @@ public class HandlerPaquetesTuristicos extends JPanel implements Observer, Actio
                }
           }    
      }
-     
-     private <E> void cargarLista (DefaultListModel modelo, ArrayList<E> datos){
-         
-          for(Object objeto:modelo.toArray()){
-               if (objeto != null){
-                    datos.add((E)objeto);
-               }
-          }    
-     }
-     
-     
      
      public void update(Observable o, Object ar){
           cargarModelo(modeloListaPaquetes, sistema.getEmpresa().getListaPaquetes());

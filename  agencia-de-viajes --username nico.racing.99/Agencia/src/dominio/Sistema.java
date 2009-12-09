@@ -13,7 +13,8 @@ public class Sistema{
           return this.empresa; 
      }
      
-     private void setTrabajadorActual(Trabajador trabajadorActualP){
+     @SuppressWarnings("unused")
+	private void setTrabajadorActual(Trabajador trabajadorActualP){
           if(validarUsuario(trabajadorActualP)){
                this.trabajadorActual = trabajadorActualP;
           }else{

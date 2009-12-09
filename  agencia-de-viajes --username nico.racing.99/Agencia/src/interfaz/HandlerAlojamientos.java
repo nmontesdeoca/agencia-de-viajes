@@ -1,5 +1,5 @@
 package interfaz;
-
+import dominio.brokers.BrokerAlojamiento;
 import dominio.*;
 import java.util.ArrayList;
 import java.util.Observer;
@@ -18,6 +18,8 @@ import javax.swing.JComboBox;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.ListSelectionModel;
+
+import persistencia.HandlerPersistencia;
 
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
@@ -206,7 +208,7 @@ public class HandlerAlojamientos extends JPanel implements Observer, ActionListe
           
           if(evento.getSource() == eliminar){
                if (!listaAlojamientos.isSelectionEmpty()){
-                    int respuesta = JOptionPane.showConfirmDialog(null, " ¿Eliminar este Alojamiento?", "Confirmacion", JOptionPane.WARNING_MESSAGE);
+                    int respuesta = JOptionPane.showConfirmDialog(null, " ï¿½Eliminar este Alojamiento?", "Confirmacion", JOptionPane.WARNING_MESSAGE);
                     if (respuesta == JOptionPane.YES_OPTION){
                          Alojamiento aloja = (Alojamiento)listaAlojamientos.getSelectedValue();
                          sistema.getEmpresa().eliminarAlojamiento(aloja);
@@ -224,6 +226,12 @@ public class HandlerAlojamientos extends JPanel implements Observer, ActionListe
      public void valueChanged(ListSelectionEvent evento) {
           if (!listaAlojamientos.isSelectionEmpty()){
                Alojamiento aloja = (Alojamiento)listaAlojamientos.getSelectedValue();
+               /*
+               BrokerAlojamiento al = new BrokerAlojamiento();
+               HandlerPersistencia persist = HandlerPersistencia.GetInstance();
+               persist.ejecutarSentencia(al.SQLLeer(aloja));
+               Alojamiento alojaN = (Alojamiento)persist.leerRegistro("nombre");
+               */
                nombre.setText(aloja.getNombre());
                tipoAlojamiento.setSelectedItem(aloja.getTipo());
                cantidadEstrellas.setValue(aloja.getEstrellas());

@@ -12,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 
+@SuppressWarnings("serial")
 public class VentanaLogin extends JFrame implements ActionListener{
      
      private JTextField numeroTrabajador = null;

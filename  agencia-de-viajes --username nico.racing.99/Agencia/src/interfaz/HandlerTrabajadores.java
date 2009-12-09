@@ -6,30 +6,24 @@ import java.util.Observer;
 import java.util.Observable;
 
 import javax.swing.DefaultListModel;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.JMenuBar;
 import javax.swing.JList;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
-import javax.swing.JComboBox;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.ListSelectionModel;
 
-import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
 
+@SuppressWarnings("serial")
 public class HandlerTrabajadores extends JPanel implements Observer, ActionListener, ListSelectionListener{
      
      private Sistema sistema;
@@ -43,8 +37,6 @@ public class HandlerTrabajadores extends JPanel implements Observer, ActionListe
      private JButton agregar;
      private JButton eliminar;
      private JButton modificar;
-     private JButton sueldo;
-     private JButton comision;
      private JLabel listaTrabajadoresL;
      private JLabel nombreL;
      private JLabel apellidoL;
@@ -55,9 +47,7 @@ public class HandlerTrabajadores extends JPanel implements Observer, ActionListe
      private JRadioButton botonSueldo;
      private JRadioButton botonComision;
      private ButtonGroup botonGrupo;
-     private JPanel radioPanel;
      private DefaultListModel modeloListaTrabajadores;
-     private DefaultListModel modeloListaComision;
      
      public HandlerTrabajadores(Sistema sistemaP) {
           
@@ -67,7 +57,6 @@ public class HandlerTrabajadores extends JPanel implements Observer, ActionListe
           this.sistema= sistemaP;
           
           modeloListaTrabajadores = new DefaultListModel();
-          modeloListaComision = new DefaultListModel();
           
           cargarModelo(modeloListaTrabajadores, sistema.getEmpresa().getListaTrabajadores());
           
@@ -233,12 +222,12 @@ public class HandlerTrabajadores extends JPanel implements Observer, ActionListe
                                         trab.setGanancias(gananciasP);
                                    }
                                    else{
-                                        JOptionPane.showMessageDialog(null, "No hay trabajador seleccionado" , "Atención", JOptionPane.INFORMATION_MESSAGE);
+                                        JOptionPane.showMessageDialog(null, "No hay trabajador seleccionado" , "Atenciï¿½n", JOptionPane.INFORMATION_MESSAGE);
                                    }
                               }
                          }
                          catch(NumberFormatException e){
-                              JOptionPane.showMessageDialog(null, "ERROR: Ingrese un numero válido en los campos numericos" , "ERROR", JOptionPane.ERROR_MESSAGE);
+                              JOptionPane.showMessageDialog(null, "ERROR: Ingrese un numero vï¿½lido en los campos numericos" , "ERROR", JOptionPane.ERROR_MESSAGE);
                               this.ci.setText("");
                          }    
                     }
@@ -250,22 +239,16 @@ public class HandlerTrabajadores extends JPanel implements Observer, ActionListe
                
                else if(evento.getSource() == eliminar){
                     if (!listaTrabajadores.isSelectionEmpty()){
-                         int respuesta = JOptionPane.showConfirmDialog(null, " ¿Eliminar este trabajador?", "Confirmación", JOptionPane.WARNING_MESSAGE);
+                         int respuesta = JOptionPane.showConfirmDialog(null, " ï¿½Eliminar este trabajador?", "Confirmaciï¿½n", JOptionPane.WARNING_MESSAGE);
                          if (respuesta == JOptionPane.YES_OPTION){
                               Trabajador trab = (Trabajador)listaTrabajadores.getSelectedValue();
                               sistema.getEmpresa().eliminarTrabajador(trab);
                          }
                     }else{
-                         JOptionPane.showMessageDialog(null, "No hay trabajador seleccionado" , "Atención", JOptionPane.INFORMATION_MESSAGE);
+                         JOptionPane.showMessageDialog(null, "No hay trabajador seleccionado" , "Atenciï¿½n", JOptionPane.INFORMATION_MESSAGE);
                     }
                }
           }                           
-     }
-     
-     private void cambiarEstadoBotones(boolean estaHabilitado){
-          
-          sueldo.setEnabled(!estaHabilitado);
-          comision.setEnabled(estaHabilitado);
      }
      
      public void valueChanged(ListSelectionEvent evento) {

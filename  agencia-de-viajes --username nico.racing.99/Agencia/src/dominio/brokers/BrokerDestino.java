@@ -41,7 +41,7 @@ public class BrokerDestino extends Broker{
      }
      
      public IPersistente readerToObject (IPersistente obj){
-        Destino des = (Destino) obj;
+        //Destino des = (Destino) obj;
           
           return obj;
      }

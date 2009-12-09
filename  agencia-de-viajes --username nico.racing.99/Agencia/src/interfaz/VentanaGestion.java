@@ -1,36 +1,23 @@
 package interfaz;
 
 import dominio.*;
-import java.util.ArrayList;
-import java.util.Observer;
-import java.util.Observable;
 
-import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JDialog;
-import javax.swing.JTextField;
-import javax.swing.JButton;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JMenuBar;
-import javax.swing.JList;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.JComboBox;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.ListSelectionModel;
 import javax.swing.ImageIcon;
 
-import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.MouseEvent;
 
 
+@SuppressWarnings("serial")
 public class VentanaGestion extends JFrame implements ActionListener{
      
      private JPanel panelInicio = null;
@@ -61,7 +48,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
           //uso Adapter para no implementar todos los mÃ©todos del Listener
           this.addWindowListener(new java.awt.event.WindowAdapter(){
                public void windowClosing(WindowEvent evento){
-                    int respuesta = JOptionPane.showConfirmDialog(null, " ¿Desea salir?", "Confirmación", JOptionPane.WARNING_MESSAGE);
+                    int respuesta = JOptionPane.showConfirmDialog(null, " ï¿½Desea salir?", "ConfirmaciÃ³n", JOptionPane.WARNING_MESSAGE);
                     if (respuesta == JOptionPane.YES_OPTION){
                          System.exit(0);
                     }
@@ -78,8 +65,8 @@ public class VentanaGestion extends JFrame implements ActionListener{
                
                
                ImageIcon iconViajes = new ImageIcon(getClass().getResource("imagenes/icono_travel.png"));
-               ImageIcon iconTrabajador = new ImageIcon(getClass().getResource("imagenes/icono_trabajador.png"));
-               ImageIcon iconCliente = new ImageIcon(getClass().getResource("imagenes/icono_cliente.png"));
+               ImageIcon iconTrabajador = new ImageIcon(getClass().getResource("imagenes/icono_trabajador.PNG"));
+               ImageIcon iconCliente = new ImageIcon(getClass().getResource("imagenes/icono_cliente.PNG"));
                final VentanaGestion vn = this;
                
                JLabel gestionCliente = new JLabel("Gestion Cliente", iconCliente, JLabel.CENTER);
@@ -99,10 +86,10 @@ public class VentanaGestion extends JFrame implements ActionListener{
                                                
                );
                
-               JLabel gestionTrabajador = new JLabel("Gestion Trabajador", iconTrabajador, JLabel.CENTER);          
+              JLabel gestionTrabajador = new JLabel("Gestion Trabajador", iconTrabajador, JLabel.CENTER);          
                gestionTrabajador.setVerticalTextPosition(JLabel.BOTTOM);
                gestionTrabajador.setHorizontalTextPosition(JLabel.CENTER);
-               
+            
                
                panelInicio.add(gestionTrabajador);
                gestionTrabajador.setSize(120,120);
@@ -116,7 +103,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
                                                   
                );
                
-               /* JLabel gestionViajes = new JLabel("Gestion Viajes", iconViajes, JLabel.CENTER);
+                JLabel gestionViajes = new JLabel("Gestion Viajes", iconViajes, JLabel.CENTER);
                 gestionViajes.setVerticalTextPosition(JLabel.BOTTOM);
                 gestionViajes.setHorizontalTextPosition(JLabel.CENTER);
                 
@@ -128,11 +115,11 @@ public class VentanaGestion extends JFrame implements ActionListener{
                 gestionViajes.addMouseListener(new java.awt.event.MouseAdapter(){
                 
                 public void mouseClicked(MouseEvent evento){
-                vn.setContentPane(vn.getPanelViajes());
+               // vn.setContentPane(vn.getPanelViajes());
                 }
                 }                                            
                 
-                );*/
+                );
                
           }
           return panelInicio;
@@ -181,7 +168,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
                JMenuItem salir = new JMenuItem("Salir");
                salir.addActionListener(new java.awt.event.ActionListener(){
                     public void actionPerformed (ActionEvent evento){
-                         int respuesta = JOptionPane.showConfirmDialog(null, " ¿Desea salir?", "Confirmación", JOptionPane.WARNING_MESSAGE);
+                         int respuesta = JOptionPane.showConfirmDialog(null, " ï¿½Desea salir?", "Confirmaciï¿½n", JOptionPane.WARNING_MESSAGE);
                          if (respuesta == JOptionPane.YES_OPTION){
                               System.exit(0);
                          }

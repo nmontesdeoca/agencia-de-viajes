@@ -13,7 +13,6 @@ import javax.swing.JList;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
-import javax.swing.JComboBox;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.ListSelectionModel;
@@ -43,9 +42,7 @@ public class HandlerDestinos extends JPanel implements Observer, ActionListener,
      private JLabel localidadL;
      private JLabel paisL;
      private JLabel tipoDestinoL;
-     private JComboBox comboTipo;
      private DefaultListModel modeloListaDestinos;
-     private DefaultListModel modeloListaTipos;
      
      public HandlerDestinos (VentanaGestion vn, Sistema sistemaP) {
           
@@ -62,7 +59,6 @@ public class HandlerDestinos extends JPanel implements Observer, ActionListener,
           }
           
           modeloListaDestinos = new DefaultListModel();  
-          modeloListaTipos = new DefaultListModel();
           cargarModelo(modeloListaDestinos, sistema.getEmpresa().getListaDestinos());
           
           
@@ -189,7 +185,7 @@ public class HandlerDestinos extends JPanel implements Observer, ActionListener,
                               dest2.setTipo(tipoP);
                          }
                          else{
-                              JOptionPane.showMessageDialog(null, "No hay destino seleccionado" , "Atención", JOptionPane.INFORMATION_MESSAGE);
+                              JOptionPane.showMessageDialog(null, "No hay destino seleccionado" , "Atenciï¿½n", JOptionPane.INFORMATION_MESSAGE);
                          }
                     }
                }      
@@ -201,13 +197,13 @@ public class HandlerDestinos extends JPanel implements Observer, ActionListener,
           else if(evento.getSource() == eliminar){
                
                if (!listaDestinos.isSelectionEmpty()){
-                    int respuesta = JOptionPane.showConfirmDialog(null, " ¿Eliminar este destino?", "Confirmación", JOptionPane.WARNING_MESSAGE);
+                    int respuesta = JOptionPane.showConfirmDialog(null, " ï¿½Eliminar este destino?", "Confirmaciï¿½n", JOptionPane.WARNING_MESSAGE);
                     if (respuesta == JOptionPane.YES_OPTION){
                          Destino dest2 = (Destino)listaDestinos.getSelectedValue();
                          sistema.getEmpresa().eliminarDestino(dest2);
                     }
                }else{
-                    JOptionPane.showMessageDialog(null, "No hay destino seleccionado" , "Atención", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "No hay destino seleccionado" , "Atenciï¿½n", JOptionPane.INFORMATION_MESSAGE);
                }
           }
           
@@ -235,9 +231,9 @@ public class HandlerDestinos extends JPanel implements Observer, ActionListener,
                     pais.setText(dest2.getPais());
                     listaTipos.setSelectedValue(dest2.getTipo(), false);
                }
-               else if(evento.getSource() == listaTipos){
-                    
-                    Destino dest2 = (Destino)listaDestinos.getSelectedValue(); 
+               else if(evento.getSource() == listaTipos){                    
+                    @SuppressWarnings("unused")
+					Destino dest2 = (Destino)listaDestinos.getSelectedValue(); 
                }
           }            
      }
