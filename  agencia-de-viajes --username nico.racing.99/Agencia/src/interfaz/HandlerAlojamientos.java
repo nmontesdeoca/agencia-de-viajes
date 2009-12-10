@@ -227,9 +227,9 @@ public class HandlerAlojamientos extends JPanel implements Observer, ActionListe
           if (!listaAlojamientos.isSelectionEmpty()){
                Alojamiento aloja = (Alojamiento)listaAlojamientos.getSelectedValue();
                /*
-               BrokerAlojamiento al = new BrokerAlojamiento();
+               String sql = aloja.getBroker().SQLLeer(aloja);
                HandlerPersistencia persist = HandlerPersistencia.GetInstance();
-               persist.ejecutarSentencia(al.SQLLeer(aloja));
+               persist.ejecutarSentencia(sql);
                Alojamiento alojaN = (Alojamiento)persist.leerRegistro("nombre");
                */
                nombre.setText(aloja.getNombre());
