@@ -53,7 +53,26 @@ public class BrokerPaqueteTuristico extends Broker{
           return sql;
      }    
      
+     /*
+             public override void Leer(IPersistente o)
+        {
+            Copiador accion = (Copiador)o;
+
+            String sql = "SELECT * FROM Copiador WHERE oid=%1";
+            sql = sql.Replace("%1", "" + accion.Oid);
+
+            DB.Instancia().EjecutarConsultaSQL(sql);
+            if (DB.Instancia().HayMasRegistros())
+            {
+                Carpeta destino = new Carpeta();
+                destino.Oid = (int)(DB.Instancia().LeerRegistro("oiddestino"));
+
+                accion.Destino = destino;
+            }
+        }
+     */
      public IPersistente readerToObject( IPersistente o ){
+          
           return o;
      }
 }
