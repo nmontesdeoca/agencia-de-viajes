@@ -17,6 +17,10 @@ public class Alojamiento extends Persistente{
           return this.oid;
      }
      
+     public void setOid(long o){
+    	 this.oid = o;
+     }
+     
      public String getNombre(){
           return this.nombre;
      }
@@ -74,6 +78,7 @@ public class Alojamiento extends Persistente{
           this.setTipo(Tipo.HOTEL);
           this.setEstrellas(0);
           this.setPension(Pension.MEDIA_PENSION);
+          this.setOid(OidManager.obtenerOid());
           
      }
      
@@ -83,6 +88,7 @@ public class Alojamiento extends Persistente{
           this.setTipo(tipoP);
           this.setEstrellas(estrellasP);
           this.setPension(pensionP);
+          this.setOid(OidManager.obtenerOid());
           
      }
      
@@ -92,6 +98,7 @@ public class Alojamiento extends Persistente{
           this.setTipo(a.getTipo());
           this.setEstrellas(a.getEstrellas());
           this.setPension(a.getPension());
+          this.setOid(OidManager.obtenerOid());
      }
      
      public String toString(){

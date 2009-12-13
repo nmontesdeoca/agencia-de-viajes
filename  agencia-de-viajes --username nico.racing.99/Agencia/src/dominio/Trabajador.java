@@ -16,6 +16,10 @@ public class Trabajador extends Persistente{
           return this.oid;
      }
      
+     public void setOid(long o){
+    	 this.oid = o;
+     }
+     
      public void setNombre (String nomTrabajador){
           this.nombre=nomTrabajador;
      }
@@ -86,6 +90,7 @@ public class Trabajador extends Persistente{
           this.setGanancias(0);
           this.setPassword(new char[0]);
           this.setPermisosAdministrativos(false);
+          this.setOid(OidManager.obtenerOid());
      }
      
      public String toString(){

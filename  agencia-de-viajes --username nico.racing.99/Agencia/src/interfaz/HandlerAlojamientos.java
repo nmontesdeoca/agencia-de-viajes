@@ -1,6 +1,6 @@
 package interfaz;
-import dominio.brokers.BrokerAlojamiento;
 import dominio.*;
+
 import java.util.ArrayList;
 import java.util.Observer;
 import java.util.Observable;
@@ -18,8 +18,6 @@ import javax.swing.JComboBox;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.ListSelectionModel;
-
-import persistencia.HandlerPersistencia;
 
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
@@ -225,13 +223,9 @@ public class HandlerAlojamientos extends JPanel implements Observer, ActionListe
      
      public void valueChanged(ListSelectionEvent evento) {
           if (!listaAlojamientos.isSelectionEmpty()){
-               Alojamiento aloja = (Alojamiento)listaAlojamientos.getSelectedValue();
-               /*
-               String sql = aloja.getBroker().SQLLeer(aloja);
-               HandlerPersistencia persist = HandlerPersistencia.GetInstance();
-               persist.ejecutarSentencia(sql);
-               Alojamiento alojaN = (Alojamiento)persist.leerRegistro("nombre");
-               */
+               Alojamiento alojamiento = (Alojamiento)listaAlojamientos.getSelectedValue();
+               Alojamiento aloja = (Alojamiento) alojamiento.leer();
+               
                nombre.setText(aloja.getNombre());
                tipoAlojamiento.setSelectedItem(aloja.getTipo());
                cantidadEstrellas.setValue(aloja.getEstrellas());

@@ -8,19 +8,19 @@ public abstract class Broker{
      }  
      
      public void actualizar( IPersistente o ){
-          String consulta = SQLInsertar( o );
+          String consulta = SQLActualizar( o );
           HandlerPersistencia.GetInstance().ejecutarSentencia(consulta);
      } 
      
      public void eliminar( IPersistente o ){          
-          String consulta = SQLInsertar( o );
+          String consulta = SQLEliminar( o );
           HandlerPersistencia.GetInstance().ejecutarSentencia(consulta);
      } 
      
      public IPersistente leer( IPersistente o ){          
-          String consulta = SQLInsertar( o );
+          String consulta = SQLLeer( o );
           HandlerPersistencia.GetInstance().ejecutarSentencia(consulta);
-          IPersistente ip = readerToObject(o);
+          IPersistente ip = readerToObject( o );
           
           return ip;
      }  

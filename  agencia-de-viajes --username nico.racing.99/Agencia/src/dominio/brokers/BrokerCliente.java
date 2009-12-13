@@ -9,14 +9,14 @@ public class BrokerCliente extends Broker{
          
           Cliente cli = (Cliente)obj;
          
-          String sql = "INSERT INTO clientes (id_clientes, nombre, apellido, cedula, antiguedad)"
+          String sql = "INSERT INTO clientes (id_cliente, nombre, apellido, cedula, antiguedad)"
              + "VALUES (@1, @2, @3, @4, @5)";
                
-          sql.replace("@1", "" + cli.getOid());
-          sql.replace("@2", cli.getNombre());
-          sql.replace("@3", cli.getApellido());
-          sql.replace("@4", "" + cli.getCedula());
-          sql.replace("@5", "" + cli.getAntiguedad());
+          sql = sql.replace("@1", "" + cli.getOid() );
+          sql = sql.replace("@2", "'" + cli.getNombre() + "'" );
+          sql = sql.replace("@3", "'" + cli.getApellido() + "'" );
+          sql = sql.replace("@4", "" + cli.getCedula());
+          sql = sql.replace("@5", "" + cli.getAntiguedad());
          
           return sql;
      }          
@@ -25,14 +25,18 @@ public class BrokerCliente extends Broker{
          
           Cliente cli = (Cliente)obj;
          
-          String sql = "UPDATE clientes SET id_clientes = @1, nombre= @2, apellido = @3, cedula = @4, antiguedad = @5 WHERE id_clientes= @6";
+          String sql = "UPDATE clientes " +
+          		"SET nombre= @2," +
+          		" apellido = @3," +
+          		" cedula = @4," +
+          		" antiguedad = @5 " +
+          		"WHERE id_cliente = @6";
                
-          sql.replace("@1", "" + cli.getOid());
-          sql.replace("@2", cli.getNombre());
-          sql.replace("@3", cli.getApellido());
-          sql.replace("@4", "" + cli.getCedula());
-          sql.replace("@5", "" + cli.getAntiguedad());
-          sql.replace("@6", "" + cli.getOid());
+          sql = sql.replace("@2", "'" + cli.getNombre() + "'");
+          sql = sql.replace("@3", "'" + cli.getApellido() + "'");
+          sql = sql.replace("@4", "" + cli.getCedula());
+          sql = sql.replace("@5", "" + cli.getAntiguedad());
+          sql = sql.replace("@6", "" + cli.getOid());
          
           return sql;
      }
@@ -41,9 +45,9 @@ public class BrokerCliente extends Broker{
          
           Cliente cli = (Cliente)obj;
          
-          String sql = "DELETE FROM clientes WHERE id_clientes= @1";
+          String sql = "DELETE FROM clientes WHERE id_cliente = @1";
                
-          sql.replace("@1", "" + cli.getOid());
+          sql = sql.replace("@1", "" + cli.getOid());
          
           return sql;
      }
@@ -52,16 +56,33 @@ public class BrokerCliente extends Broker{
          
           Cliente cli= (Cliente)obj;
          
-          String sql = "SELECT id_clientes, nombre, apellido, cedula, antiguedad FROM clientes WHERE id_clientes = @1";
+          String sql = "SELECT * FROM clientes WHERE id_cliente = @1";
                
-          sql.replace("@1", "" + cli.getOid());
+          sql = sql.replace("@1", "" + cli.getOid());
          
           return sql;
      }
      
      public IPersistente readerToObject (IPersistente obj){
+    	 //creo el objeto Cliente que se va a retornar
+         Cliente cliente = (Cliente)obj;
          
-          return obj;
+         HandlerPersistencia persist = HandlerPersistencia.GetInstance();
+         
+         //obtengo los datos de la tabla clientes
+         String nombre = (String) persist.leerRegistro("nombre");
+         String apellido = (String) persist.leerRegistro("apellido");
+         Integer cedula = (Integer) persist.leerRegistro("cedula");
+         Integer antiguedad = (Integer) persist.leerRegistro("antiguedad");
+         
+         
+         //le cargo los datos al obtejo Cliente
+        cliente.setNombre(nombre);
+        cliente.setApellido(apellido);
+        cliente.setCedula(cedula);
+        cliente.setAntiguedad(antiguedad);
+         
+         return cliente;
      }
 }
 

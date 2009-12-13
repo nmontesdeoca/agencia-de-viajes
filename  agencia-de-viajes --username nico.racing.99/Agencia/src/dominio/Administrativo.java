@@ -1,5 +1,7 @@
 package dominio;
 
+import persistencia.OidManager;
+
 public class Administrativo extends Trabajador{
      
      public Administrativo(){
@@ -17,6 +19,7 @@ public class Administrativo extends Trabajador{
           this.setGanancias(ganancias);
           this.setPassword(passwordP);
           this.setPermisosAdministrativos(true);
+          this.setOid(OidManager.obtenerOid());
           
      }
      
@@ -29,6 +32,7 @@ public class Administrativo extends Trabajador{
           this.setGanancias(admin.getGanancias());
           this.setPassword(admin.getPassword());
           this.setPermisosAdministrativos(admin.getPermisosAdministrativos());
+          this.setOid(OidManager.obtenerOid());
           
      } 
      

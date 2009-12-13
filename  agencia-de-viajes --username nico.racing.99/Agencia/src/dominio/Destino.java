@@ -16,6 +16,10 @@ public class Destino extends Persistente{
           return this.oid;
      }
      
+     public void setOid(long o){
+    	 this.oid = o;
+     }
+     
      public String getNombre(){
           return this.nombre;
      }
@@ -65,7 +69,7 @@ public class Destino extends Persistente{
           this.setLocalidad("sinLocalidad");
           this.setPais("sinPais");
           this.setTipo(Tipo.CIUDAD);
-          
+          this.setOid(OidManager.obtenerOid());
      }
      
      public Destino(String nombreP, String localidadP, String paisP, Tipo tipoP){
@@ -74,6 +78,7 @@ public class Destino extends Persistente{
           this.setLocalidad(localidadP);
           this.setPais(paisP);
           this.setTipo(tipoP);
+          this.setOid(OidManager.obtenerOid());
      }
      
      public Destino(Destino d){
@@ -82,6 +87,7 @@ public class Destino extends Persistente{
           this.setLocalidad(d.getLocalidad());
           this.setPais(d.getPais());
           this.setTipo(d.getTipo());
+          this.setOid(OidManager.obtenerOid());
           
      }
      

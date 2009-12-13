@@ -1,5 +1,7 @@
 package dominio;
 
+import persistencia.OidManager;
+
 public class TrabajadorComision extends Trabajador{
      
      public TrabajadorComision (){
@@ -11,6 +13,7 @@ public class TrabajadorComision extends Trabajador{
           this.setGanancias(0);
           this.setPassword(new char[0]);
           this.setPermisosAdministrativos(false);
+          this.setOid(OidManager.obtenerOid());
      }
      
      public TrabajadorComision (String nombre, String apellido, int ci, int numeroTrabajador, double ganancias, char[] passwordP){
@@ -22,6 +25,7 @@ public class TrabajadorComision extends Trabajador{
           this.setGanancias(ganancias);
           this.setPassword(passwordP);
           this.setPermisosAdministrativos(false);
+          this.setOid(OidManager.obtenerOid());
      }
      
      public TrabajadorComision (Trabajador traba){
@@ -33,6 +37,7 @@ public class TrabajadorComision extends Trabajador{
           this.setGanancias(traba.getGanancias());
           this.setPassword(traba.getPassword());
           this.setPermisosAdministrativos(traba.getPermisosAdministrativos());
+          this.setOid(OidManager.obtenerOid());
      }
          
      public double calcularGanancias (double montoBase){

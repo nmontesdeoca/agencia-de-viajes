@@ -1,6 +1,7 @@
 package dominio;
 import dominio.brokers.*;
 import persistencia.*;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -17,6 +18,10 @@ public class PaqueteTuristico extends Persistente{
      
      public long getOid(){
           return this.oid;
+     }
+     
+     public void setOid(long o){
+    	 this.oid = o;
      }
      
      public void setNombre(String nombreX){
@@ -102,6 +107,7 @@ public class PaqueteTuristico extends Persistente{
           COUNT++;
           this.setCodigo (0);
           this.setAlojamiento (new Alojamiento());
+          this.setOid(OidManager.obtenerOid());
           
      } 
      
@@ -113,6 +119,7 @@ public class PaqueteTuristico extends Persistente{
           COUNT++;
           this.setCodigo (COUNT);
           this.setAlojamiento (alojamiento);
+          this.setOid(OidManager.obtenerOid());
      }
      
      public PaqueteTuristico(PaqueteTuristico actual){
@@ -123,10 +130,11 @@ public class PaqueteTuristico extends Persistente{
           COUNT++;
           this.setCodigo (actual.getCodigo());
           this.setAlojamiento (actual.getAlojamiento());  
+          this.setOid(OidManager.obtenerOid());
      }
      
      public String toString(){
-          return this.codigo +" "+this.nombre +" "+this.precio +" "+this.duracion+" días";
+          return this.codigo +" "+this.nombre +" "+this.precio +" "+this.duracion+" dï¿½as";
      } 
      public boolean equals (Object o){
           return this.codigo==((PaqueteTuristico)o).getCodigo();

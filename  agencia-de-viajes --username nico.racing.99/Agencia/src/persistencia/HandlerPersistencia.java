@@ -17,7 +17,7 @@ public class HandlerPersistencia{
                Class.forName("com.mysql.jdbc.Driver");
                
                //creamos la conexion
-               conexion = DriverManager.getConnection("jdbc:mysql://localhost/agencia?user=&password=");
+               conexion = DriverManager.getConnection("jdbc:mysql://localhost/agencia?user=root&password=4724");
               
                /*                        
                //iterar en el result
@@ -37,11 +37,11 @@ public class HandlerPersistencia{
      }
      
      public void setStringConexion(String nuevoString){
-          this.stringConexion = nuevoString;
+          HandlerPersistencia.stringConexion = nuevoString;
      }
      
      public String getStringConexion(){
-          return this.stringConexion;
+          return HandlerPersistencia.stringConexion;
      }     
           
      public static HandlerPersistencia GetInstance(){
@@ -56,25 +56,43 @@ public class HandlerPersistencia{
      public Object leerRegistro(String col){
           Object o = null;
           try{
-             o = reader.getObject(col);
+              o = reader.getObject(col);
           }catch(SQLException e){
           
           }
+          
           return o;
      }
      
      public Object ejecutarSentencia( String s ){
           try{
+        	  String[] str = s.split(" ");
           //creamos objeto Statement para hacer consulta
           Statement consulta = conexion.createStatement();          
-  
-          reader = consulta.executeQuery(s);
-          consulta.close();
+          if( str[0].equals("SELECT") )
+        	  reader = consulta.executeQuery(s);
+          else
+        	 consulta.executeUpdate(s);
+          reader.first();
+          //consulta.close(); Si cierro la consulta, me arroja excepcion, imagino que se elimina el valor del reader( ResultSet )
           }catch(SQLException sqlException){
                
           }
           return  null;
           
+     }
+     
+     public boolean hayMasRegistros(){
+    	boolean ret = false;
+    	try{
+    		if( reader.isFirst() )
+    			ret = true;
+    		else if( reader.next() )
+    			ret = true;
+    	}catch(SQLException e){
+    		
+    	}
+    	return ret;
      }
      
      public void terminarConsulta(){

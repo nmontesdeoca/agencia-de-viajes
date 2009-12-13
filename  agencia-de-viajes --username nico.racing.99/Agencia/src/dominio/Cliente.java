@@ -17,6 +17,10 @@ public class Cliente extends Persistente{
           return this.oid;
      }
      
+     public void setOid(long o){
+    	 this.oid = o;
+     }
+     
      public void setNombre(String nombreX){
           this.nombre= nombreX;
           
@@ -72,6 +76,7 @@ public class Cliente extends Persistente{
           this.setAntiguedad (0);
           this.setViajesRealizados (new ArrayList <Destino>());
           this.setDestinosBuscados (new ArrayList <Destino>());
+          this.setOid(OidManager.obtenerOid());
      }
      
      public Cliente(String nombre, String apellido, int cedula, int antiguedad, ArrayList <Destino> realizados, ArrayList <Destino> buscados){
@@ -81,6 +86,7 @@ public class Cliente extends Persistente{
           this.setAntiguedad (antiguedad);
           this.setViajesRealizados (realizados);
           this.setDestinosBuscados (buscados);
+          this.setOid(OidManager.obtenerOid());
      }
      
      public Cliente (Cliente actual){
@@ -90,6 +96,7 @@ public class Cliente extends Persistente{
           this.setAntiguedad (actual.getAntiguedad());
           this.setViajesRealizados (actual.getViajesRealizados());
           this.setDestinosBuscados (actual.getDestinosBuscados());
+          this.setOid(OidManager.obtenerOid());
      }
      
      public String toString(){

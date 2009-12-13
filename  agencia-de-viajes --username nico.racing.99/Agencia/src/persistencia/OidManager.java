@@ -10,7 +10,8 @@ public class OidManager{
           HandlerPersistencia.GetInstance().terminarConsulta();
           oid++;
           String sql2 = "UPDATE oid SET oid = @1";
-          sql2.replace("@1","" + oid);
+          sql2 = sql2.replace("@1","" + oid);
+          HandlerPersistencia.GetInstance().ejecutarSentencia(sql2);
           return oid;
      }
      

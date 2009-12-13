@@ -1,33 +1,46 @@
 package dominio.brokers;
 
 import dominio.Destino;
+import dominio.Destino.Tipo;
 import persistencia.*;
 
 public class BrokerDestino extends Broker{
-     String sql;
-     
+          
      public String SQLInsertar (IPersistente obj){
        Destino des = (Destino) obj;
+
+       String sql = "INSERT INTO destinos(id_destino, nombre, localidad, pais, tipo)" +
+       		"VALUES(@1,@2,@3,@4,@5)";
+       sql = sql.replace("@1", "" + des.getOid());
+       sql = sql.replace("@2", "'" + des.getNombre() + "'");
+       sql = sql.replace("@3", "'" + des.getLocalidad() + "'");
+       sql = sql.replace("@4", "'" + des.getPais() + "'");
+       sql = sql.replace("@5", "'" + des.getTipo() + "'");       
        
-       sql = "Insert Into destinos(id_destino,nombre,localidad,pais,tipo)";
-       sql = sql + " values (" + des.getOid()  + ",'" + des.getNombre() + "',' " + des.getLocalidad() + "',' " + des.getPais() + "',' " + des.getTipo() + "' )";
        return sql;     
      }          
      
      public String SQLActualizar (IPersistente obj){
        Destino des = (Destino) obj;
-       sql = "Update  destinos set nombre = '" + des.getNombre() + "', localidad = '" + des.getLocalidad() + "', pais = '" + des.getPais() + "' tipo = '" + des.getTipo()+"'";
-       sql = sql + " Where id_destino = " + des.getOid(); 
+       String sql = "UPDATE  destinos " +
+       		"SET nombre = @1," +
+       		" localidad = @2," +
+       		"pais = @3," +
+       		"tipo = @4," +
+       		"WHERE id_destino = @5";
+       sql = sql.replace("@1", "'" + des.getNombre() + "'");
+       sql = sql.replace("@2", "'" + des.getLocalidad() + "'");
+       sql = sql.replace("@3", "'" + des.getPais() + "'");
+       sql = sql.replace("@4", "'" + des.getTipo() + "'");
+       sql = sql.replace("@5", des.getOid() + "");
          
        return sql;     
-          
-          
      }
      
      public String SQLEliminar (IPersistente obj){
        Destino des = (Destino) obj;
        
-       sql = "Delete  From destinos Where id_destino = " + des.getOid();
+       String sql = "DELETE FROM destinos WHERE id_destino = " + des.getOid();
           
        return sql;
      }
@@ -35,14 +48,27 @@ public class BrokerDestino extends Broker{
      public String SQLLeer (IPersistente obj){
        Destino des = (Destino) obj;
        
-       sql = "Select * From destinos Where = " + des.getOid();
+       String sql = "SELECT * FROM destinos WHERE id_destino = @1";
+       sql = sql.replace("@1", "" + des.getOid());
           
        return sql;
      }
      
      public IPersistente readerToObject (IPersistente obj){
-        //Destino des = (Destino) obj;
-          
-          return obj;
+    	 Destino des = (Destino) obj;
+         
+    	 HandlerPersistencia persist = HandlerPersistencia.GetInstance();
+    	 
+    	 String nombre = (String) persist.leerRegistro("nombre");
+    	 String localidad = (String) persist.leerRegistro("localidad");
+    	 String pais = (String) persist.leerRegistro("pais");
+    	 Tipo tipo = (Tipo) persist.leerRegistro("tipo");
+    	 
+    	 des.setNombre(nombre);
+    	 des.setLocalidad(localidad);
+    	 des.setPais(pais);
+    	 des.setTipo(tipo);    	 
+    	 
+          return des;
      }
 }
