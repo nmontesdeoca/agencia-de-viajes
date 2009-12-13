@@ -1,16 +1,12 @@
 import interfaz.VentanaGestion;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
 
 
-//import interfaz.*;
 import dominio.*;
-import dominio.brokers.BrokerEmpresa;
 
 public class Main{
      
-     public static void main (String[] args) throws ClassNotFoundException, SQLException{
+     public static void main (String[] args){
           
           /*Trabajador tra = new Trabajador();
            Sistema sis = new Sistema(tra);
