@@ -63,9 +63,11 @@ public class BrokerAlojamiento extends Broker{
           
           //obtengo los datos de la tabla alojamientos
           String nombre = (String)persist.leerRegistro("nombre");
-          Tipo tipo = (Tipo)persist.leerRegistro("tipo");
+          String tipoS = (String)persist.leerRegistro("tipo");
+          Tipo tipo = Tipo.valueOf(tipoS); 
           Integer estrellas = (Integer)persist.leerRegistro("estrellas");
-          Pension pension = (Pension)persist.leerRegistro("pension");
+          String pensionS = (String)persist.leerRegistro("pension");
+          Pension pension = Pension.valueOf(pensionS);
           
           //le cargo los datos al obtejo Alojamiento
           aloja.setNombre(nombre);

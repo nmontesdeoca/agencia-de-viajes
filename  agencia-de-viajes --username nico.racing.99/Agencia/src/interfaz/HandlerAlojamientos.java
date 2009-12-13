@@ -1,5 +1,6 @@
 package interfaz;
 import dominio.*;
+import dominio.brokers.*;
 
 import java.util.ArrayList;
 import java.util.Observer;
@@ -57,9 +58,15 @@ public class HandlerAlojamientos extends JPanel implements Observer, ActionListe
           this.setSize(900,740); 
           this.setLayout(null);
           this.sistema=sistemaP;
+          
+          BrokerEmpresa brok = new BrokerEmpresa();
+          ArrayList<Alojamiento> al = brok.obtenerAlojamientos();
+        
           modeloListaAlojamientos = new DefaultListModel();
-          cargarModelo(modeloListaAlojamientos, sistema.getEmpresa().getListaAlojamientos());
+          cargarModelo(modeloListaAlojamientos, al);
+        //  cargarModelo(modeloListaAlojamientos, sistema.getEmpresa().getListaAlojamientos());
           listaAlojamientos = new JList(modeloListaAlojamientos);
+         // listaAlojamientos = new JList(aaa);
           //listaAlojamientos.setSize(300,500);
           //listaAlojamientos.setLocation(500,100);
           listaAlojamientos.addListSelectionListener(this);

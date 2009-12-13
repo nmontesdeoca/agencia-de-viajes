@@ -62,7 +62,8 @@ public class BrokerDestino extends Broker{
     	 String nombre = (String) persist.leerRegistro("nombre");
     	 String localidad = (String) persist.leerRegistro("localidad");
     	 String pais = (String) persist.leerRegistro("pais");
-    	 Tipo tipo = (Tipo) persist.leerRegistro("tipo");
+    	 String tipoS = (String) persist.leerRegistro("tipo");
+    	 Tipo tipo = Tipo.valueOf(tipoS);
     	 
     	 des.setNombre(nombre);
     	 des.setLocalidad(localidad);

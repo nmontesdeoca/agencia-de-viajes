@@ -8,6 +8,7 @@ public class HandlerPersistencia{
      private static String stringConexion;
      private Connection conexion;
      private ResultSet reader;
+     private int num = 0;
      
      public HandlerPersistencia(){
           
@@ -85,9 +86,11 @@ public class HandlerPersistencia{
      public boolean hayMasRegistros(){
     	boolean ret = false;
     	try{
-    		if( reader.isFirst() )
-    			ret = true;
-    		else if( reader.next() )
+    		if(num == 0){
+        		reader.beforeFirst();
+        		num++;
+    		}
+    		if( reader.next() )
     			ret = true;
     	}catch(SQLException e){
     		

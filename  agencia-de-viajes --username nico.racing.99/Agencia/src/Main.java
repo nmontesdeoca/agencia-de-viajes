@@ -1,3 +1,5 @@
+import interfaz.VentanaGestion;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -17,8 +19,8 @@ public class Main{
           /*VG2 venta = new VG2(new Sistema(new Trabajador()));
           venta.setVisible(true);
           */
-          //VentanaGestion venta = new VentanaGestion(new Sistema(new Trabajador()));
-          //venta.setVisible(true);
+          VentanaGestion venta = new VentanaGestion(new Sistema(new Trabajador()));
+          venta.setVisible(true);
           //System.out.println("Menu");
     	 
      
@@ -46,10 +48,15 @@ public class Main{
     	 cli2.actualizar();
 */
     	 //System.out.println(reader);
-    	 BrokerEmpresa a = new BrokerEmpresa();
+    	/* BrokerEmpresa a = new BrokerEmpresa();
     	 ArrayList<Alojamiento> al = a.obtenerAlojamientos();
     	 System.out.println(al.size());
-     
+    	 Object[] aaa = (Object[]) al.toArray();
+    	 for( int i=0;i<aaa.length;i++){
+    		 Alojamiento ala = ((Alojamiento)aaa[i]);
+    		 System.out.println(ala.toString());
+    	 }
+     */
      }
      
 }
