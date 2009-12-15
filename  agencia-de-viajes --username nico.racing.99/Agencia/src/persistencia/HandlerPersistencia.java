@@ -65,6 +65,17 @@ public class HandlerPersistencia{
           return o;
      }
      
+     public Object leerRegistroNumCol( int col ){
+    	  Object o = null;
+          try{
+              o = reader.getObject(col);
+          }catch(SQLException e){
+          
+          }
+          
+          return o;
+     }
+     
      public Object ejecutarSentencia( String s ){
           try{
         	  String[] str = s.split(" ");

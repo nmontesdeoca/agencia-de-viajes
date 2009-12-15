@@ -152,4 +152,133 @@ public class BrokerEmpresa {
         return listaTrabajadores;
     }
 	
+	public boolean agregarAlojamiento( Alojamiento a ){
+		boolean ret = false;
+		int cantA = this.obtenerAlojamientos().size();
+		a.insertar();
+		int cantD = this.obtenerAlojamientos().size();
+		if( cantA < cantD )
+			ret = true;
+		
+		return ret;
+	}
+	
+	public boolean eliminarAlojamiento( Alojamiento a ){
+		boolean ret = false;
+		int cantA = this.obtenerAlojamientos().size();
+		a.eliminar();
+		int cantD = this.obtenerAlojamientos().size();
+		if( cantA > cantD )
+			ret = true;
+		
+		return ret;
+	}
+	
+	public boolean agregarCliente( Cliente c ){
+		boolean ret = false;
+		
+		String sql = "SELECT nombre FROM clientes WHERE cedula = @1";
+		sql = sql.replace("@1", c.getCedula() + "");
+		HandlerPersistencia.GetInstance().ejecutarSentencia(sql);
+		HandlerPersistencia.GetInstance().leerRegistro("nombre");
+		boolean hay = HandlerPersistencia.GetInstance().hayMasRegistros();
+		
+		if( !hay ){
+					
+		//int cantA = this.obtenerClientes().size();
+		long cantA = this.contarClientes();
+		c.insertar();
+		long cantD = this.contarClientes();
+		//int cantD = this.obtenerClientes().size();
+		if( cantA < cantD )
+			ret = true;
+		}
+		
+		return ret;
+	}
+	
+	public Long contarClientes(  ){
+		String sql = "SELECT COUNT(*) FROM clientes";
+		HandlerPersistencia.GetInstance().ejecutarSentencia(sql);
+		Long a = (Long) HandlerPersistencia.GetInstance().leerRegistroNumCol(1);
+		return a;
+	}
+	
+	public boolean eliminarCliente( Cliente c ){
+		boolean ret = false;
+		int cantA = this.obtenerClientes().size();
+		c.eliminar();
+		int cantD = this.obtenerClientes().size();
+		if( cantA > cantD )
+			ret = true;
+		
+		return ret;
+	}
+	
+	public boolean agregarDestino ( Destino d ){
+		boolean ret = false;
+		int cantA = this.obtenerDestinos().size();
+		d.insertar();
+		int cantD = this.obtenerDestinos().size();
+		if( cantA < cantD )
+			ret = true;
+		
+		return ret;
+	}
+	
+	public boolean eliminarDestino( Destino d ){
+		boolean ret = false;
+		int cantA = this.obtenerDestinos().size();
+		d.eliminar();
+		int cantD = this.obtenerDestinos().size();
+		if( cantA > cantD )
+			ret = true;
+		
+		return ret;
+	}
+	
+	public boolean agregarPaqueteTuristico( PaqueteTuristico p ){
+		boolean ret = false;
+		int cantA = this.obtenerPaquetesTuristicos().size();
+		p.insertar();
+		int cantD = this.obtenerPaquetesTuristicos().size();
+		if( cantA < cantD )
+			ret = true;
+		
+		return ret;
+	}
+	
+	public boolean eliminarPaqueteTuristico( PaqueteTuristico p ){
+		boolean ret = false;
+		int cantA = this.obtenerPaquetesTuristicos().size();
+		p.eliminar();
+		int cantD = this.obtenerPaquetesTuristicos().size();
+		if( cantA > cantD )
+			ret = true;
+		
+		return ret;	
+	}
+	
+	public boolean insertarTrabajador( Trabajador t ){
+		boolean ret = false;
+		int cantA = this.obtenerTrabajadores().size();
+		t.insertar();
+		int cantD = this.obtenerTrabajadores().size();
+		if( cantA < cantD )
+			ret = true;
+		
+		return ret;
+	}
+	
+	public boolean eliminarTrabajador( Trabajador t ){
+		boolean ret = false;
+		int cantA = this.obtenerTrabajadores().size();
+		t.eliminar();
+		int cantD = this.obtenerTrabajadores().size();
+		if( cantA > cantD )
+			ret = true;
+		
+		return ret;
+		}
+	
 }

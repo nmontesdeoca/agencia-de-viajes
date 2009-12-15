@@ -266,7 +266,7 @@ public class HandlerClientes extends JPanel implements Observer, ActionListener,
                }
                else if (evento.getSource()== quitaListaBuscados){
                     if (!listaBuscados.isSelectionEmpty()){
-                         int respuesta = JOptionPane.showConfirmDialog(null, "¿Eliminar este destino?", "Confirmacion", JOptionPane.WARNING_MESSAGE);
+                         int respuesta = JOptionPane.showConfirmDialog(null, "ï¿½Eliminar este destino?", "Confirmacion", JOptionPane.WARNING_MESSAGE);
                          if (respuesta == JOptionPane.YES_OPTION){
                               Destino des = (Destino)listaBuscados.getSelectedValue();
                               sistema.getEmpresa().eliminarDestino(des);

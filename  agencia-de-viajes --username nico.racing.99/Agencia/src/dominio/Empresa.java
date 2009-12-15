@@ -3,6 +3,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Observable;
 
+import dominio.brokers.BrokerEmpresa;
+
 public class Empresa extends Observable{
      
      private String nombre;
@@ -16,15 +18,18 @@ public class Empresa extends Observable{
      private ArrayList<Cliente> listaDeEspera;
      private double montoBase;
      private static Empresa EMPRESA = null;
+     private BrokerEmpresa be = new BrokerEmpresa();
      
-     public boolean agregarCliente(Cliente c){  
+     public boolean agregarCliente(Cliente c){ 
+    	 /*
           boolean ret = false;
           if(!this.getListaClientes().contains(c)){
                this.getListaClientes().add(c);
                ret = true;
           }
-          notificar();
-          return ret;
+          */
+    	  notificar();
+          return be.agregarCliente(c);
      }
      
      public boolean agregarPaquete(PaqueteTuristico p){
@@ -152,7 +157,7 @@ public class Empresa extends Observable{
      }
      
      public boolean eliminarDestino(Destino d){
-          
+          /*
           boolean res = this.getListaDestinos().remove(d);
           Iterator<PaqueteTuristico> iter = this.getListaPaquetes().iterator();
           while(iter.hasNext()){
@@ -160,12 +165,17 @@ public class Empresa extends Observable{
                p.getDestinos().remove(d);
           }
           notificar();
-          return res;
+          return res;*/
+    	 notificar();
+    	 return be.eliminarDestino(d);
      }
      
      public boolean eliminarAlojamiento(Alojamiento a){
-          boolean res = this.getListaAlojamientos().remove(a);
-          Iterator<PaqueteTuristico> iter1 = this.getListaPaquetes().iterator();
+         // boolean res = this.getListaAlojamientos().remove(a);
+         
+    	 boolean res = be.eliminarAlojamiento(a); 
+    	 
+    	 Iterator<PaqueteTuristico> iter1 = this.getListaPaquetes().iterator();
           while(iter1.hasNext()){
                PaqueteTuristico p = iter1.next();
                if(p.getAlojamiento().equals(a)){
@@ -177,14 +187,20 @@ public class Empresa extends Observable{
      }
      
      public boolean eliminarTrabajador(Trabajador t){
-          boolean b =  this.getListaTrabajadores().remove(t);
-          notificar();
+         // boolean b =  this.getListaTrabajadores().remove(t);
+         
+    	 boolean b = be.eliminarTrabajador(t);
+    	 
+    	 notificar();
           return b;
      }
      
      public boolean eliminarPaquete(PaqueteTuristico p){
-          boolean b = this.getListaPaquetes().remove(p);
-          notificar();
+         // boolean b = this.getListaPaquetes().remove(p);
+          
+    	 boolean b = be.eliminarPaqueteTuristico(p);
+    	 
+    	 notificar();
           return b;
      }
      
