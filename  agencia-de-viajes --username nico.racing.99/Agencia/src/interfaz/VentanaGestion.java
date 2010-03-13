@@ -335,7 +335,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
               versionL.setLocation(200,40);
               acerca.add(versionL);
               
-              directorL = new JLabel("Director: Gastón Nola");
+              directorL = new JLabel("Director: Gast\u00F3n Nola");
               directorL.setFont(texto);
               directorL.setSize(200,25);
               directorL.setLocation(200,65);
@@ -353,7 +353,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
               programador1L.setLocation(200,150);
               acerca.add(programador1L);
               
-              programador2L = new JLabel("Rodrigo Fernández");
+              programador2L = new JLabel("Rodrigo Fern\u00E1ndez");
               programador2L.setFont(texto);
               programador2L.setSize(500,100);
               programador2L.setLocation(200,175);
