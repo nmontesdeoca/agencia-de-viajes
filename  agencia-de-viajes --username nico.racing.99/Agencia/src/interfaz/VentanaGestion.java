@@ -2,6 +2,9 @@ package interfaz;
 
 import dominio.*;
 
+import javax.imageio.ImageIO;
+import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JMenu;
@@ -11,10 +14,13 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 
 @SuppressWarnings("serial")
@@ -38,10 +44,10 @@ public class VentanaGestion extends JFrame implements ActionListener{
      public VentanaGestion(Sistema sistemaP){
           
           super();
-          this.setTitle("Gestion");
+          this.setTitle("Gestion de Viajes");
           this.setSize(1024,750);
           this.setContentPane(getPanelInicio());
-          this.setResizable(false);
+          this.setResizable(true);
           this.setJMenuBar(getMenuBarra());
           this.sistema = sistemaP;
           this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -55,16 +61,21 @@ public class VentanaGestion extends JFrame implements ActionListener{
                }
                
           });
+          BufferedImage image = null;
+          try {
+        	  image = ImageIO.read(getClass().getResource("imagenes/icono_travel_win.png"));
+          } catch (IOException e) {
+              e.printStackTrace();
+          }
+          this.setIconImage(image);
      }
      
      private JPanel getPanelInicio(){
           if(panelInicio == null){
                panelInicio = new JPanel();
                panelInicio.setSize(1024,750);
-               panelInicio.setLayout(null);
+               panelInicio.setLayout(null);               
                
-               
-               ImageIcon iconViajes = new ImageIcon(getClass().getResource("imagenes/icono_travel.png"));
                ImageIcon iconTrabajador = new ImageIcon(getClass().getResource("imagenes/icono_trabajador.PNG"));
                ImageIcon iconCliente = new ImageIcon(getClass().getResource("imagenes/icono_cliente.PNG"));
                final VentanaGestion vn = this;
@@ -103,7 +114,9 @@ public class VentanaGestion extends JFrame implements ActionListener{
                                                   
                );
                
-                JLabel gestionViajes = new JLabel("Gestion Viajes", iconViajes, JLabel.CENTER);
+              /*
+               *   JLabel gestionViajes = new JLabel("Gestion Viajes", iconViajes, JLabel.CENTER);
+               
                 gestionViajes.setVerticalTextPosition(JLabel.BOTTOM);
                 gestionViajes.setHorizontalTextPosition(JLabel.CENTER);
                 
@@ -119,7 +132,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
                 }
                 }                                            
                 
-                );
+                );*/
                
           }
           return panelInicio;
@@ -191,9 +204,14 @@ public class VentanaGestion extends JFrame implements ActionListener{
      
      private JMenu getMenuAyuda(){
           if(this.menuAyuda == null){
+        	  JMenuItem manual = new JMenuItem("Manual");
+        	  JMenuItem acercaDe = new JMenuItem("Acerca de...");
                menuAyuda = new JMenu("Ayuda");
-               menuAyuda.add(new JMenuItem("Manual"));
-               menuAyuda.add(new JMenuItem("Acerca de..."));
+               menuAyuda.add(manual);
+               menuAyuda.add(acercaDe);
+               
+               manual.addActionListener(this);
+               acercaDe.addActionListener(this);
                
           }
           return this.menuAyuda;
@@ -272,5 +290,117 @@ public class VentanaGestion extends JFrame implements ActionListener{
           if(j.getText().equals("Alojamientos")){
                this.setContentPane(getPanelAlojamientos());
           }
-     }    
+          if(j.getText().equals("Acerca de...")){
+        	  new AcercaDe();
+          }
+     }
+     
+     private class AcercaDe extends JDialog implements ActionListener{
+         
+         JPanel acerca;
+         JLabel tituloL;
+         JLabel programadoresL;
+         JLabel programador1L;
+         JLabel programador2L;
+         JLabel programador3L;
+         JLabel programador4L;         
+         JLabel versionL;
+         JLabel directorL;
+         JButton cerrar;
+         Font titulo;
+         Font texto;
+         
+         public AcercaDe(){
+              
+              this.setTitle("Acerca De...");
+              this.setSize(400,300);
+              this.setVisible(true);
+              
+              acerca = new JPanel();
+              acerca.setSize(450,500);
+              acerca.setLayout(null);
+              this.setContentPane(acerca);
+                          
+              titulo = new Font( "titulo", 4, 20 );
+              tituloL = new JLabel("Agencia de Viajes");
+              tituloL.setFont(titulo);
+              tituloL.setSize(200,25);
+              tituloL.setLocation(100,10);
+              acerca.add(tituloL);
+              
+              texto = new Font( "texto", 2, 12 );
+              versionL = new JLabel("Version: 1.0(2009)");
+              versionL.setFont(texto);
+              versionL.setSize(200,25);
+              versionL.setLocation(200,40);
+              acerca.add(versionL);
+              
+              directorL = new JLabel("Director: Gastón Nola");
+              directorL.setFont(texto);
+              directorL.setSize(200,25);
+              directorL.setLocation(200,65);
+              acerca.add(directorL);
+              
+              programadoresL = new JLabel("Programadores: ");
+              programadoresL.setFont(texto);
+              programadoresL.setSize(500,75);
+              programadoresL.setLocation(200,80);
+              acerca.add(programadoresL);
+              
+              programador1L = new JLabel("Nicolas Montesdeoca");
+              programador1L.setFont(texto);
+              programador1L.setSize(500,100);
+              programador1L.setLocation(200,150);
+              acerca.add(programador1L);
+              
+              programador2L = new JLabel("Rodrigo Fernández");
+              programador2L.setFont(texto);
+              programador2L.setSize(500,100);
+              programador2L.setLocation(200,175);
+              acerca.add(programador2L);
+              
+              programador3L = new JLabel("Javier Capobianco");
+              programador3L.setFont(texto);
+              programador3L.setSize(500,100);
+              programador3L.setLocation(200,125);
+              acerca.add(programador3L);
+              
+              programador4L = new JLabel("Alejandro Aguirre");
+              programador4L.setFont(texto);
+              programador4L.setSize(500,100);
+              programador4L.setLocation(200,100);
+              acerca.add(programador4L);
+              
+              BufferedImage image = null;
+              try {
+            	  image = ImageIO.read(getClass().getResource("imagenes/icono_travel_win.png"));
+              } catch (IOException e) {
+                  e.printStackTrace();
+              }
+              this.setIconImage(image);
+
+              
+              ImageIcon iconAcerca = new ImageIcon(getClass().getResource("imagenes/icono_travel.png"));
+              
+              JLabel acercaL = new JLabel("", iconAcerca, JLabel.CENTER);
+              acercaL.setSize(90,90);
+              acercaL.setLocation(50,50);
+              acercaL.setVerticalTextPosition(JLabel.BOTTOM);
+              acercaL.setHorizontalTextPosition(JLabel.CENTER);
+              acerca.add(acercaL);
+              
+              
+              cerrar = new JButton("Cerrar");
+              cerrar.setSize(100,25);
+              cerrar.setLocation(50,180);
+              acerca.add(cerrar);
+              cerrar.addActionListener(this);
+         }
+
+		public void actionPerformed(ActionEvent e) {
+			this.dispose();
+			
+		}
+    }
+     
 }

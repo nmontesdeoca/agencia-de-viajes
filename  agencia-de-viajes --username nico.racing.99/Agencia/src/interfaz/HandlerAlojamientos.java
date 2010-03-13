@@ -1,6 +1,5 @@
 package interfaz;
 import dominio.*;
-import dominio.brokers.*;
 
 import java.util.ArrayList;
 import java.util.Observer;
@@ -59,12 +58,9 @@ public class HandlerAlojamientos extends JPanel implements Observer, ActionListe
           this.setLayout(null);
           this.sistema=sistemaP;
           
-          BrokerEmpresa brok = new BrokerEmpresa();
-          ArrayList<Alojamiento> al = brok.obtenerAlojamientos();
         
           modeloListaAlojamientos = new DefaultListModel();
-          cargarModelo(modeloListaAlojamientos, al);
-        //  cargarModelo(modeloListaAlojamientos, sistema.getEmpresa().getListaAlojamientos());
+          cargarModelo(modeloListaAlojamientos, sistema.getEmpresa().getListaAlojamientos());
           listaAlojamientos = new JList(modeloListaAlojamientos);
          // listaAlojamientos = new JList(aaa);
           //listaAlojamientos.setSize(300,500);
@@ -191,7 +187,8 @@ public class HandlerAlojamientos extends JPanel implements Observer, ActionListe
                          Alojamiento aloja = new Alojamiento(nombreA, tipoA, estrellas, pensionP);
                          if(!sistema.getEmpresa().agregarAlojamiento(aloja)){
                               JOptionPane.showMessageDialog(null, "ERROR: Ese Alojamiento ya existe" , "Alojamiento existente", JOptionPane.ERROR_MESSAGE);
-                         }            
+                         } 
+                         sistema.getEmpresa().notificar();
                     }
                     else if(evento.getSource() == modificar){
                          if (!listaAlojamientos.isSelectionEmpty()){
@@ -200,6 +197,8 @@ public class HandlerAlojamientos extends JPanel implements Observer, ActionListe
                               aloja.setTipo(tipoA);
                               aloja.setEstrellas(estrellas);
                               aloja.setPension(pensionP);
+                              sistema.getEmpresa().actualizarAlojamiento(aloja);
+                              sistema.getEmpresa().notificar();
                          }
                          else{
                               JOptionPane.showMessageDialog(null, "No hay Alojamiento seleccionado" , "Atención", JOptionPane.INFORMATION_MESSAGE);
@@ -217,6 +216,7 @@ public class HandlerAlojamientos extends JPanel implements Observer, ActionListe
                     if (respuesta == JOptionPane.YES_OPTION){
                          Alojamiento aloja = (Alojamiento)listaAlojamientos.getSelectedValue();
                          sistema.getEmpresa().eliminarAlojamiento(aloja);
+                         sistema.getEmpresa().notificar();
                     }
                }else{
                     JOptionPane.showMessageDialog(null, "No hay Alojamiento seleccionado" , "Atencion", JOptionPane.INFORMATION_MESSAGE);
@@ -232,7 +232,6 @@ public class HandlerAlojamientos extends JPanel implements Observer, ActionListe
           if (!listaAlojamientos.isSelectionEmpty()){
                Alojamiento alojamiento = (Alojamiento)listaAlojamientos.getSelectedValue();
                Alojamiento aloja = (Alojamiento) alojamiento.leer();
-               
                nombre.setText(aloja.getNombre());
                tipoAlojamiento.setSelectedItem(aloja.getTipo());
                cantidadEstrellas.setValue(aloja.getEstrellas());

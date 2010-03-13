@@ -75,27 +75,27 @@ public class HandlerTrabajadores extends JPanel implements Observer, ActionListe
           nombre = new JTextField();
           this.add(nombre);
           nombre.setSize(200,25);
-          nombre.setLocation(500,100);
+          nombre.setLocation(500,85);
           
           apellido = new JTextField();
           this.add(apellido);
           apellido.setSize(200,25);
-          apellido.setLocation(500,165);
+          apellido.setLocation(500,150);
           
           ci = new JTextField();
           this.add(ci);
           ci.setSize(200,25);
-          ci.setLocation(500,230);
+          ci.setLocation(500,215);
           
           numeroTrabajador = new JTextField();
           this.add(numeroTrabajador);
           numeroTrabajador.setSize(200,25);
-          numeroTrabajador.setLocation(500,295);
+          numeroTrabajador.setLocation(500,280);
           
           ganancias = new JTextField();
           this.add(ganancias);
           ganancias.setSize(200,25);
-          ganancias.setLocation(500,360);
+          ganancias.setLocation(500,345);
           
           agregar = new JButton("Agregar");
           this.add(agregar);
@@ -123,40 +123,40 @@ public class HandlerTrabajadores extends JPanel implements Observer, ActionListe
           nombreL = new JLabel("Nombre");
           this.add(nombreL);
           nombreL.setSize(75,25);
-          nombreL.setLocation(500,75);
+          nombreL.setLocation(500,60);
           
           apellidoL = new JLabel("Apellido");
           this.add(apellidoL);  
           apellidoL.setSize(75,25);
-          apellidoL.setLocation(500,140);
+          apellidoL.setLocation(500,125);
           
           ciL = new JLabel("Cedula");
           this.add(ciL);
           ciL.setSize(75,25);
-          ciL.setLocation(500, 205);
+          ciL.setLocation(500, 190);
           
           numeroTrabajadorL = new JLabel("Numero del trabajador");
           this.add(numeroTrabajadorL);
           numeroTrabajadorL.setSize(150,25);
-          numeroTrabajadorL.setLocation(500,270);
+          numeroTrabajadorL.setLocation(500,255);
           
           gananciasL = new JLabel("Ganancias");
           this.add(gananciasL);
           gananciasL.setSize(100,25);
-          gananciasL.setLocation(500,335);
+          gananciasL.setLocation(500,320);
           
           tipoL = new JLabel("Tipo de Trabajador");
           this.add(tipoL);
           tipoL.setSize(150, 25);
-          tipoL.setLocation(500, 400);
+          tipoL.setLocation(500, 385);
           
           botonSueldo = new JRadioButton("Sueldo fijo", true);
-          botonSueldo.setLocation(500, 435);
+          botonSueldo.setLocation(500, 420);
           botonSueldo.setSize(130, 20);
           botonSueldo.addActionListener(this);
           this.add(botonSueldo);
           botonComision = new JRadioButton ("Por Comision", false);
-          botonComision.setLocation(500, 460);
+          botonComision.setLocation(500, 445);
           botonComision.setSize(130, 20);
           botonComision.addActionListener(this);
           this.add(botonComision);
@@ -185,17 +185,21 @@ public class HandlerTrabajadores extends JPanel implements Observer, ActionListe
                               
                               if(evento.getSource() == agregar){
                                    Trabajador trab = new Trabajador();
+                                   long oid = trab.getOid();
                                    
                                    if(botonSueldo.isSelected()){                                                                                          
                                         trab = new TrabajadorBase(nombreP, apellidoP, cedulaP, numeroP, gananciasP, new char[0]);
+                                        trab.setOid(oid);
                                    }
                                    else if(botonComision.isSelected()){
                                         trab = new TrabajadorComision(nombreP, apellidoP, cedulaP, numeroP, gananciasP, new char[0]);                                             
+                                        trab.setOid(oid);
                                    }     
                                    
                                    if(!sistema.getEmpresa().agregarTrabajador(trab)){
                                         JOptionPane.showMessageDialog(null, "ERROR: Ese Trabajador ya existe" , "Trabajador existente", JOptionPane.ERROR_MESSAGE);
                                    }         
+                                   sistema.getEmpresa().notificar();
                               }
                               
                               else if(evento.getSource() == modificar){
@@ -204,26 +208,56 @@ public class HandlerTrabajadores extends JPanel implements Observer, ActionListe
                                         
                                         Trabajador trab = (Trabajador)listaTrabajadores.getSelectedValue();
                                         
-                                        if(botonSueldo.isSelected() && trab instanceof TrabajadorComision){                                                  
-                                             sistema.getEmpresa().eliminarTrabajador(trab);     
-                                             trab = new TrabajadorBase();
-                                             sistema.getEmpresa().agregarTrabajador(trab);
+                                         nombreP = trab.getNombre();
+	                                   	 apellidoP = trab.getApellido();
+	                                   	 cedulaP = trab.getCi();
+	                                   	 numeroP = trab.getNumTrabajador();
+	                                   	 gananciasP = trab.getGanancias();
+	                                   	 char[] pass = new char[0];
+	                                   	 long oid = trab.getOid();
+                                        
+                                        if(botonSueldo.isSelected() && trab instanceof TrabajadorComision){     
+                                        	 
+                                            if( sistema.getEmpresa().eliminarTrabajador(trab) ){     
+	                                             trab = new TrabajadorBase();
+	                                             trab.setNombre(nombreP);
+	                                             trab.setApellido(apellidoP);
+	                                             trab.setCi(cedulaP);
+	                                             trab.setNumTrabajador(numeroP);
+	                                             trab.setGanancias(gananciasP);
+	                                             trab.setPassword(pass);
+	                                             trab.setOid(oid);
+	                                             sistema.getEmpresa().agregarTrabajador(trab);
+                                            }else
+                                            	JOptionPane.showMessageDialog(null, "No se pudo hacer la modificación, intente mas tarde." , "Atencion", JOptionPane.INFORMATION_MESSAGE);
                                         }
                                         else if (botonComision.isSelected() && trab instanceof TrabajadorBase){                                                  
-                                             sistema.getEmpresa().eliminarTrabajador(trab);       
-                                             trab = new TrabajadorComision();
-                                             sistema.getEmpresa().agregarTrabajador(trab);
+                                        	
+                                             if( sistema.getEmpresa().eliminarTrabajador(trab) ){     
+	                                             trab = new TrabajadorComision();
+	                                             trab.setNombre(nombreP);
+	                                             trab.setApellido(apellidoP);
+	                                             trab.setCi(cedulaP);
+	                                             trab.setNumTrabajador(numeroP);
+	                                             trab.setGanancias(gananciasP);
+	                                             trab.setPassword(pass);
+	                                             trab.setOid(oid);
+	                                             sistema.getEmpresa().agregarTrabajador(trab);
+                                             }else
+                                            	 JOptionPane.showMessageDialog(null, "No se pudo hacer la modificación, intente mas tarde." , "Atencion", JOptionPane.INFORMATION_MESSAGE); 
                                         }                                             
-                                        
+                                        /*
                                         trab.setNombre(nombreP);
                                         trab.setApellido(apellidoP);
                                         trab.setCi(cedulaP);
                                         trab.setNumTrabajador(numeroP);
                                         trab.setGanancias(gananciasP);
+                                        */
                                    }
                                    else{
                                         JOptionPane.showMessageDialog(null, "No hay trabajador seleccionado" , "Atenci�n", JOptionPane.INFORMATION_MESSAGE);
                                    }
+                                   sistema.getEmpresa().notificar();
                               }
                          }
                          catch(NumberFormatException e){
@@ -243,6 +277,7 @@ public class HandlerTrabajadores extends JPanel implements Observer, ActionListe
                          if (respuesta == JOptionPane.YES_OPTION){
                               Trabajador trab = (Trabajador)listaTrabajadores.getSelectedValue();
                               sistema.getEmpresa().eliminarTrabajador(trab);
+                              sistema.getEmpresa().notificar();
                          }
                     }else{
                          JOptionPane.showMessageDialog(null, "No hay trabajador seleccionado" , "Atenci�n", JOptionPane.INFORMATION_MESSAGE);
@@ -252,7 +287,6 @@ public class HandlerTrabajadores extends JPanel implements Observer, ActionListe
      }
      
      public void valueChanged(ListSelectionEvent evento) {
-          
           if (!listaTrabajadores.isSelectionEmpty()){
                Trabajador trab = (Trabajador)listaTrabajadores.getSelectedValue();
                nombre.setText(trab.getNombre());

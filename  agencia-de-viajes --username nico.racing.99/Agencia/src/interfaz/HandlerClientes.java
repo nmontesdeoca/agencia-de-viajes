@@ -99,17 +99,17 @@ public class HandlerClientes extends JPanel implements Observer, ActionListener,
           nombre = new JTextField();
           this.add(nombre);
           nombre.setSize(200,25);
-          nombre.setLocation(500,100);
+          nombre.setLocation(500,85);
          
           apellido = new JTextField();
           this.add(apellido);
           apellido.setSize(200,25);
-          apellido.setLocation(500,165);
+          apellido.setLocation(500,150);
          
           ci = new JTextField();
           this.add(ci);
           ci.setSize(200,25);
-          ci.setLocation(500,230);
+          ci.setLocation(500,215);
          
           agregar = new JButton("Agregar");
           this.add(agregar);
@@ -144,7 +144,7 @@ public class HandlerClientes extends JPanel implements Observer, ActionListener,
          
           realizarVenta = new JButton("Realizar venta");
           this.add(realizarVenta);
-          realizarVenta.setSize(115,25);
+          realizarVenta.setSize(135,25);
           realizarVenta.setLocation(120,590);
           realizarVenta.addActionListener(this);
          
@@ -168,27 +168,27 @@ public class HandlerClientes extends JPanel implements Observer, ActionListener,
           nombreL = new JLabel("Nombre");
           this.add(nombreL);
           nombreL.setSize(75,25);
-          nombreL.setLocation(500,75);
+          nombreL.setLocation(500,60);
          
           apellidoL = new JLabel("Apellido");
           this.add(apellidoL);  
           apellidoL.setSize(75,25);
-          apellidoL.setLocation(500,140);
+          apellidoL.setLocation(500,125);
          
           ciL = new JLabel("Cedula");
           this.add(ciL);
           ciL.setSize(75,25);
-          ciL.setLocation(500, 205);
+          ciL.setLocation(500, 190);
          
           buscadosL = new JLabel("Destinos Buscados");
           this.add(buscadosL);
           buscadosL.setSize(200,25);
-          buscadosL.setLocation(500,440);
+          buscadosL.setLocation(500,425);
          
           realizadosL = new JLabel("Viajes Realizados");
           this.add(realizadosL);
-          realizadosL.setSize(100,25);
-          realizadosL.setLocation(500,290);
+          realizadosL.setSize(120,25);
+          realizadosL.setLocation(500,275);
          
           sistema.getEmpresa().addObserver(this);
      }
@@ -215,6 +215,8 @@ public class HandlerClientes extends JPanel implements Observer, ActionListener,
                                    if(!sistema.getEmpresa().agregarCliente(cli)){
                                         JOptionPane.showMessageDialog(null, "ERROR: Ese Cliente ya existe" , "Cliente existente", JOptionPane.ERROR_MESSAGE);
                                    }            
+                                   sistema.getEmpresa().notificar();
+                                   //System.out.println(cli.getDestinosBuscados());
                               }
                               else if(evento.getSource() == modificar){
                                    if (!listaClientes.isSelectionEmpty()){
@@ -223,6 +225,9 @@ public class HandlerClientes extends JPanel implements Observer, ActionListener,
                                         cli.setApellido(apellidoP);
                                         cli.setCedula(cedulaP);
                                         cli.setDestinosBuscados(desBus);
+                                        sistema.getEmpresa().actualizarCliente(cli);
+                                        sistema.getEmpresa().notificar();
+                                        System.out.println(cli.getDestinosBuscados());
                                    }
                                    else{
                                         JOptionPane.showMessageDialog(null, "No hay cliente seleccionado" , "Atención", JOptionPane.INFORMATION_MESSAGE);
@@ -243,6 +248,7 @@ public class HandlerClientes extends JPanel implements Observer, ActionListener,
                          if (respuesta == JOptionPane.YES_OPTION){
                               Cliente cli = (Cliente)listaClientes.getSelectedValue();
                               sistema.getEmpresa().eliminarCliente(cli);
+                              sistema.getEmpresa().notificar();
                          }
                     }else{
                          JOptionPane.showMessageDialog(null, "No hay cliente seleccionado" , "Atención", JOptionPane.INFORMATION_MESSAGE);
@@ -258,18 +264,14 @@ public class HandlerClientes extends JPanel implements Observer, ActionListener,
                     listaClientes.setModel(modeloListaEnEspera);
                     cambiarEstadoBotones(false);
                }
-               else if(evento.getSource()== agregaListaBuscados){
-                   
-                    new DestinosBuscados();
-                   
-                   
+               else if(evento.getSource()== agregaListaBuscados){                   
+                    new DestinosBuscados();           
                }
                else if (evento.getSource()== quitaListaBuscados){
                     if (!listaBuscados.isSelectionEmpty()){
                          int respuesta = JOptionPane.showConfirmDialog(null, "�Eliminar este destino?", "Confirmacion", JOptionPane.WARNING_MESSAGE);
                          if (respuesta == JOptionPane.YES_OPTION){
-                              Destino des = (Destino)listaBuscados.getSelectedValue();
-                              sistema.getEmpresa().eliminarDestino(des);
+                             modeloBuscados.clear(); 
                          }
                     }else{
                          JOptionPane.showMessageDialog(null, "No hay destino seleccionado" , "Atencion", JOptionPane.INFORMATION_MESSAGE);
@@ -303,6 +305,7 @@ public class HandlerClientes extends JPanel implements Observer, ActionListener,
      public void valueChanged(ListSelectionEvent evento) {
           if (!listaClientes.isSelectionEmpty()){
                Cliente cli = (Cliente)listaClientes.getSelectedValue();
+               //System.out.println(cli.getDestinosBuscados());
                nombre.setText(cli.getNombre());
                apellido.setText(cli.getApellido());
                ci.setText(""+cli.getCedula());
@@ -343,7 +346,7 @@ public class HandlerClientes extends JPanel implements Observer, ActionListener,
          
           public DestinosBuscados(){
                
-               this.setTitle("Agregar1");
+               this.setTitle("Agregar Destinos");
                this.setSize(450,500);
                this.setVisible(true);
                

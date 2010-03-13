@@ -11,10 +11,11 @@ public class PaqueteTuristico extends Persistente{
      private ArrayList<Destino> destinos;
      private int duracion;
      private double precio;
-     private int codigo;
+     private long codigo;
      private Alojamiento alojamiento;
-     private static int COUNT=0;
+     //private static int COUNT=0;
      private long oid;
+     private BrokerPaqueteTuristico bpt = new BrokerPaqueteTuristico();
      
      public long getOid(){
           return this.oid;
@@ -59,15 +60,15 @@ public class PaqueteTuristico extends Persistente{
      public double getPrecio(){
           return this.precio;
      }
-     private void setCodigo(int codigoX){
-          if(codigoX>0){
-               this.codigo= codigoX;
+     public void setCodigo(long codigo2){
+          if(codigo2>0){
+               this.codigo= codigo2;
           }
           else{
-               this.codigo= COUNT++;
+               this.codigo= (int) bpt.obtenerCodigo();//COUNT++;
           } 
      }
-     public int getCodigo(){
+     public long getCodigo(){
           return this.codigo;
      }
      public void setAlojamiento(Alojamiento alojamientoX){
@@ -104,8 +105,8 @@ public class PaqueteTuristico extends Persistente{
           this.setDestinos (new ArrayList <Destino>());
           this.setDuracion (0);
           this.setPrecio (0);
-          COUNT++;
-          this.setCodigo (0);
+          //COUNT++;
+          //this.setCodigo (0);
           this.setAlojamiento (new Alojamiento());
           this.setOid(OidManager.obtenerOid());
           
@@ -116,8 +117,8 @@ public class PaqueteTuristico extends Persistente{
           this.setDestinos (destino);
           this.setDuracion (duracion);
           this.setPrecio (precio);
-          COUNT++;
-          this.setCodigo (COUNT);
+          //COUNT++;
+          //this.setCodigo (bpt.obtenerCodigo());
           this.setAlojamiento (alojamiento);
           this.setOid(OidManager.obtenerOid());
      }
@@ -127,14 +128,14 @@ public class PaqueteTuristico extends Persistente{
           this.setDestinos (actual.getDestinos());
           this.setDuracion (actual.getDuracion());
           this.setPrecio (actual.getPrecio());
-          COUNT++;
-          this.setCodigo (actual.getCodigo());
+          //COUNT++;
+          //this.setCodigo (actual.getCodigo());
           this.setAlojamiento (actual.getAlojamiento());  
           this.setOid(OidManager.obtenerOid());
      }
      
      public String toString(){
-          return this.codigo +" "+this.nombre +" "+this.precio +" "+this.duracion+" d�as";
+          return this.codigo +" "+this.nombre;
      } 
      public boolean equals (Object o){
           return this.codigo==((PaqueteTuristico)o).getCodigo();

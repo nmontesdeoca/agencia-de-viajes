@@ -100,35 +100,37 @@ public class BrokerTrabajador extends Broker{
           Trabajador trabajador = (Trabajador) obj;
           
           HandlerPersistencia persist = HandlerPersistencia.GetInstance();
-          
+          Long oid = trabajador.getOid();
           String nombre = (String) persist.leerRegistro("nombre");
           String apellido = (String) persist.leerRegistro("apellido");
           Integer cedula = (Integer) persist.leerRegistro("cedula");
-          Integer numeroTrabajador = (Integer) persist.leerRegistro("numero_trabajador");
-          Integer ganancias = (Integer) persist.leerRegistro("ganancias");
+          Long numeroTrabajador = (Long) persist.leerRegistro("numero_trabajador");
+          Double ganancias = (Double) persist.leerRegistro("ganancias");
           String password = (String) persist.leerRegistro("password");
-          char[] pass = new char[ (password.length()-1) ];
+          char[] pass = new char[ (password.length()) ];
           for( int i=0; i<password.length();i++ ){
         	  pass[i] = password.charAt(i);
           }          
           Boolean permisosAdmin = (Boolean) persist.leerRegistro("permisos_administrativos");
           String tipo = (String) persist.leerRegistro("tipo");
           
-          if( tipo == "trabajadorComision" ){
+          if( tipo.equals( "TrabajadorComision" ) ){
         	  trabajador = new TrabajadorComision();
+        	  trabajador.setOid(oid);
         	  trabajador.setNombre(nombre);
               trabajador.setApellido(apellido);
               trabajador.setCi(cedula);
-              trabajador.setNumTrabajador(numeroTrabajador);
+              trabajador.setNumTrabajador(Integer.parseInt(numeroTrabajador + ""));
               trabajador.setGanancias(ganancias);
               trabajador.setPassword(pass);
               trabajador.setPermisosAdministrativos(permisosAdmin);  
-          }else if( tipo == "trabajadorBase" ){
+          }else if( tipo.equals( "TrabajadorBase" ) ){
         	  trabajador = new TrabajadorBase();
+        	  trabajador.setOid(oid);
         	  trabajador.setNombre(nombre);
               trabajador.setApellido(apellido);
               trabajador.setCi(cedula);
-              trabajador.setNumTrabajador(numeroTrabajador);
+              trabajador.setNumTrabajador(Integer.parseInt(numeroTrabajador + ""));
               trabajador.setGanancias(ganancias);
               trabajador.setPassword(pass);
               trabajador.setPermisosAdministrativos(permisosAdmin);

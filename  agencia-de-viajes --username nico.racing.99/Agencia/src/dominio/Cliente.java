@@ -100,7 +100,7 @@ public class Cliente extends Persistente{
      }
      
      public String toString(){
-          return this.nombre +" "+this.apellido+" C.I.:"+this.cedula;
+          return this.nombre + " " + this.apellido;
      } 
      
      public boolean equals (Object o){

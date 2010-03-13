@@ -111,9 +111,10 @@ public class HandlerPersistencia{
      
      public void terminarConsulta(){
           try{
-               reader.close();
+        	  num = 0;
+              reader.close();
           }catch(SQLException e){
-               System.out.println("Imposible terminar consulta");
+              System.out.println("Imposible terminar consulta");
           }
      }
      

@@ -44,6 +44,6 @@ public class TrabajadorComision extends Trabajador{
           return (super.calcularGanancias(montoBase)-montoBase);
      }
      public String toString(){
-          return "(C)"+super.toString();
+          return "(C) " + super.toString();
      }
 }

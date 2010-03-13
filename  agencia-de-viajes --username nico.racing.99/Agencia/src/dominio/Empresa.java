@@ -3,18 +3,24 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Observable;
 
+
 import dominio.brokers.BrokerEmpresa;
 
 public class Empresa extends Observable{
      
      private String nombre;
      private int ruc;
-     private ArrayList<Cliente> listaClientes;
-     private ArrayList<PaqueteTuristico> listaPaquetes;
-     private ArrayList<Destino> listaDestinos;
-     private ArrayList<Trabajador> listaTrabajadores;
+     @SuppressWarnings("unused")
+	private ArrayList<Cliente> listaClientes;
+     @SuppressWarnings("unused")
+	private ArrayList<PaqueteTuristico> listaPaquetes;
+     @SuppressWarnings("unused")
+	private ArrayList<Destino> listaDestinos;
+     @SuppressWarnings("unused")
+	private ArrayList<Trabajador> listaTrabajadores;
      private ArrayList<Trabajador> listaTrabajadoresAux;
-     private ArrayList<Alojamiento> listaAlojamientos;
+     @SuppressWarnings("unused")
+	private ArrayList<Alojamiento> listaAlojamientos;
      private ArrayList<Cliente> listaDeEspera;
      private double montoBase;
      private static Empresa EMPRESA = null;
@@ -29,46 +35,53 @@ public class Empresa extends Observable{
           }
           */
     	  notificar();
-          return be.agregarCliente(c);
+    	  boolean ret = false;
+    	  ret = be.agregarCliente(c);
+          return ret;
      }
      
      public boolean agregarPaquete(PaqueteTuristico p){
           boolean ret = false;
-          if(!this.getListaPaquetes().contains(p)){
+         /* if(!this.getListaPaquetes().contains(p)){
                this.getListaPaquetes().add(p);
                ret = true;
-          }
+          }*/
+          be.asignarCodigoPaquete(p);
+          ret = be.agregarPaqueteTuristico(p);
           notificar();
           return ret;
      }
      
      public boolean agregarDestino(Destino d){
           boolean ret = false;
-          if(!this.getListaDestinos().contains(d)){
+         /* if(!this.getListaDestinos().contains(d)){
                this.getListaDestinos().add(d);
                ret = true;
-          }
+          }*/
+          ret = be.agregarDestino(d);
           notificar();
           return ret;
      }
      
      public boolean agregarTrabajador(Trabajador t){
           boolean ret = false;
-          if(!this.getListaTrabajadores().contains(t)){
+        /*  if(!this.getListaTrabajadores().contains(t)){
                this.getListaTrabajadores().add(t);
                ret = true;
-          }
+          }*/
+          ret = be.agregarTrabajador(t);
           notificar();
           return ret;
      }
      
      public boolean agregarAlojamiento(Alojamiento a){
-          boolean ret = false;
+         /* boolean ret = false;
           if(!this.getListaAlojamientos().contains(a)){
                this.getListaAlojamientos().add(a);
                ret = true;
-          }
-          notificar();
+          }*/
+    	  notificar();
+    	  boolean ret = be.agregarAlojamiento(a);
           return ret;
      }
      
@@ -81,27 +94,33 @@ public class Empresa extends Observable{
      }
      
      public ArrayList<Cliente> getListaClientes(){
-          return this.listaClientes;
+          return be.obtenerClientes();
+          //this.listaClientes;
      }
      
      public ArrayList<PaqueteTuristico> getListaPaquetes(){
-          return this.listaPaquetes;
+          return be.obtenerPaquetesTuristicos();
+          //return this.listaPaquetes;
      }
      
      public ArrayList<Destino> getListaDestinos(){
-          return this.listaDestinos;
+          return be.obtenerDestinos();
+          //return this.listaDestinos;
      }
      
      public ArrayList<Trabajador> getListaTrabajadores(){
-          return this.listaTrabajadores;
+          return be.obtenerTrabajadores();
+          //return this.listaTrabajadores;
      }
      
      public ArrayList<Alojamiento> getListaAlojamientos(){
-          return this.listaAlojamientos;
+          //return this.listaAlojamientos;
+    	 return be.obtenerAlojamientos();
      }
      
      public ArrayList<Cliente> getListaDeEspera(){
-          return this.listaDeEspera;
+          //return this.listaDeEspera;
+    	 return be.obtenerClientesEspera();
      }
      
      public double getMontoBase(){
@@ -156,6 +175,10 @@ public class Empresa extends Observable{
           this.listaTrabajadoresAux = listaTrabajadoresAuxP;    
      }
      
+     public void actualizarDestino( Destino d ){
+    	 be.actualizarDestino(d);
+     }
+     
      public boolean eliminarDestino(Destino d){
           /*
           boolean res = this.getListaDestinos().remove(d);
@@ -170,20 +193,29 @@ public class Empresa extends Observable{
     	 return be.eliminarDestino(d);
      }
      
+     public void actualizarAlojamiento( Alojamiento a ){
+    	 be.actualizarAlojamiento(a);
+     }
+     
      public boolean eliminarAlojamiento(Alojamiento a){
          // boolean res = this.getListaAlojamientos().remove(a);
          
     	 boolean res = be.eliminarAlojamiento(a); 
     	 
-    	 Iterator<PaqueteTuristico> iter1 = this.getListaPaquetes().iterator();
+    	/* Iterator<PaqueteTuristico> iter1 = this.getListaPaquetes().iterator();
           while(iter1.hasNext()){
                PaqueteTuristico p = iter1.next();
                if(p.getAlojamiento().equals(a)){
                     this.getListaPaquetes().remove(p);
                }
-          }
+          }*/
+    	 
           notificar();
           return res;
+     }
+     
+     public void actualizarTrabajador( Trabajador t ){
+    	 be.actualizarTrabajador(t);
      }
      
      public boolean eliminarTrabajador(Trabajador t){
@@ -195,6 +227,10 @@ public class Empresa extends Observable{
           return b;
      }
      
+     public void actualizarPaquete( PaqueteTuristico p ){
+    	 be.actualizarPaquete(p);
+     }
+     
      public boolean eliminarPaquete(PaqueteTuristico p){
          // boolean b = this.getListaPaquetes().remove(p);
           
@@ -204,11 +240,16 @@ public class Empresa extends Observable{
           return b;
      }
      
+     public void actualizarCliente( Cliente c ){
+    	 be.actualizarCliente(c);
+     }
+     
      public boolean eliminarCliente(Cliente c){
           
-          boolean b = this.listaClientes.remove(c);
-          listaDeEspera.remove(c);
-          notificar();
+          // b = this.listaClientes.remove(c);
+          //listaDeEspera.remove(c);
+          boolean b = be.eliminarCliente(c);
+    	  notificar();
           return b;
      }
      

@@ -224,7 +224,9 @@ public class HandlerPaquetesTuristicos extends JPanel implements Observer, Actio
                          
                          if(evento.getSource() == agregar){
                               PaqueteTuristico paq = new PaqueteTuristico(nombreP, destinoPP, duracionP, precioP, alojaP);
-                              sistema.getEmpresa().agregarPaquete(paq);                                  
+                              if(!sistema.getEmpresa().agregarPaquete(paq))
+                            	  JOptionPane.showMessageDialog(null, "ERROR: Ese Paquete ya existe" , "Paquete existente", JOptionPane.ERROR_MESSAGE);
+                              sistema.getEmpresa().notificar();
                          }
                          else if(evento.getSource() == modificar){
                               if (!listaPaquetes.isSelectionEmpty()){
@@ -234,6 +236,8 @@ public class HandlerPaquetesTuristicos extends JPanel implements Observer, Actio
                                    paquete.setPrecio(precioP);
                                    paquete.setDuracion(duracionP);                                      
                                    paquete.setAlojamiento(alojaP);
+                                   paquete.actualizar();
+                                   sistema.getEmpresa().notificar();
                               }
                               else{
                                    JOptionPane.showMessageDialog(null, "No hay paquete seleccionado" , "Atenci�n", JOptionPane.INFORMATION_MESSAGE);
@@ -257,6 +261,7 @@ public class HandlerPaquetesTuristicos extends JPanel implements Observer, Actio
                     if (respuesta == JOptionPane.YES_OPTION){
                          PaqueteTuristico paquete = (PaqueteTuristico)listaPaquetes.getSelectedValue();
                          sistema.getEmpresa().eliminarPaquete(paquete);
+                         sistema.getEmpresa().notificar();
                     }
                }else{
                     JOptionPane.showMessageDialog(null, "No hay paquete seleccionado" , "Atenci�n", JOptionPane.INFORMATION_MESSAGE);

@@ -93,7 +93,7 @@ public class Destino extends Persistente{
      
      public String toString(){
           
-          return this.tipo + ": " + this.nombre + "(" + this.localidad + ", " + this.pais + ")";
+          return this.nombre;
           
      }
      

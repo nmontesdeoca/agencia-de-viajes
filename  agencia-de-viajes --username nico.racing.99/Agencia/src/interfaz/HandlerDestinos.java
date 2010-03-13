@@ -172,6 +172,7 @@ public class HandlerDestinos extends JPanel implements Observer, ActionListener,
                          if(!sistema.getEmpresa().agregarDestino(dest)){
                               JOptionPane.showMessageDialog(null, "ERROR: Ese Destino ya existe" , "Destino existente", JOptionPane.ERROR_MESSAGE);
                          }        
+                         sistema.getEmpresa().notificar();
                     }
                     
                     else if(evento.getSource() == modificar){
@@ -183,6 +184,8 @@ public class HandlerDestinos extends JPanel implements Observer, ActionListener,
                               dest2.setLocalidad(localidadP);
                               dest2.setPais(paisP);    
                               dest2.setTipo(tipoP);
+                              dest2.actualizar();
+                              sistema.getEmpresa().notificar();
                          }
                          else{
                               JOptionPane.showMessageDialog(null, "No hay destino seleccionado" , "Atenci�n", JOptionPane.INFORMATION_MESSAGE);
@@ -201,6 +204,7 @@ public class HandlerDestinos extends JPanel implements Observer, ActionListener,
                     if (respuesta == JOptionPane.YES_OPTION){
                          Destino dest2 = (Destino)listaDestinos.getSelectedValue();
                          sistema.getEmpresa().eliminarDestino(dest2);
+                         sistema.getEmpresa().notificar();
                     }
                }else{
                     JOptionPane.showMessageDialog(null, "No hay destino seleccionado" , "Atenci�n", JOptionPane.INFORMATION_MESSAGE);
@@ -224,7 +228,6 @@ public class HandlerDestinos extends JPanel implements Observer, ActionListener,
           if (!listaDestinos.isSelectionEmpty()){
                
                if(evento.getSource() == listaDestinos){
-                    
                     Destino dest2 = (Destino)listaDestinos.getSelectedValue();
                     nombre.setText(dest2.getNombre());
                     localidad.setText(dest2.getLocalidad());

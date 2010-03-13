@@ -60,9 +60,9 @@ public class Trabajador extends Persistente{
      public int getCi(){
           return this.ci;
      }
-     public void setNumTrabajador (int numTrabajador){
-          if(numTrabajador>0){
-               this.numeroTrabajador=numTrabajador;
+     public void setNumTrabajador (int numeroTrabajador2){
+          if(numeroTrabajador2>0){
+               this.numeroTrabajador=numeroTrabajador2;
           }
           else{
                this.numeroTrabajador=0;

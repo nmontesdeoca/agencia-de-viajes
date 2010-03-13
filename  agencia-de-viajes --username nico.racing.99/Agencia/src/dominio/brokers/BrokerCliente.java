@@ -1,7 +1,10 @@
 package dominio.brokers;
 
+import java.util.ArrayList;
+
 import persistencia.*;
 import dominio.Cliente;
+import dominio.Destino;
 
 public class BrokerCliente extends Broker{
      
@@ -64,6 +67,7 @@ public class BrokerCliente extends Broker{
      }
      
      public IPersistente readerToObject (IPersistente obj){
+    	 
     	 //creo el objeto Cliente que se va a retornar
          Cliente cliente = (Cliente)obj;
          
@@ -75,14 +79,36 @@ public class BrokerCliente extends Broker{
          Integer cedula = (Integer) persist.leerRegistro("cedula");
          Integer antiguedad = (Integer) persist.leerRegistro("antiguedad");
          
-         
          //le cargo los datos al obtejo Cliente
         cliente.setNombre(nombre);
         cliente.setApellido(apellido);
         cliente.setCedula(cedula);
         cliente.setAntiguedad(antiguedad);
-         
-         return cliente;
+
+        //esto no va aca
+        ArrayList<Destino> destinosBuscados = new ArrayList<Destino>();
+        ArrayList<Long> listaOids = new ArrayList<Long>();
+   	 	String sql = "SELECT * FROM destinos_buscados WHERE id_cliente = @1";
+        sql = sql.replace("@1", cliente.getOid() + "");
+        HandlerPersistencia.GetInstance().ejecutarSentencia(sql);
+        
+        while( HandlerPersistencia.GetInstance().hayMasRegistros() ){
+        	listaOids.add((Long) HandlerPersistencia.GetInstance().leerRegistro("id_destino"));	
+        }
+        
+        //sql = "SELECT * destinos WHERE id_destino = @1";
+        for(Long oid : listaOids){
+            //sql = sql.replace("@1", oidDestino + "");
+            //HandlerPersistencia.GetInstance().ejecutarSentencia(sql);
+        	Destino d = new Destino();
+        	d.setOid(oid);
+        	d.leer();
+        	destinosBuscados.add(d);
+        }
+        //System.out.println(listaOids);
+        cliente.setDestinosBuscados(destinosBuscados);
+        
+        return cliente;
      }
 }
 

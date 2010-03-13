@@ -103,7 +103,7 @@ public class Alojamiento extends Persistente{
      
      public String toString(){
           
-          return "Alojamiento: " + this.nombre + "\nTipo: " + this.tipo;
+          return this.nombre;
           
      }
      
