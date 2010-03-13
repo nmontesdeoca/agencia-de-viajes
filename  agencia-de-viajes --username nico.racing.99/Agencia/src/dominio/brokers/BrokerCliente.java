@@ -12,14 +12,15 @@ public class BrokerCliente extends Broker{
          
           Cliente cli = (Cliente)obj;
          
-          String sql = "INSERT INTO clientes (id_cliente, nombre, apellido, cedula, antiguedad)"
-             + "VALUES (@1, @2, @3, @4, @5)";
+          String sql = "INSERT INTO clientes (id_cliente, nombre, apellido, cedula, antiguedad, estado)"
+             + "VALUES (@1, @2, @3, @4, @5, @6)";
                
           sql = sql.replace("@1", "" + cli.getOid() );
           sql = sql.replace("@2", "'" + cli.getNombre() + "'" );
           sql = sql.replace("@3", "'" + cli.getApellido() + "'" );
           sql = sql.replace("@4", "" + cli.getCedula());
           sql = sql.replace("@5", "" + cli.getAntiguedad());
+          sql = sql.replace("@6", "'ACTIVO'"  );
          
           return sql;
      }          

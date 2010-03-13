@@ -54,7 +54,7 @@ public class VentanaGestion extends JFrame implements ActionListener{
           //uso Adapter para no implementar todos los métodos del Listener
           this.addWindowListener(new java.awt.event.WindowAdapter(){
                public void windowClosing(WindowEvent evento){
-                    int respuesta = JOptionPane.showConfirmDialog(null, " �Desea salir?", "Confirmación", JOptionPane.WARNING_MESSAGE);
+                    int respuesta = JOptionPane.showConfirmDialog(null, " \u00BFDesea salir?", "Confirmaci\u00F3n", JOptionPane.WARNING_MESSAGE);
                     if (respuesta == JOptionPane.YES_OPTION){
                          System.exit(0);
                     }
